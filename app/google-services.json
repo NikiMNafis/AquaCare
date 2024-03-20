@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "762708816606",
+    "project_id": "aquacare-ddedd",
+    "storage_bucket": "aquacare-ddedd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762708816606:android:2eaa3255e2559acc07c84f",
+        "android_client_info": {
+          "package_name": "com.capstone.aquacare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-70FmdTvMOf_GL7yLNvPGBzOZ3Ca8Hl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

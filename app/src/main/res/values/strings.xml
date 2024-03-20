@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">AquaCare</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="sign_in">Sign In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="login">Login</string>
+    <string name="sign_in_with">or sign in with</string>
+    <string name="google">google</string>
+    <string name="dont_have_account">don\'t have an account yet?</string>
+    <string name="register">Register</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="aquascape_info">Aquascape Info</string>
+    <string name="enter_parameter_values">Enter Parameter Values</string>
+    <string name="temperature">Temperature</string>
+    <string name="ph">Ph</string>
+    <string name="ammonia">Ammonia</string>
+    <string name="kh">KH</string>
+    <string name="gh">GH</string>
+    <string name="check">Check</string>
+    <string name="result">Result</string>
+    <string name="identification_history">Identification History</string>
+    <string name="identification_results">Identification Results</string>
+    <string name="water_quality">Water Quality</string>
+    <string name="parameter_details">Parameter Details</string>
+    <string name="tips">Tips</string>
+    <string name="date">Date</string>
+    <string name="add_aquascape">Add Aquascape</string>
+    <string name="style">Style</string>
+    <string name="created">Created</string>
+    <string name="add">Add</string>
+    <string name="save">Save</string>
+    <string name="edit_aquascape">Edit Aquascape</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="language">Language</string>
+    <string name="about_application">About Application</string>
+    <string name="log_out">Log out</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="aquascape_name">Aquascape Name</string>
+    <string name="status">Status</string>
+    <string name="detail_status">Detail Status</string>
+    <string name="add_aquascape_info">Add Aquascape Info</string>
+    <string name="title">Title</string>
+    <string name="image">Image</string>
+    <string name="body">Body</string>
+    <string name="delete">Delete</string>
+    <string name="edit_aquascape_info">Edit Aquascape Info</string>
+</resources>

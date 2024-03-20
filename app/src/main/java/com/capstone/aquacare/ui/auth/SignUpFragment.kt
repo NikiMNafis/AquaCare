@@ -1,0 +1,127 @@
+package com.capstone.aquacare.ui.auth
+
+import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
+import android.util.Patterns
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import com.capstone.aquacare.R
+import com.capstone.aquacare.databinding.FragmentSignUpBinding
+import com.google.firebase.auth.FirebaseAuth
+
+class SignUpFragment : Fragment() {
+
+    private var _binding: FragmentSignUpBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var auth: FirebaseAuth
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        _binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        auth = FirebaseAuth.getInstance()
+
+        binding.btnSignup.setOnClickListener {
+            if (checkForm()) {
+                submitForm()
+            }
+        }
+    }
+
+    private fun checkForm(): Boolean {
+        val name = binding.edtName.text.toString()
+        val email = binding.edtEmail.text.toString()
+        val password = binding.edtPassword.text.toString()
+        val confirmPassword = binding.edtConfirmPassword.text.toString()
+
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(activity, "Enter Name", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(activity, "Enter Email", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(activity, "Enter Password", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (TextUtils.isEmpty(confirmPassword)) {
+            Toast.makeText(activity, "Enter Confirm Password", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
+    }
+
+    private fun submitForm() {
+
+        val name = binding.edtName.text.toString()
+        val email = binding.edtEmail.text.toString()
+        val password = binding.edtPassword.text.toString()
+        val confirmPassword = binding.edtConfirmPassword.text.toString()
+
+        binding.emailContainer.helperText = validEmail()
+//        binding.passwordContainer.helperText = validPassword()
+//        binding.passwordConfirmContainer.helperText = validPasswordConfirm()
+
+        auth.createUserWithEmailAndPassword(email, confirmPassword)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success")
+                    Toast.makeText(activity, "Account Created", Toast.LENGTH_SHORT).show()
+                    val user = auth.currentUser
+
+                    val fragmentManager = parentFragmentManager
+                    fragmentManager.popBackStack()
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        activity,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+
+                }
+            }
+
+    }
+
+    private fun validEmail(): String? {
+        val email = binding.edtEmail.text.toString()
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
+        {
+            return "Invalid Email Address"
+        }
+        return null
+    }
+
+    companion object {
+
+        private const val TAG = "AuthActivity"
+
+    }
+}
