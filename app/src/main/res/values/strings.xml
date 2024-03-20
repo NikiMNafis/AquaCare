@@ -54,4 +54,6 @@
     <string name="body">Body</string>
     <string name="delete">Delete</string>
     <string name="edit_aquascape_info">Edit Aquascape Info</string>
+
+    <string name="defaultweb_client_id">762708816606-b7q7lnlu2mjk5tguiqkhvm1plvmsu5sb.apps.googleusercontent.com</string>
 </resources>

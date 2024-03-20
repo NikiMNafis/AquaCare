@@ -1,5 +1,6 @@
 package com.capstone.aquacare.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -32,9 +33,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
-        val email = sharedPreferences?.getString("email", "")
+        val name = sharedPreferences?.getString("name", "")
 
-        binding.tvName.text = "Halo, $email"
+        binding.tvName.text = "Halo, $name"
     }
 
     companion object {
