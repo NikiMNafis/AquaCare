@@ -134,9 +134,28 @@ class SignUpFragment : Fragment() {
                     val fragmentManager = parentFragmentManager
                     fragmentManager.popBackStack()
                 } else {
-                    Toast.makeText(activity, "Account already Exists", Toast.LENGTH_SHORT).show()
-                    val fragmentManager = parentFragmentManager
-                    fragmentManager.popBackStack()
+                    for (userSnaphot in dataSnapshot.children) {
+                        val userData = userSnaphot.getValue(UserData::class.java)
+                        val userId = userData?.id.toString()
+                        val userName = userData?.name.toString()
+                        val userEmail = userData?.email.toString()
+
+                        if (userData != null && userData.password == "Google Account") {
+                            val newDataUser = UserData(userId, userName, userEmail, password)
+                            databaseReference.child(userId).setValue(newDataUser)
+
+                            Toast.makeText(activity, "Account already Exists", Toast.LENGTH_SHORT).show()
+                            val fragmentManager = parentFragmentManager
+                            fragmentManager.popBackStack()
+                        } else {
+                            Toast.makeText(activity, "Account already Exists", Toast.LENGTH_SHORT).show()
+                            val fragmentManager = parentFragmentManager
+                            fragmentManager.popBackStack()
+                        }
+                    }
+//                    Toast.makeText(activity, "Account already Exists", Toast.LENGTH_SHORT).show()
+//                    val fragmentManager = parentFragmentManager
+//                    fragmentManager.popBackStack()
                 }
             }
 

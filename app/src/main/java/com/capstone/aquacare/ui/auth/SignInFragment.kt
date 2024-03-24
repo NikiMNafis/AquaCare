@@ -217,7 +217,7 @@ class SignInFragment : Fragment() {
                     val email = user?.email.toString()
                     val photo = user?.photoUrl.toString()
 
-                    val password = "default password"
+                    val password = "Google Account"
 
                     databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -225,28 +225,27 @@ class SignInFragment : Fragment() {
                                 val id = databaseReference.push().key
                                 val userData = UserData(id, name, email, password)
                                 databaseReference.child(id!!).setValue(userData)
+
                                 saveLoginSession(id, name, email, photo)
 
-                                Toast.makeText(activity, "Account Created", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(activity, "Login Success", Toast.LENGTH_SHORT).show()
                                 startActivity(Intent(activity, MainActivity::class.java))
                                 requireActivity().finish()
                             } else {
                                 for (userSnapshot in dataSnapshot.children) {
                                     val userData = userSnapshot.getValue(UserData::class.java)
 
-                                    if (userData != null && userData.password == password){
-                                        Toast.makeText(activity, "Login Success", Toast.LENGTH_SHORT).show()
+                                    val id = userData?.id.toString()
+                                    val name = userData?.name.toString()
+                                    val email = userData?.email.toString()
+                                    val photo = ""
 
-                                        val id = userData.id.toString()
-                                        val name = userData.name.toString()
-                                        val email = userData.email.toString()
-                                        val photo = ""
+                                    saveLoginSession(id, name, email, photo)
 
-                                        saveLoginSession(id, name, email, photo)
+                                    Toast.makeText(activity, "Login Success", Toast.LENGTH_SHORT).show()
+                                    startActivity(Intent(activity, MainActivity::class.java))
+                                    requireActivity().finish()
 
-                                        startActivity(Intent(activity, MainActivity::class.java))
-                                        requireActivity().finish()
-                                    }
                                 }
                             }
                         }
