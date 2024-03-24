@@ -1,5 +1,7 @@
 package com.capstone.aquacare.ui.auth
 
+import android.content.ClipData
+import android.content.ClipData.Item
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -86,7 +88,7 @@ class SignUpFragment : Fragment() {
         return true
     }
 
-//    private fun submitForm() {
+//    private fun signUpAuth() {
 //
 //        val name = binding.edtName.text.toString()
 //        val email = binding.edtEmail.text.toString()
@@ -127,6 +129,7 @@ class SignUpFragment : Fragment() {
                     val id = databaseReference.push().key
                     val userData = UserData(id, name, email, password)
                     databaseReference.child(id!!).setValue(userData)
+
                     Toast.makeText(activity, "Account Created", Toast.LENGTH_SHORT).show()
                     val fragmentManager = parentFragmentManager
                     fragmentManager.popBackStack()

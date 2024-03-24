@@ -212,15 +212,52 @@ class SignInFragment : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
-                    val id = user?.uid.toString()
+//                    val userId = user?.uid.toString()
                     val name = user?.displayName.toString()
                     val email = user?.email.toString()
                     val photo = user?.photoUrl.toString()
 
-                    saveLoginSession(id, name, email, photo)
+                    val password = "default password"
 
-                    startActivity(Intent(activity, MainActivity::class.java))
-                    requireActivity().finish()
+                    databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            if (!dataSnapshot.exists()) {
+                                val id = databaseReference.push().key
+                                val userData = UserData(id, name, email, password)
+                                databaseReference.child(id!!).setValue(userData)
+                                saveLoginSession(id, name, email, photo)
+
+                                Toast.makeText(activity, "Account Created", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(activity, MainActivity::class.java))
+                                requireActivity().finish()
+                            } else {
+                                for (userSnapshot in dataSnapshot.children) {
+                                    val userData = userSnapshot.getValue(UserData::class.java)
+
+                                    if (userData != null && userData.password == password){
+                                        Toast.makeText(activity, "Login Success", Toast.LENGTH_SHORT).show()
+
+                                        val id = userData.id.toString()
+                                        val name = userData.name.toString()
+                                        val email = userData.email.toString()
+                                        val photo = ""
+
+                                        saveLoginSession(id, name, email, photo)
+
+                                        startActivity(Intent(activity, MainActivity::class.java))
+                                        requireActivity().finish()
+                                    }
+                                }
+                            }
+                        }
+
+                        override fun onCancelled(databaseError: DatabaseError) {
+                            Toast.makeText(activity, "Database Error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+
+//                    startActivity(Intent(activity, MainActivity::class.java))
+//                    requireActivity().finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -240,7 +277,10 @@ class SignInFragment : Fragment() {
 
     private fun checkUserLoginStatus() {
         val currentUser = auth.currentUser
-        if (currentUser != null) {
+        val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
+        val name = sharedPreferences?.getString("name", "")
+        val id = sharedPreferences?.getString("userId", "")
+        if (currentUser != null || id != "") {
             startActivity(Intent(activity, MainActivity::class.java))
         }
     }

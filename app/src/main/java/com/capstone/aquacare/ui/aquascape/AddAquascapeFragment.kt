@@ -1,33 +1,39 @@
 package com.capstone.aquacare.ui.aquascape
 
+import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.capstone.aquacare.R
+import com.capstone.aquacare.data.AquascapeData
+import com.capstone.aquacare.data.UserData
+import com.capstone.aquacare.databinding.FragmentAddAquascapeBinding
+import com.google.firebase.database.*
+import kotlinx.coroutines.NonDisposableHandle.parent
+import java.text.SimpleDateFormat
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AddAquascapeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddAquascapeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var _binding: FragmentAddAquascapeBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var firebaseDatabase: FirebaseDatabase
+    private lateinit var databaseReference: DatabaseReference
+
+    private var selectedStyle: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
+        firebaseDatabase = FirebaseDatabase.getInstance()
+        databaseReference = firebaseDatabase.reference.child("users")
     }
 
     override fun onCreateView(
@@ -35,26 +41,95 @@ class AddAquascapeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_aquascape, container, false)
+        _binding = FragmentAddAquascapeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddAquascapeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddAquascapeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val aquascapeStyle = listOf("Natural Style", "Dutch Style")
+        val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, aquascapeStyle)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinStyle.adapter = arrayAdapter
+
+        binding.spinStyle.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                selectedStyle = parent?.getItemAtPosition(position).toString()
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+
+        val myCalendar = Calendar.getInstance()
+        val datePicker = DatePickerDialog.OnDateSetListener { datePicker, year, month, dayOfMonth ->
+            myCalendar.set(Calendar.YEAR, year)
+            myCalendar.set(Calendar.MONTH, month)
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateLable(myCalendar)
+        }
+
+        binding.btnSelectDate.setOnClickListener {
+            DatePickerDialog(requireContext(), datePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
+        binding.btnSave.setOnClickListener {
+            addAquascape()
+        }
+    }
+
+    private fun updateLable(myCalendar: Calendar) {
+        val myFormat = "dd-MM-yyyy"
+        val sdf = SimpleDateFormat(myFormat, Locale.UK)
+        binding.tvDateCreate.text = sdf.format(myCalendar.time)
+    }
+
+    private fun addAquascape() {
+        val name = binding.edtName.text.toString()
+        val style = selectedStyle.toString()
+        val date = binding.tvDateCreate.text.toString()
+
+        if (binding.edtName.text.isEmpty()) {
+//            binding.edtName.error = "Please enter aquascape name"
+            Toast.makeText(activity, "Please enter aquascape name", Toast.LENGTH_SHORT).show()
+        }
+
+        if (date == "Select Date") {
+            Toast.makeText(activity, "Please enter date", Toast.LENGTH_SHORT).show()
+        }
+
+        val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
+        val userId = sharedPreferences?.getString("userId", "")
+
+        if (userId.isNullOrEmpty()) {
+            Toast.makeText(activity, "User ID not found", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val aquascapeReference = databaseReference.child(userId).child("aquascapes")
+        val newAquascapeId = aquascapeReference.push().key
+
+        if (newAquascapeId != null) {
+            val newAquascapeData = AquascapeData(newAquascapeId, name, style, date)
+            aquascapeReference.child(newAquascapeId).setValue(newAquascapeData)
+                .addOnSuccessListener {
+                    Toast.makeText(activity, "Success to Add Aquascape", Toast.LENGTH_SHORT).show()
+                    val fragmentManager = parentFragmentManager
+                    fragmentManager.popBackStack()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(activity, "Failed to add Aquascape: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(activity, "Failed to generate Aquascape ID", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+
+    companion object {
+
     }
 }

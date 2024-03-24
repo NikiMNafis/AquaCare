@@ -30,7 +30,6 @@
     <string name="parameter_details">Parameter Details</string>
     <string name="tips">Tips</string>
     <string name="date">Date</string>
-    <string name="add_aquascape">Add Aquascape</string>
     <string name="style">Style</string>
     <string name="created">Created</string>
     <string name="add">Add</string>
@@ -48,6 +47,7 @@
     <string name="aquascape_name">Aquascape Name</string>
     <string name="status">Status</string>
     <string name="detail_status">Detail Status</string>
+    <string name="add_aquascape">Add Aquascape</string>
     <string name="add_aquascape_info">Add Aquascape Info</string>
     <string name="title">Title</string>
     <string name="image">Image</string>
@@ -56,4 +56,5 @@
     <string name="edit_aquascape_info">Edit Aquascape Info</string>
 
     <string name="defaultweb_client_id">762708816606-b7q7lnlu2mjk5tguiqkhvm1plvmsu5sb.apps.googleusercontent.com</string>
+    <string name="select_date">Select Date</string>
 </resources>

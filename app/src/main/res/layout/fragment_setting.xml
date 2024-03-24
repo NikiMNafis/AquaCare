@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="160dp"
@@ -42,6 +42,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -51,7 +52,7 @@
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -80,6 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/header">
 
         <LinearLayout
+            android:id="@+id/btn_edit_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -116,6 +118,7 @@
             android:background="@color/black" />
 
         <LinearLayout
+            android:id="@+id/btn_change_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -153,6 +156,7 @@
             android:background="@color/black" />
 
         <LinearLayout
+            android:id="@+id/btn_language"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -190,6 +194,7 @@
             android:background="@color/black" />
 
         <LinearLayout
+            android:id="@+id/btn_about_app"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -223,7 +228,7 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_save"
+        android:id="@+id/btn_log_out"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginTop="10dp"
