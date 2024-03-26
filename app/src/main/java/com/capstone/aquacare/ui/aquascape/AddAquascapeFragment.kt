@@ -3,6 +3,7 @@ package com.capstone.aquacare.ui.aquascape
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -76,7 +77,9 @@ class AddAquascapeFragment : Fragment() {
         }
 
         binding.btnSave.setOnClickListener {
-            addAquascape()
+            if (checkForm()){
+                addAquascape()
+            }
         }
     }
 
@@ -86,19 +89,30 @@ class AddAquascapeFragment : Fragment() {
         binding.tvDateCreate.text = sdf.format(myCalendar.time)
     }
 
-    private fun addAquascape() {
-        val name = binding.edtName.text.toString()
-        val style = selectedStyle.toString()
+    private fun checkForm(): Boolean {
+        val email = binding.edtName.text.toString()
         val date = binding.tvDateCreate.text.toString()
 
-        if (binding.edtName.text.isEmpty()) {
-//            binding.edtName.error = "Please enter aquascape name"
-            Toast.makeText(activity, "Please enter aquascape name", Toast.LENGTH_SHORT).show()
+        if (TextUtils.isEmpty(email)) {
+            binding.edtName.error = "Please enter name"
+//            Toast.makeText(activity, "Please enter name", Toast.LENGTH_SHORT).show()
+            return false
         }
 
         if (date == "Select Date") {
             Toast.makeText(activity, "Please enter date", Toast.LENGTH_SHORT).show()
+            return false
         }
+
+        return true
+    }
+
+    private fun addAquascape() {
+        val name = binding.edtName.text.toString()
+        val style = selectedStyle.toString()
+        val date = binding.tvDateCreate.text.toString()
+        val status = ""
+        val lastCheckDate = ""
 
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
         val userId = sharedPreferences?.getString("userId", "")
@@ -112,7 +126,7 @@ class AddAquascapeFragment : Fragment() {
         val newAquascapeId = aquascapeReference.push().key
 
         if (newAquascapeId != null) {
-            val newAquascapeData = AquascapeData(newAquascapeId, name, style, date)
+            val newAquascapeData = AquascapeData(newAquascapeId, name, style, date, status, lastCheckDate)
             aquascapeReference.child(newAquascapeId).setValue(newAquascapeData)
                 .addOnSuccessListener {
                     Toast.makeText(activity, "Success to Add Aquascape", Toast.LENGTH_SHORT).show()

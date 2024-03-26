@@ -44,7 +44,7 @@
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="5dp"
+        android:paddingVertical="10dp"
         android:text="@string/name"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -61,7 +61,8 @@
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -69,9 +70,10 @@
                 android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_list_aquascape"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    tools:listitem="@layout/card_aquascape"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -81,7 +83,6 @@
                     android:layout_width="150dp"
                     android:layout_height="75dp"
                     android:orientation="vertical"
-                    android:layout_marginStart="5dp"
                     android:background="@drawable/bg_border_rounded_2"
                     android:elevation="10dp">
 

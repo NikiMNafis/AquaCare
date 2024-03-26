@@ -96,12 +96,14 @@ class SignInFragment : Fragment() {
         val password = binding.edtPassword.text.toString()
 
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(activity, "Enter Email", Toast.LENGTH_SHORT).show()
+            binding.edtEmail.error = "Enter email"
+//            Toast.makeText(activity, "Enter Email", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(activity, "Enter Password", Toast.LENGTH_SHORT).show()
+            binding.edtPassword.error = "Enter password"
+//            Toast.makeText(activity, "Enter Password", Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -149,8 +151,6 @@ class SignInFragment : Fragment() {
                         val userData = userSnapshot.getValue(UserData::class.java)
 
                         if (userData != null && userData.password == password){
-                            Toast.makeText(activity, "Login Success", Toast.LENGTH_SHORT).show()
-
                             val id = userData.id.toString()
                             val name = userData.name.toString()
                             val email = userData.email.toString()
@@ -158,6 +158,7 @@ class SignInFragment : Fragment() {
 
                             saveLoginSession(id, name, email, photo)
 
+                            Toast.makeText(activity, "Login Success", Toast.LENGTH_SHORT).show()
                             startActivity(Intent(activity, MainActivity::class.java))
                             requireActivity().finish()
                         } else {
@@ -277,7 +278,6 @@ class SignInFragment : Fragment() {
     private fun checkUserLoginStatus() {
         val currentUser = auth.currentUser
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
-        val name = sharedPreferences?.getString("name", "")
         val id = sharedPreferences?.getString("userId", "")
         if (currentUser != null || id != "") {
             startActivity(Intent(activity, MainActivity::class.java))
