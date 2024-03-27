@@ -53,8 +53,9 @@ class SignUpFragment : Fragment() {
                 val name = binding.edtName.text.toString()
                 val email = binding.edtEmail.text.toString()
                 val password = binding.edtPassword.text.toString()
+                val userType = "user"
 
-                signUpUser(name, email, password)
+                signUpUser(name, email, password, userType)
             }
         }
     }
@@ -122,12 +123,12 @@ class SignUpFragment : Fragment() {
 //            }
 //    }
 
-    private fun signUpUser(name: String, email: String, password: String) {
+    private fun signUpUser(name: String, email: String, password: String, userType: String) {
         databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (!dataSnapshot.exists()) {
                     val id = databaseReference.push().key
-                    val userData = UserData(id, name, email, password)
+                    val userData = UserData(id, name, email, password, userType)
                     databaseReference.child(id!!).setValue(userData)
 
                     Toast.makeText(activity, "Account Created", Toast.LENGTH_SHORT).show()
@@ -141,10 +142,10 @@ class SignUpFragment : Fragment() {
                         val userEmail = userData?.email.toString()
 
                         if (userData != null && userData.password == "Google Account") {
-                            val newDataUser = UserData(userId, userName, userEmail, password)
+                            val newDataUser = UserData(userId, userName, userEmail, password, userType)
                             databaseReference.child(userId).setValue(newDataUser)
 
-                            Toast.makeText(activity, "Account already Exists", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, "Account Created", Toast.LENGTH_SHORT).show()
                             val fragmentManager = parentFragmentManager
                             fragmentManager.popBackStack()
                         } else {

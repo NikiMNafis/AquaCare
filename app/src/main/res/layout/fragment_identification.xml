@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <TextView
-            android:id="@+id/tv_suhu"
+            android:id="@+id/tv_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -71,7 +71,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/edt_suhu"
+            android:id="@+id/edt_temperature"
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_marginTop="5dp"
@@ -94,7 +94,7 @@
             android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edt_suhu" />
+            app:layout_constraintTop_toBottomOf="@id/edt_temperature" />
 
         <TextView
             android:id="@+id/tv_ph"

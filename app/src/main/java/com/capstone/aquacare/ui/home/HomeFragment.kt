@@ -1,20 +1,19 @@
 package com.capstone.aquacare.ui.home
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.databinding.FragmentHomeBinding
 import com.capstone.aquacare.ui.aquascape.AddAquascapeFragment
-import com.capstone.aquacare.ui.auth.SignUpFragment
+import com.capstone.aquacare.ui.identification.IdentificationHistoryFragment
 import com.capstone.aquacare.ui.setting.SettingFragment
 import com.google.firebase.database.*
 
@@ -25,6 +24,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
+
+    val list = mutableListOf<AquascapeData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +48,10 @@ class HomeFragment : Fragment() {
 
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
         val name = sharedPreferences?.getString("name", "")
-        val userId = sharedPreferences?.getString("userId", "")
+        val userId = sharedPreferences?.getString("userId", "").toString()
         binding.tvName.text = "Halo, $name"
 
         val rvAquascape = binding.rvListAquascape
-
-        getAquascapeData(userId.toString())
 
         rvAquascape.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rvAquascape.setHasFixedSize(true)
@@ -71,6 +70,7 @@ class HomeFragment : Fragment() {
             }
         }
 
+        binding.btnAddAquascape.visibility = View.GONE
         binding.btnAddAquascape.setOnClickListener {
             val addAquascapeFragment = AddAquascapeFragment()
             val fragmentManager = parentFragmentManager
@@ -84,6 +84,8 @@ class HomeFragment : Fragment() {
                 commit()
             }
         }
+
+        getAquascapeData(userId)
     }
 
     private fun getAquascapeData(userId: String) {
@@ -93,7 +95,6 @@ class HomeFragment : Fragment() {
 
         aquascapeReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val list = mutableListOf<AquascapeData>()
                 list.clear()
                 for (snapshot in dataSnapshot.children) {
                     val dataAquascape = snapshot.getValue(AquascapeData::class.java)
@@ -104,13 +105,63 @@ class HomeFragment : Fragment() {
 
                 binding.rvListAquascape.visibility = View.VISIBLE
 
-                val recyclerView = binding.rvListAquascape
-                val adapter = AquascapeAdapter(list)
-                recyclerView.adapter = adapter
+                showAquascape()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
                 Toast.makeText(requireContext(), "Failed to retrieve aquascape data: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun showAquascape() {
+        val btnAddAquascape = AquascapeData("AddAquascape", "", "Add", "", "Add Aquascape")
+        list.add(btnAddAquascape)
+        val adapter = AquascapeAdapter(list)
+        binding.rvListAquascape.adapter = adapter
+        Log.d("DataList", "Jumlah data dalam list aquascape: ${list.size}")
+
+        adapter.setOnItemClickCallBack(object : AquascapeAdapter.OnItemClickCallback{
+            override fun onItemClicked(data: AquascapeData) {
+
+                val aquascapeId = data.id
+                val name = data.name
+//                val style = data.style
+//                val createDate = data.createDate
+
+                val fragmentManager = parentFragmentManager
+
+                if (aquascapeId == "AddAquascape") {
+                    val addAquascapeFragment = AddAquascapeFragment()
+                    fragmentManager.beginTransaction().apply {
+                        replace(
+                            R.id.main_frame_container,
+                            addAquascapeFragment,
+                            AddAquascapeFragment::class.java.simpleName
+                        )
+                        addToBackStack(null)
+                        commit()
+                    }
+                } else {
+                    val bundle = Bundle().apply {
+                        putString("aquascapeId", aquascapeId)
+                        putString("aquascapeName", name)
+//                        putString("style", style)
+//                        putString("createDate", createDate)
+                    }
+
+                    val identificationHistoryFragment = IdentificationHistoryFragment()
+                    identificationHistoryFragment.arguments = bundle
+                    fragmentManager.beginTransaction().apply {
+                        replace(
+                            R.id.main_frame_container,
+                            identificationHistoryFragment,
+                            IdentificationHistoryFragment::class.java.simpleName
+                        )
+                        addToBackStack(null)
+                        commit()
+                    }
+                }
             }
         })
     }

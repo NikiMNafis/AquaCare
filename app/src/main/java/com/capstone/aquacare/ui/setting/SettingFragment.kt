@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import com.capstone.aquacare.R
 import com.capstone.aquacare.databinding.FragmentSettingBinding
 import com.capstone.aquacare.ui.auth.AuthActivity
@@ -38,9 +39,15 @@ class SettingFragment : Fragment() {
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
         val name = sharedPreferences?.getString("name", "")
         val email = sharedPreferences?.getString("email", "")
+        val userType = sharedPreferences?.getString("userType", "")
 
         binding.tvName.text = name
         binding.tvEmail.text = email
+
+        if (userType != "admin") {
+            binding.viewInfo.visibility = View.GONE
+            binding.btnAquascapeInfo.visibility = View.GONE
+        }
 
         binding.btnLogOut.setOnClickListener {
             Firebase.auth.signOut()
@@ -52,6 +59,21 @@ class SettingFragment : Fragment() {
             )
             activity?.finish()
         }
+
+        binding.btnAquascapeInfo.setOnClickListener {
+            val listAquascapeInfoFragment = ListAquascapeInfoFragment()
+            val fragmentManager = parentFragmentManager
+            fragmentManager.beginTransaction().apply {
+                replace(
+                    R.id.main_frame_container,
+                    listAquascapeInfoFragment,
+                    ListAquascapeInfoFragment::class.java.simpleName
+                )
+                addToBackStack(null)
+                commit()
+            }
+        }
+
     }
 
     private fun deleteLoginSession(context: Context) {

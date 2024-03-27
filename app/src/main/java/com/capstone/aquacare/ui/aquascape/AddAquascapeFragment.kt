@@ -11,12 +11,9 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
-import com.capstone.aquacare.data.UserData
 import com.capstone.aquacare.databinding.FragmentAddAquascapeBinding
 import com.google.firebase.database.*
-import kotlinx.coroutines.NonDisposableHandle.parent
 import java.text.SimpleDateFormat
 import java.util.*
 

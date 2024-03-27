@@ -1,60 +1,102 @@
 package com.capstone.aquacare.ui.identification
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.capstone.aquacare.R
+import com.capstone.aquacare.data.IdentificationData
+import com.capstone.aquacare.databinding.FragmentIdentificationBinding
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import java.text.SimpleDateFormat
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [IdentificationFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class IdentificationFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var _binding: FragmentIdentificationBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var firebaseDatabase: FirebaseDatabase
+    private lateinit var databaseReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
+        firebaseDatabase = FirebaseDatabase.getInstance()
+        databaseReference = firebaseDatabase.reference.child("users")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_identification, container, false)
+        _binding = FragmentIdentificationBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val aquascapeId = arguments?.getString("aquascapeId").toString()
+
+        binding.btnIdentified.setOnClickListener {
+            addIdentification(aquascapeId)
+        }
+    }
+
+    private fun addIdentification(aquascapeId: String) {
+
+        val result = "Status Baik"
+        val currentDate = getCurrentDate()
+        val temperature = binding.edtTemperature.text.toString()
+        val ph = binding.edtPh.text.toString()
+        val ammonia = binding.edtAmmonia.text.toString()
+        val kh = binding.edtKh.text.toString()
+        val gh = binding.edtGh.text.toString()
+
+        if (aquascapeId.isNullOrEmpty()) {
+            Toast.makeText(activity, "Aquascape ID not found", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
+        val userId = sharedPreferences?.getString("userId", "")
+
+        if (userId.isNullOrEmpty()) {
+            Toast.makeText(activity, "User ID not found", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val identificationReference = databaseReference.child(userId).child("aquascapes").child(aquascapeId).child("identification")
+        val newIdentificationId = identificationReference.push().key
+
+        if (newIdentificationId != null) {
+            val newIdentificationData = IdentificationData(newIdentificationId, result, currentDate, temperature, ph, ammonia, kh, gh)
+            identificationReference.child(newIdentificationId).setValue(newIdentificationData)
+                .addOnSuccessListener {
+                    Toast.makeText(activity, "Success to Add Identification Aquascape", Toast.LENGTH_SHORT).show()
+                    val fragmentManager = parentFragmentManager
+                    fragmentManager.popBackStack()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(activity, "Failed to add Identification Aquascape: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(activity, "Failed to generate Identification ID", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun getCurrentDate(): String {
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy")
+        return dateFormat.format(calendar.time)
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment IdentificationFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            IdentificationFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
     }
 }

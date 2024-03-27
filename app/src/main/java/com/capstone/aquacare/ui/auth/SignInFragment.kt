@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -154,9 +153,10 @@ class SignInFragment : Fragment() {
                             val id = userData.id.toString()
                             val name = userData.name.toString()
                             val email = userData.email.toString()
+                            val userType = userData.userType.toString()
                             val photo = ""
 
-                            saveLoginSession(id, name, email, photo)
+                            saveLoginSession(id, name, email, photo, userType)
 
                             Toast.makeText(activity, "Login Success", Toast.LENGTH_SHORT).show()
                             startActivity(Intent(activity, MainActivity::class.java))
@@ -217,6 +217,7 @@ class SignInFragment : Fragment() {
                     val name = user?.displayName.toString()
                     val email = user?.email.toString()
                     val photo = user?.photoUrl.toString()
+                    val userType = "user"
 
                     val password = "Google Account"
 
@@ -224,10 +225,10 @@ class SignInFragment : Fragment() {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
                             if (!dataSnapshot.exists()) {
                                 val id = databaseReference.push().key
-                                val userData = UserData(id, name, email, password)
+                                val userData = UserData(id, name, email, password, userType)
                                 databaseReference.child(id!!).setValue(userData)
 
-                                saveLoginSession(id, name, email, photo)
+                                saveLoginSession(id, name, email, photo, userType)
 
                                 Toast.makeText(activity, "Login Success", Toast.LENGTH_SHORT).show()
                                 startActivity(Intent(activity, MainActivity::class.java))
@@ -239,9 +240,9 @@ class SignInFragment : Fragment() {
                                     val id = userData?.id.toString()
                                     val name = userData?.name.toString()
                                     val email = userData?.email.toString()
-                                    val photo = ""
+                                    val userType = userData?.userType.toString()
 
-                                    saveLoginSession(id, name, email, photo)
+                                    saveLoginSession(id, name, email, photo, userType)
 
                                     Toast.makeText(activity, "Login Success", Toast.LENGTH_SHORT).show()
                                     startActivity(Intent(activity, MainActivity::class.java))
@@ -265,13 +266,14 @@ class SignInFragment : Fragment() {
             }
     }
 
-    private fun saveLoginSession(userId: String, name: String, email: String, photo: String) {
+    private fun saveLoginSession(userId: String, name: String, email: String, photo: String, userType: String) {
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
         val editor = sharedPreferences?.edit()
         editor?.putString("userId", userId)
         editor?.putString("name", name)
         editor?.putString("email", email)
         editor?.putString("photo", photo)
+        editor?.putString("userType", userType)
         editor?.apply()
     }
 
@@ -281,6 +283,7 @@ class SignInFragment : Fragment() {
         val id = sharedPreferences?.getString("userId", "")
         if (currentUser != null || id != "") {
             startActivity(Intent(activity, MainActivity::class.java))
+            requireActivity().finish()
         }
     }
 
