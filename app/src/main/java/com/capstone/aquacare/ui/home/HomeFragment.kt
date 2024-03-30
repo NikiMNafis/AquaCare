@@ -126,8 +126,8 @@ class HomeFragment : Fragment() {
 
                 val aquascapeId = data.id
                 val name = data.name
-//                val style = data.style
-//                val createDate = data.createDate
+                val style = data.style
+                val createDate = data.createDate
 
                 val fragmentManager = parentFragmentManager
 
@@ -146,8 +146,8 @@ class HomeFragment : Fragment() {
                     val bundle = Bundle().apply {
                         putString("aquascapeId", aquascapeId)
                         putString("aquascapeName", name)
-//                        putString("style", style)
-//                        putString("createDate", createDate)
+                        putString("style", style)
+                        putString("createDate", createDate)
                     }
 
                     val identificationHistoryFragment = IdentificationHistoryFragment()

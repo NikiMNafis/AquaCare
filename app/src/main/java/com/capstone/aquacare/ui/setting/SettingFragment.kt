@@ -8,9 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
+import com.capstone.aquacare.MainActivity
 import com.capstone.aquacare.R
 import com.capstone.aquacare.databinding.FragmentSettingBinding
 import com.capstone.aquacare.ui.auth.AuthActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -19,9 +21,12 @@ class SettingFragment : Fragment() {
     private var _binding: FragmentSettingBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        auth = FirebaseAuth.getInstance()
     }
 
     override fun onCreateView(
@@ -49,20 +54,42 @@ class SettingFragment : Fragment() {
             binding.btnAquascapeInfo.visibility = View.GONE
         }
 
-        binding.btnLogOut.setOnClickListener {
-            Firebase.auth.signOut()
-            deleteLoginSession(requireContext())
-            startActivity(
-                Intent(
-                    activity, AuthActivity::class.java
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            binding.viewPassword.visibility = View.GONE
+            binding.btnChangePassword.visibility = View.GONE
+        }
+
+        val fragmentManager = parentFragmentManager
+
+        binding.btnEditProfile.setOnClickListener {
+            val editProfileFragment = EditProfileFragment()
+            fragmentManager.beginTransaction().apply {
+                replace(
+                    R.id.main_frame_container,
+                    editProfileFragment,
+                    EditProfileFragment::class.java.simpleName
                 )
-            )
-            activity?.finish()
+                addToBackStack(null)
+                commit()
+            }
+        }
+
+        binding.btnChangePassword.setOnClickListener {
+            val editPasswordFragment = EditPasswordFragment()
+            fragmentManager.beginTransaction().apply {
+                replace(
+                    R.id.main_frame_container,
+                    editPasswordFragment,
+                    EditPasswordFragment::class.java.simpleName
+                )
+                addToBackStack(null)
+                commit()
+            }
         }
 
         binding.btnAquascapeInfo.setOnClickListener {
             val listAquascapeInfoFragment = ListAquascapeInfoFragment()
-            val fragmentManager = parentFragmentManager
             fragmentManager.beginTransaction().apply {
                 replace(
                     R.id.main_frame_container,
@@ -72,6 +99,17 @@ class SettingFragment : Fragment() {
                 addToBackStack(null)
                 commit()
             }
+        }
+
+        binding.btnLogOut.setOnClickListener {
+            Firebase.auth.signOut()
+            deleteLoginSession(requireContext())
+            startActivity(
+                Intent(
+                    activity, AuthActivity::class.java
+                )
+            )
+            activity?.finish()
         }
 
     }

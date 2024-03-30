@@ -112,6 +112,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/viewPassword"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="7dp"

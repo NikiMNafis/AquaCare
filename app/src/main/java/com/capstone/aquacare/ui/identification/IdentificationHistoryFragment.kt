@@ -14,6 +14,7 @@ import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.IdentificationData
 import com.capstone.aquacare.databinding.FragmentHomeBinding
 import com.capstone.aquacare.databinding.FragmentIdentificationHistoryBinding
+import com.capstone.aquacare.ui.aquascape.EditAquascapeFragment
 import com.capstone.aquacare.ui.setting.SettingFragment
 import com.google.firebase.database.*
 
@@ -26,6 +27,11 @@ class IdentificationHistoryFragment : Fragment() {
     private lateinit var databaseReference: DatabaseReference
 
     val list = mutableListOf<IdentificationData>()
+
+    private var aquascapeId: String? = null
+    private var aquascapeName: String? = null
+    private var style: String? = null
+    private var createDate: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,12 +52,13 @@ class IdentificationHistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val aquascapeId = arguments?.getString("aquascapeId").toString()
-        val aquascapeName = arguments?.getString("aquascapeName")
-//        val style = arguments?.getString("style")
-//        val createDate = arguments?.getString("createDate")
+        val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
+        val userId = sharedPreferences?.getString("userId", "").toString()
 
-        binding.tvName.text = aquascapeName
+        aquascapeId = arguments?.getString("aquascapeId")
+        aquascapeName = arguments?.getString("aquascapeName")
+        style = arguments?.getString("style")
+        createDate = arguments?.getString("createDate")
 
         val rvIdentification = binding.rvListIdentification
 
@@ -62,10 +69,11 @@ class IdentificationHistoryFragment : Fragment() {
             putString("aquascapeId", aquascapeId)
         }
 
+        val fragmentManager = parentFragmentManager
+
         binding.btnAddIdentification.setOnClickListener {
             val identificationFragment = IdentificationFragment()
             identificationFragment.arguments = bundle
-            val fragmentManager = parentFragmentManager
             fragmentManager.beginTransaction().apply {
                 replace(
                     R.id.main_frame_container,
@@ -77,17 +85,64 @@ class IdentificationHistoryFragment : Fragment() {
             }
         }
 
-        getIdentificationData(aquascapeId)
+        binding.btnEdit.setOnClickListener {
+            val bundleEdit = Bundle().apply {
+                putString("aquascapeId", aquascapeId)
+                putString("aquascapeName", aquascapeName)
+                putString("style", style)
+                putString("createDate", createDate)
+            }
+
+            val editAquascapeFragment = EditAquascapeFragment()
+            editAquascapeFragment.arguments = bundleEdit
+            fragmentManager.beginTransaction().apply {
+                replace(
+                    R.id.main_frame_container,
+                    editAquascapeFragment,
+                    EditAquascapeFragment::class.java.simpleName
+                )
+                addToBackStack(null)
+                commit()
+            }
+
+        }
+
+        getUpdateData(userId, aquascapeId!!)
+        getIdentificationData(userId, aquascapeId!!)
     }
 
-    private fun getIdentificationData(aquascapeId : String) {
+    private fun getUpdateData(userId: String, aquascapeId : String) {
+        val aquascapeReference = databaseReference.child(userId).child("aquascapes")
+
+        aquascapeReference.orderByChild("id").equalTo(aquascapeId).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (snapshot in dataSnapshot.children) {
+                        val aquascapeData = snapshot.getValue(AquascapeData::class.java)
+                        if (aquascapeData != null) {
+
+                            aquascapeName = aquascapeData.name
+                            style = aquascapeData.style
+                            binding.tvName.text = aquascapeName
+
+                            Log.d("Aquascape", "Aquascape ID: ${snapshot.key}, Name: ${aquascapeData.name}, Style: ${aquascapeData.style}, Date: ${aquascapeData.createDate}")
+                        }
+                    }
+                } else {
+                    Log.d("Aquascape", "No aquascape data available")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
+    private fun getIdentificationData(userId : String, aquascapeId : String) {
         if (aquascapeId.isNullOrEmpty()) {
             Toast.makeText(activity, "Aquascape ID not found", Toast.LENGTH_SHORT).show()
             return
         }
-
-        val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
-        val userId = sharedPreferences?.getString("userId", "")
 
         if (userId.isNullOrEmpty()) {
             Toast.makeText(activity, "User ID not found", Toast.LENGTH_SHORT).show()
