@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.capstone.aquacare.R
 import com.capstone.aquacare.data.IdentificationData
 import com.capstone.aquacare.databinding.FragmentIdentificationBinding
 import com.google.firebase.database.DatabaseReference
@@ -33,7 +32,7 @@ class IdentificationFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentIdentificationBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -58,7 +57,7 @@ class IdentificationFragment : Fragment() {
         val kh = binding.edtKh.text.toString()
         val gh = binding.edtGh.text.toString()
 
-        if (aquascapeId.isNullOrEmpty()) {
+        if (aquascapeId.isEmpty()) {
             Toast.makeText(activity, "Aquascape ID not found", Toast.LENGTH_SHORT).show()
             return
         }

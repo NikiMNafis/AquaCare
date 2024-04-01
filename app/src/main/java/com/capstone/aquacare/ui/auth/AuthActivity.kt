@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import com.capstone.aquacare.R
 import com.capstone.aquacare.databinding.ActivityAuthBinding
-import com.capstone.aquacare.databinding.ActivityMainBinding
 
 class AuthActivity : AppCompatActivity() {
 

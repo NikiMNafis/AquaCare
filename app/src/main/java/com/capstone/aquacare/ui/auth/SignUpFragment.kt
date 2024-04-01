@@ -1,17 +1,13 @@
 package com.capstone.aquacare.ui.auth
 
-import android.content.ClipData
-import android.content.ClipData.Item
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.capstone.aquacare.R
 import com.capstone.aquacare.data.UserData
 import com.capstone.aquacare.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -37,7 +33,7 @@ class SignUpFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
         return binding.root
@@ -53,9 +49,8 @@ class SignUpFragment : Fragment() {
                 val name = binding.edtName.text.toString()
                 val email = binding.edtEmail.text.toString()
                 val password = binding.edtPassword.text.toString()
-                val userType = "user"
 
-                signUpUser(name, email, password, userType)
+                signUpUser(name, email, password)
             }
         }
     }
@@ -123,7 +118,8 @@ class SignUpFragment : Fragment() {
 //            }
 //    }
 
-    private fun signUpUser(name: String, email: String, password: String, userType: String) {
+    private fun signUpUser(name: String, email: String, password: String) {
+        val userType = "user"
         databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (!dataSnapshot.exists()) {
@@ -135,15 +131,14 @@ class SignUpFragment : Fragment() {
                     val fragmentManager = parentFragmentManager
                     fragmentManager.popBackStack()
                 } else {
-                    for (userSnaphot in dataSnapshot.children) {
-                        val userData = userSnaphot.getValue(UserData::class.java)
+                    for (userSnapshot in dataSnapshot.children) {
+                        val userData = userSnapshot.getValue(UserData::class.java)
                         val userId = userData?.id.toString()
                         val userName = userData?.name.toString()
-                        val userEmail = userData?.email.toString()
 
                         if (userData != null && userData.password == "Google Account") {
-                            val newDataUser = UserData(userId, userName, userEmail, password, userType)
-                            databaseReference.child(userId).setValue(newDataUser)
+                            val newDataUser = mapOf("name" to userName, "password" to password)
+                            databaseReference.child(userId).updateChildren(newDataUser)
 
                             Toast.makeText(activity, "Account Created", Toast.LENGTH_SHORT).show()
                             val fragmentManager = parentFragmentManager

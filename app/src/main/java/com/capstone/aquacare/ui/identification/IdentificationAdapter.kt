@@ -1,12 +1,9 @@
 package com.capstone.aquacare.ui.identification
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.IdentificationData
-import com.capstone.aquacare.databinding.CardAquascapeBinding
 import com.capstone.aquacare.databinding.CardIdentificationHistoryBinding
 
 class IdentificationAdapter (private val list: List<IdentificationData>) : RecyclerView.Adapter<IdentificationAdapter.ViewHolder>() {

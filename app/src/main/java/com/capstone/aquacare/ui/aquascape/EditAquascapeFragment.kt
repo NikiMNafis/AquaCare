@@ -9,12 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
-import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.databinding.FragmentEditAquascapeBinding
-import com.capstone.aquacare.ui.identification.IdentificationHistoryFragment
 import com.google.firebase.database.*
 
 class EditAquascapeFragment : Fragment() {
@@ -37,7 +34,7 @@ class EditAquascapeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentEditAquascapeBinding.inflate(inflater,container, false)
         return binding.root
@@ -105,7 +102,7 @@ class EditAquascapeFragment : Fragment() {
                             val lastCheckDate = aquascapeData.lastCheckDate.toString()
                             val createDate = aquascapeData.createDate.toString()
 
-                            val updateData = mapOf<String, String>("id" to aquascapeId, "name" to name, "style" to style, "createDate" to createDate, "status" to status, "lastCheckDate" to lastCheckDate)
+                            val updateData = mapOf("id" to aquascapeId, "name" to name, "style" to style, "createDate" to createDate, "status" to status, "lastCheckDate" to lastCheckDate)
 
                             aquascapeReference.child(aquascapeId).updateChildren(updateData)
                                 .addOnSuccessListener {

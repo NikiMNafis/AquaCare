@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.IdentificationData
-import com.capstone.aquacare.databinding.FragmentHomeBinding
 import com.capstone.aquacare.databinding.FragmentIdentificationHistoryBinding
 import com.capstone.aquacare.ui.aquascape.EditAquascapeFragment
-import com.capstone.aquacare.ui.setting.SettingFragment
 import com.google.firebase.database.*
 
 class IdentificationHistoryFragment : Fragment() {
@@ -43,7 +41,7 @@ class IdentificationHistoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentIdentificationHistoryBinding.inflate(inflater, container, false)
         return binding.root
@@ -139,12 +137,12 @@ class IdentificationHistoryFragment : Fragment() {
     }
 
     private fun getIdentificationData(userId : String, aquascapeId : String) {
-        if (aquascapeId.isNullOrEmpty()) {
+        if (aquascapeId.isEmpty()) {
             Toast.makeText(activity, "Aquascape ID not found", Toast.LENGTH_SHORT).show()
             return
         }
 
-        if (userId.isNullOrEmpty()) {
+        if (userId.isEmpty()) {
             Toast.makeText(activity, "User ID not found", Toast.LENGTH_SHORT).show()
             return
         }

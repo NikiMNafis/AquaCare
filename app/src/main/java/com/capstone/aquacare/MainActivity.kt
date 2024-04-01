@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.capstone.aquacare.databinding.ActivityMainBinding
-import com.capstone.aquacare.ui.auth.AuthActivity
-import com.capstone.aquacare.ui.auth.SignInFragment
 import com.capstone.aquacare.ui.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
