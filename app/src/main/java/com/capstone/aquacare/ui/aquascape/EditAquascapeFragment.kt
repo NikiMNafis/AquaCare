@@ -118,11 +118,11 @@ class EditAquascapeFragment : Fragment() {
                                     Toast.makeText(activity, "Failed to Edit Aquascape: ${e.message}", Toast.LENGTH_SHORT).show()
                                 }
 
-                            Log.d("Aquascape", "Aquascape ID: ${snapshot.key}, Name: ${aquascapeData.name}, Style: ${aquascapeData.style}, Date: ${aquascapeData.createDate}")
+                            Log.d(TAG, "Aquascape ID: ${snapshot.key}, Name: ${aquascapeData.name}, Style: ${aquascapeData.style}, Date: ${aquascapeData.createDate}")
                         }
                     }
                 } else {
-                    Log.d("Aquascape", "No aquascape data available")
+                    Log.d(TAG, "No aquascape data available")
                 }
             }
 
@@ -134,5 +134,6 @@ class EditAquascapeFragment : Fragment() {
 
     companion object {
 
+        private const val TAG = "MainActivity"
     }
 }

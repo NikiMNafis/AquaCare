@@ -7,13 +7,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import com.capstone.aquacare.MainActivity
 import com.capstone.aquacare.R
+import com.capstone.aquacare.data.UserData
 import com.capstone.aquacare.databinding.FragmentSettingBinding
 import com.capstone.aquacare.ui.auth.AuthActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 
 class SettingFragment : Fragment() {
@@ -21,11 +24,16 @@ class SettingFragment : Fragment() {
     private var _binding: FragmentSettingBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var firebaseDatabase: FirebaseDatabase
+    private lateinit var databaseReference: DatabaseReference
+
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        firebaseDatabase = FirebaseDatabase.getInstance()
+        databaseReference = firebaseDatabase.reference.child("users")
         auth = FirebaseAuth.getInstance()
     }
 
@@ -42,9 +50,10 @@ class SettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
+        val userId = sharedPreferences?.getString("userId", "").toString()
+        val userType = sharedPreferences?.getString("userType", "")
         val name = sharedPreferences?.getString("name", "")
         val email = sharedPreferences?.getString("email", "")
-        val userType = sharedPreferences?.getString("userType", "")
 
         binding.tvName.text = name
         binding.tvEmail.text = email
@@ -59,6 +68,8 @@ class SettingFragment : Fragment() {
             binding.viewPassword.visibility = View.GONE
             binding.btnChangePassword.visibility = View.GONE
         }
+
+        getUpdateData(userId)
 
         val fragmentManager = parentFragmentManager
 
@@ -112,6 +123,34 @@ class SettingFragment : Fragment() {
             activity?.finish()
         }
 
+    }
+
+    private fun getUpdateData(userId: String) {
+        databaseReference.orderByChild("id").equalTo(userId).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (userSnapshot in dataSnapshot.children) {
+                        val userData = userSnapshot.getValue(UserData::class.java)
+
+                        if (userData != null){
+                            val name = userData.name
+                            val email = userData.email
+
+                            binding.tvName.text = name
+                            binding.tvEmail.text = email
+
+                        } else {
+                            Toast.makeText(activity, "Failed to get user data", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(activity, "Database Error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun deleteLoginSession(context: Context) {
