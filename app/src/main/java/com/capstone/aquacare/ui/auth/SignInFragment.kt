@@ -211,7 +211,6 @@ class SignInFragment : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
-//                    val userId = user?.uid.toString()
                     val name = user?.displayName.toString()
                     val email = user?.email.toString()
                     val photo = user?.photoUrl.toString()

@@ -57,4 +57,5 @@
 
     <string name="defaultweb_client_id">762708816606-b7q7lnlu2mjk5tguiqkhvm1plvmsu5sb.apps.googleusercontent.com</string>
     <string name="select_date">Select Date</string>
+    <string name="delete_aquascape">delete aquascape</string>
 </resources>

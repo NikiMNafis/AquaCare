@@ -3,11 +3,13 @@ package com.capstone.aquacare.ui.setting
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.UserData
 import com.capstone.aquacare.databinding.FragmentSettingBinding
@@ -52,6 +54,9 @@ class SettingFragment : Fragment() {
         val userType = sharedPreferences?.getString("userType", "")
         val name = sharedPreferences?.getString("name", "")
         val email = sharedPreferences?.getString("email", "")
+        val photo = sharedPreferences?.getString("photo", "")
+
+        Log.d(TAG, "Photo URL : $photo")
 
         binding.tvName.text = name
         binding.tvEmail.text = email
@@ -65,6 +70,11 @@ class SettingFragment : Fragment() {
         if (currentUser != null) {
             binding.viewPassword.visibility = View.GONE
             binding.btnChangePassword.visibility = View.GONE
+            Glide.with(requireActivity())
+                .load(photo)
+                .into(binding.ivProfile)
+        } else {
+            binding.ivProfile.setImageResource(R.drawable.bg_person_default)
         }
 
         getUpdateData(userId)
@@ -163,5 +173,6 @@ class SettingFragment : Fragment() {
 
     companion object {
 
+        private const val TAG = "MainActivity"
     }
 }

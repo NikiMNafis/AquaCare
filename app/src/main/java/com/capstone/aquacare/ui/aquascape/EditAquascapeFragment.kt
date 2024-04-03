@@ -10,8 +10,10 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.databinding.FragmentEditAquascapeBinding
+import com.capstone.aquacare.ui.home.HomeFragment
 import com.google.firebase.database.*
 
 class EditAquascapeFragment : Fragment() {
@@ -80,6 +82,10 @@ class EditAquascapeFragment : Fragment() {
             editAquascape(aquascapeId)
         }
 
+        binding.btnDelete.setOnClickListener {
+            deleteAquascape(aquascapeId)
+        }
+
     }
 
     private fun editAquascape(aquascapeId : String) {
@@ -127,6 +133,27 @@ class EditAquascapeFragment : Fragment() {
                 TODO("Not yet implemented")
             }
         })
+    }
+
+    private fun deleteAquascape(aquascapeId : String) {
+        val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
+        val userId = sharedPreferences?.getString("userId", "").toString()
+
+        val aquascapeReference = databaseReference.child(userId).child("aquascapes")
+
+        aquascapeReference.child(aquascapeId).removeValue().addOnSuccessListener {
+            val homeFragment = HomeFragment()
+            val fragmentManager = parentFragmentManager
+            fragmentManager.beginTransaction().apply {
+                replace(
+                    R.id.main_frame_container,
+                    homeFragment,
+                    HomeFragment::class.java.simpleName
+                )
+                commit()
+            }
+        }
+
     }
 
     companion object {

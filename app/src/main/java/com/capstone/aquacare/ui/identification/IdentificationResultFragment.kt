@@ -6,55 +6,58 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.capstone.aquacare.R
+import com.capstone.aquacare.databinding.FragmentIdentificationResultBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [IdentificationResultFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class IdentificationResultFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var _binding: FragmentIdentificationResultBinding? = null
+    private val binding get() = _binding!!
+
+    private var result: String? = null
+    private var date: String? = null
+    private var temperature: String? = null
+    private var ph: String? = null
+    private var ammonia: String? = null
+    private var kh: String? = null
+    private var gh: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_identification_result, container, false)
+        _binding = FragmentIdentificationResultBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        result = arguments?.getString("result")
+        date = arguments?.getString("date")
+        temperature = arguments?.getString("temperature")
+        ph = arguments?.getString("ph")
+        ammonia = arguments?.getString("ammonia")
+        kh = arguments?.getString("kh")
+        gh = arguments?.getString("gh")
+
+        // Sementara ===============================================
+        binding.tvHasil.text = result
+        binding.tvDetailTemperature.text = temperature
+        binding.tvDetailPh.text = ph
+        binding.tvDetailAmmonia.text = ammonia
+        binding.tvDetailKh.text = kh
+        binding.tvDetailGh.text = gh
+        binding.tvDate.text = date
+
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment IdentificationResultFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            IdentificationResultFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
     }
 }

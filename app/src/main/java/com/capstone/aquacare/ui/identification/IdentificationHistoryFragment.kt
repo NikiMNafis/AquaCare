@@ -175,7 +175,36 @@ class IdentificationHistoryFragment : Fragment() {
 
         adapter.setOnItemClickCallBack(object : IdentificationAdapter.OnItemClickCallback{
             override fun onItemClicked(data: IdentificationData) {
+                val result = data.result
+                val date = data.date
+                val temperature = data.temperature
+                val ph = data.ph
+                val ammonia = data.ammonia
+                val kh = data.kh
+                val gh = data.gh
 
+                val bundle = Bundle().apply {
+                    putString("result", result)
+                    putString("date", date)
+                    putString("temperature", temperature)
+                    putString("ph", ph)
+                    putString("ammonia", ammonia)
+                    putString("kh", kh)
+                    putString("gh", gh)
+                }
+
+                val identificationResultFragment = IdentificationResultFragment()
+                identificationResultFragment.arguments = bundle
+                val fragmentManager = parentFragmentManager
+                fragmentManager.beginTransaction().apply {
+                    replace(
+                        R.id.main_frame_container,
+                        identificationResultFragment,
+                        IdentificationResultFragment::class.java.simpleName
+                    )
+                    addToBackStack(null)
+                    commit()
+                }
             }
         })
     }
