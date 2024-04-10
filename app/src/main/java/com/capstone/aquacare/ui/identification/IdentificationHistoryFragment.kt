@@ -65,6 +65,7 @@ class IdentificationHistoryFragment : Fragment() {
 
         val bundle = Bundle().apply {
             putString("aquascapeId", aquascapeId)
+            putString("style", style)
         }
 
         val fragmentManager = parentFragmentManager
@@ -184,6 +185,7 @@ class IdentificationHistoryFragment : Fragment() {
                 val gh = data.gh
 
                 val bundle = Bundle().apply {
+                    putString("style", style)
                     putString("result", result)
                     putString("date", date)
                     putString("temperature", temperature)

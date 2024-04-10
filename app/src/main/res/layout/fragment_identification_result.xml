@@ -94,6 +94,18 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_detail" />
 
         <TextView
+            android:id="@+id/tv_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/temperature"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail" />
+
+        <TextView
             android:id="@+id/tv_detail_ph"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,6 +114,17 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_temperature" />
+
+        <TextView
+            android:id="@+id/tv_ph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="@string/ph"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_temperature" />
 
         <TextView
@@ -116,6 +139,17 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_ph" />
 
         <TextView
+            android:id="@+id/tv_ammonia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="@string/ammonia"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_ph" />
+
+        <TextView
             android:id="@+id/tv_detail_kh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -127,6 +161,17 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_ammonia" />
 
         <TextView
+            android:id="@+id/tv_kh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="@string/kh"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_ammonia" />
+
+        <TextView
             android:id="@+id/tv_detail_gh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -135,6 +180,17 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_kh" />
+
+        <TextView
+            android:id="@+id/tv_gh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="@string/gh"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_kh" />
 
         <View

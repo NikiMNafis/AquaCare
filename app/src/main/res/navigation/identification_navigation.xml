@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/identification_navigation">
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.capstone.aquacare.ui.identification.IdentificationHistoryFragment"
+        android:label="HistoryFragment">
+        <action
+            android:id="@+id/action_historyFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/identificationFragment"
+        android:name="com.capstone.aquacare.ui.identification.IdentificationFragment"
+        android:label="IdentificationFragment">
+        <action
+            android:id="@+id/action_identificationFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.capstone.aquacare.ui.identification.IdentificationResultFragment"
+        android:label="ResultFragment">
+        <action
+            android:id="@+id/action_resultFragment_to_historyFragment"
+            app:destination="@id/historyFragment"
+            app:popUpTo="@+id/historyFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

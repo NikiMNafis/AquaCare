@@ -2,13 +2,17 @@ package com.capstone.aquacare.ui.identification
 
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.capstone.aquacare.R
 import com.capstone.aquacare.data.IdentificationData
 import com.capstone.aquacare.databinding.FragmentIdentificationBinding
+import com.capstone.aquacare.fuzzy.FuzzyDutchStyle
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
@@ -21,6 +25,9 @@ class IdentificationFragment : Fragment() {
 
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
+
+    private var style: String? = null
+    private var result: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,21 +48,64 @@ class IdentificationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val aquascapeId = arguments?.getString("aquascapeId").toString()
+        style = arguments?.getString("style").toString()
 
         binding.btnIdentified.setOnClickListener {
-            addIdentification(aquascapeId)
+            if (checkForm()) {
+                addIdentification(aquascapeId)
+            }
         }
     }
 
-    private fun addIdentification(aquascapeId: String) {
-
-        val result = "Status Baik"
-        val currentDate = getCurrentDate()
+    private fun checkForm(): Boolean {
         val temperature = binding.edtTemperature.text.toString()
         val ph = binding.edtPh.text.toString()
         val ammonia = binding.edtAmmonia.text.toString()
         val kh = binding.edtKh.text.toString()
         val gh = binding.edtGh.text.toString()
+
+        if (temperature.isEmpty()) {
+            binding.edtTemperature.error = "Enter temperature"
+            return false
+        }
+
+        if (ph.isEmpty()) {
+            binding.edtPh.error = "Enter PH"
+            return false
+        }
+
+        if (ammonia.isEmpty()) {
+            binding.edtAmmonia.error = "Enter Ammonia"
+            return false
+        }
+
+        if (kh.isEmpty()) {
+            binding.edtKh.error = "Enter KH"
+            return false
+        }
+
+        if (gh.isEmpty()) {
+            binding.edtGh.error = "Enter GH"
+            return false
+        }
+
+        return true
+    }
+
+    private fun addIdentification(aquascapeId: String) {
+
+        val currentDate = getCurrentDate()
+        val temperature = binding.edtTemperature.text.toString().toDoubleOrNull() ?: 0.0
+        val ph = binding.edtPh.text.toString().toDoubleOrNull() ?: 0.0
+        val ammonia = binding.edtAmmonia.text.toString().toDoubleOrNull() ?: 0.0
+        val kh = binding.edtKh.text.toString().toDoubleOrNull() ?: 0.0
+        val gh = binding.edtGh.text.toString().toDoubleOrNull() ?: 0.0
+
+        val fuzzyDutchStyle = FuzzyDutchStyle()
+
+        if (style == "Dutch Style") {
+            result = fuzzyDutchStyle.calculateWaterQuality(temperature, ph, ammonia, kh, gh)
+        }
 
         if (aquascapeId.isEmpty()) {
             Toast.makeText(activity, "Aquascape ID not found", Toast.LENGTH_SHORT).show()
@@ -74,22 +124,23 @@ class IdentificationFragment : Fragment() {
         val newIdentificationId = identificationReference.push().key
 
         if (newIdentificationId != null) {
-            val newIdentificationData = IdentificationData(newIdentificationId, result, currentDate, temperature, ph, ammonia, kh, gh)
+            val newIdentificationData = IdentificationData(newIdentificationId, result, currentDate,
+                temperature.toString(), ph.toString(), ammonia.toString(), kh.toString(), gh.toString())
             identificationReference.child(newIdentificationId).setValue(newIdentificationData)
                 .addOnSuccessListener {
-                    Toast.makeText(activity, "Success to Add Identification Aquascape", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Success to Identification Aquascape", Toast.LENGTH_SHORT).show()
                     val fragmentManager = parentFragmentManager
                     fragmentManager.popBackStack()
                 }
                 .addOnFailureListener { e ->
-                    Toast.makeText(activity, "Failed to add Identification Aquascape: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Failed to Identification Aquascape: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         } else {
             Toast.makeText(activity, "Failed to generate Identification ID", Toast.LENGTH_SHORT).show()
         }
     }
 
-    fun getCurrentDate(): String {
+    private fun getCurrentDate(): String {
         val calendar = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("dd-MM-yyyy")
         return dateFormat.format(calendar.time)
