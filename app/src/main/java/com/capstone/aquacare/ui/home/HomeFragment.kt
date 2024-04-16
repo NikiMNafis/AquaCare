@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
@@ -57,33 +58,23 @@ class HomeFragment : Fragment() {
         rvAquascape.setHasFixedSize(true)
 
         binding.ivProfile.setOnClickListener {
-            val settingFragment = SettingFragment()
-            val fragmentManager = parentFragmentManager
-            fragmentManager.beginTransaction().apply {
-                replace(
-                    R.id.main_frame_container,
-                    settingFragment,
-                    SettingFragment::class.java.simpleName
-                )
-                addToBackStack(null)
-                commit()
-            }
+            findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
         }
 
         binding.btnAddAquascape.visibility = View.GONE
-        binding.btnAddAquascape.setOnClickListener {
-            val addAquascapeFragment = AddAquascapeFragment()
-            val fragmentManager = parentFragmentManager
-            fragmentManager.beginTransaction().apply {
-                replace(
-                    R.id.main_frame_container,
-                    addAquascapeFragment,
-                    AddAquascapeFragment::class.java.simpleName
-                )
-                addToBackStack(null)
-                commit()
-            }
-        }
+//        binding.btnAddAquascape.setOnClickListener {
+//            val addAquascapeFragment = AddAquascapeFragment()
+//            val fragmentManager = parentFragmentManager
+//            fragmentManager.beginTransaction().apply {
+//                replace(
+//                    R.id.main_frame_container,
+//                    addAquascapeFragment,
+//                    AddAquascapeFragment::class.java.simpleName
+//                )
+//                addToBackStack(null)
+//                commit()
+//            }
+//        }
 
         getAquascapeData(userId)
     }
@@ -125,42 +116,28 @@ class HomeFragment : Fragment() {
             override fun onItemClicked(data: AquascapeData) {
 
                 val aquascapeId = data.id
-                val name = data.name
-                val style = data.style
-                val createDate = data.createDate
-
-                val fragmentManager = parentFragmentManager
 
                 if (aquascapeId == "AddAquascape") {
-                    val addAquascapeFragment = AddAquascapeFragment()
-                    fragmentManager.beginTransaction().apply {
-                        replace(
-                            R.id.main_frame_container,
-                            addAquascapeFragment,
-                            AddAquascapeFragment::class.java.simpleName
-                        )
-                        addToBackStack(null)
-                        commit()
-                    }
+                    findNavController().navigate(R.id.action_homeFragment_to_addAquascapeFragment)
                 } else {
                     val bundle = Bundle().apply {
                         putString("aquascapeId", aquascapeId)
-                        putString("aquascapeName", name)
-                        putString("style", style)
-                        putString("createDate", createDate)
                     }
 
-                    val identificationHistoryFragment = IdentificationHistoryFragment()
-                    identificationHistoryFragment.arguments = bundle
-                    fragmentManager.beginTransaction().apply {
-                        replace(
-                            R.id.main_frame_container,
-                            identificationHistoryFragment,
-                            IdentificationHistoryFragment::class.java.simpleName
-                        )
-                        addToBackStack(null)
-                        commit()
-                    }
+                    findNavController().navigate(R.id.action_homeFragment_to_historyFragment, bundle)
+
+//                    val identificationHistoryFragment = IdentificationHistoryFragment()
+//                    identificationHistoryFragment.arguments = bundle
+//                    val fragmentManager = parentFragmentManager
+//                    fragmentManager.beginTransaction().apply {
+//                        replace(
+//                            R.id.main_frame_container,
+//                            identificationHistoryFragment,
+//                            IdentificationHistoryFragment::class.java.simpleName
+//                        )
+//                        addToBackStack(null)
+//                        commit()
+//                    }
                 }
             }
         })

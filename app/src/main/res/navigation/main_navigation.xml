@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.capstone.aquacare.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_addAquascapeFragment"
+            app:destination="@id/addAquascapeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.capstone.aquacare.ui.identification.IdentificationHistoryFragment"
+        android:label="HistoryFragment"
+        tools:layout="@layout/fragment_identification_history">
+        <action
+            android:id="@+id/action_historyFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+        <action
+            android:id="@+id/action_historyFragment_to_identificationFragment"
+            app:destination="@id/identificationFragment" />
+        <action
+            android:id="@+id/action_historyFragment_to_editAquascapeFragment"
+            app:destination="@id/editAquascapeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/identificationFragment"
+        android:name="com.capstone.aquacare.ui.identification.IdentificationFragment"
+        android:label="IdentificationFragment"
+        tools:layout="@layout/fragment_identification">
+        <action
+            android:id="@+id/action_identificationFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editAquascapeFragment"
+        android:name="com.capstone.aquacare.ui.aquascape.EditAquascapeFragment"
+        android:label="EditAquascapeFragment"
+        tools:layout="@layout/fragment_edit_aquascape">
+        <action
+            android:id="@+id/action_editAquascapeFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.capstone.aquacare.ui.identification.IdentificationResultFragment"
+        android:label="ResultFragment"
+        tools:layout="@layout/fragment_identification_result">
+            <action
+                android:id="@+id/action_resultFragment_to_historyFragment"
+                app:destination="@id/historyFragment"
+                app:popUpTo="@+id/historyFragment"
+                app:launchSingleTop="true"
+                app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addAquascapeFragment"
+        android:name="com.capstone.aquacare.ui.aquascape.AddAquascapeFragment"
+        android:label="AddAquascapeFragment"
+        tools:layout="@layout/fragment_add_aquascape"/>
+
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.capstone.aquacare.ui.setting.SettingFragment"
+        android:label="SettingFragment"
+        tools:layout="@layout/fragment_setting">
+        <action
+            android:id="@+id/action_settingFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_editPasswordFragment"
+            app:destination="@id/editPasswordFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_aquascapeInfoFragment"
+            app:destination="@id/aquascapeInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.capstone.aquacare.ui.setting.EditProfileFragment"
+        android:label="EditProfileFragment"
+        tools:layout="@layout/fragment_edit_profile"/>
+
+    <fragment
+        android:id="@+id/editPasswordFragment"
+        android:name="com.capstone.aquacare.ui.setting.EditPasswordFragment"
+        android:label="EditPasswordFragment"
+        tools:layout="@layout/fragment_edit_password"/>
+
+    <fragment
+        android:id="@+id/aquascapeInfoFragment"
+        android:name="com.capstone.aquacare.ui.setting.AquascapeInfoFragment"
+        android:label="AquascapeInfoFragment"
+        tools:layout="@layout/fragment_aquascape_info">
+        <action
+            android:id="@+id/action_aquascapeInfoFragment_to_addAquascapeInfoFragment"
+            app:destination="@id/addAquascapeInfoFragment" />
+        <action
+            android:id="@+id/action_aquascapeInfoFragment_to_editAquascapeInfoFragment"
+            app:destination="@id/editAquascapeInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addAquascapeInfoFragment"
+        android:name="com.capstone.aquacare.ui.setting.AddAquascapeInfoFragment"
+        android:label="AddAquascapeInfoFragment"
+        tools:layout="@layout/fragment_add_aquascape_info">
+    </fragment>
+
+    <fragment
+        android:id="@+id/editAquascapeInfoFragment"
+        android:name="com.capstone.aquacare.ui.setting.EditAquascapeInfoFragment"
+        android:label="EditAquascapeInfoFragment"
+        tools:layout="@layout/fragment_edit_aquascape_info">
+    </fragment>
+
+</navigation>

@@ -108,12 +108,12 @@ class SettingFragment : Fragment() {
         }
 
         binding.btnAquascapeInfo.setOnClickListener {
-            val listAquascapeInfoFragment = ListAquascapeInfoFragment()
+            val listAquascapeInfoFragment = AquascapeInfoFragment()
             fragmentManager.beginTransaction().apply {
                 replace(
                     R.id.main_frame_container,
                     listAquascapeInfoFragment,
-                    ListAquascapeInfoFragment::class.java.simpleName
+                    AquascapeInfoFragment::class.java.simpleName
                 )
                 addToBackStack(null)
                 commit()

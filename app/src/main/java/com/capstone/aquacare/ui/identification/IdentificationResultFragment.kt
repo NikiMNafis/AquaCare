@@ -5,6 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import com.capstone.aquacare.R
 import com.capstone.aquacare.databinding.FragmentIdentificationResultBinding
 import com.capstone.aquacare.fuzzy.FuzzyDutchStyle
 
@@ -13,6 +19,7 @@ class IdentificationResultFragment : Fragment() {
     private var _binding: FragmentIdentificationResultBinding? = null
     private val binding get() = _binding!!
 
+    private var aquascapeId: String? = null
     private var style: String? = null
     private var result: String? = null
     private var date: String? = null
@@ -25,6 +32,7 @@ class IdentificationResultFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        aquascapeId = arguments?.getString("aquascapeId")
         style = arguments?.getString("style")
         result = arguments?.getString("result")
         date = arguments?.getString("date")
@@ -41,6 +49,7 @@ class IdentificationResultFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentIdentificationResultBinding.inflate(inflater, container, false)
+        setupOnBackPressed()
         return binding.root
     }
 
@@ -56,6 +65,17 @@ class IdentificationResultFragment : Fragment() {
         binding.tvDate.text = date
 
         checkParameter(style)
+    }
+
+    private fun setupOnBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val bundle = Bundle().apply {
+                    putString("aquascapeId", aquascapeId.toString())
+                }
+                findNavController().navigate(R.id.action_resultFragment_to_historyFragment, bundle)
+            }
+        })
     }
 
     private fun checkParameter(style: String?) {
@@ -82,7 +102,4 @@ class IdentificationResultFragment : Fragment() {
         }
     }
 
-//    companion object {
-//
-//    }
 }

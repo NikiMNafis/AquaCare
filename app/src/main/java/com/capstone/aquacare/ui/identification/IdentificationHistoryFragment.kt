@@ -8,12 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.IdentificationData
 import com.capstone.aquacare.databinding.FragmentIdentificationHistoryBinding
-import com.capstone.aquacare.ui.aquascape.EditAquascapeFragment
 import com.google.firebase.database.*
 
 class IdentificationHistoryFragment : Fragment() {
@@ -54,34 +54,18 @@ class IdentificationHistoryFragment : Fragment() {
         val userId = sharedPreferences?.getString("userId", "").toString()
 
         aquascapeId = arguments?.getString("aquascapeId")
-        aquascapeName = arguments?.getString("aquascapeName")
-        style = arguments?.getString("style")
-        createDate = arguments?.getString("createDate")
 
         val rvIdentification = binding.rvListIdentification
 
         rvIdentification.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         rvIdentification.setHasFixedSize(true)
 
-        val bundle = Bundle().apply {
-            putString("aquascapeId", aquascapeId)
-            putString("style", style)
-        }
-
-        val fragmentManager = parentFragmentManager
-
         binding.btnAddIdentification.setOnClickListener {
-            val identificationFragment = IdentificationFragment()
-            identificationFragment.arguments = bundle
-            fragmentManager.beginTransaction().apply {
-                replace(
-                    R.id.main_frame_container,
-                    identificationFragment,
-                    IdentificationFragment::class.java.simpleName
-                )
-                addToBackStack(null)
-                commit()
+            val bundle = Bundle().apply {
+                putString("aquascapeId", aquascapeId)
+                putString("style", style)
             }
+            findNavController().navigate(R.id.action_historyFragment_to_identificationFragment, bundle)
         }
 
         binding.btnEdit.setOnClickListener {
@@ -91,19 +75,7 @@ class IdentificationHistoryFragment : Fragment() {
                 putString("style", style)
                 putString("createDate", createDate)
             }
-
-            val editAquascapeFragment = EditAquascapeFragment()
-            editAquascapeFragment.arguments = bundleEdit
-            fragmentManager.beginTransaction().apply {
-                replace(
-                    R.id.main_frame_container,
-                    editAquascapeFragment,
-                    EditAquascapeFragment::class.java.simpleName
-                )
-                addToBackStack(null)
-                commit()
-            }
-
+            findNavController().navigate(R.id.action_historyFragment_to_editAquascapeFragment, bundleEdit)
         }
 
         getUpdateData(userId, aquascapeId!!)
@@ -122,6 +94,7 @@ class IdentificationHistoryFragment : Fragment() {
 
                             aquascapeName = aquascapeData.name
                             style = aquascapeData.style
+                            createDate = aquascapeData.createDate
                             binding.tvName.text = aquascapeName
 
                             Log.d("Aquascape", "Aquascape ID: ${snapshot.key}, Name: ${aquascapeData.name}, Style: ${aquascapeData.style}, Date: ${aquascapeData.createDate}")
@@ -185,7 +158,8 @@ class IdentificationHistoryFragment : Fragment() {
                 val gh = data.gh
 
                 val bundle = Bundle().apply {
-                    putString("style", style)
+                    putString("aquascapeId", aquascapeId.toString())
+                    putString("style", style.toString())
                     putString("result", result)
                     putString("date", date)
                     putString("temperature", temperature)
@@ -194,24 +168,8 @@ class IdentificationHistoryFragment : Fragment() {
                     putString("kh", kh)
                     putString("gh", gh)
                 }
-
-                val identificationResultFragment = IdentificationResultFragment()
-                identificationResultFragment.arguments = bundle
-                val fragmentManager = parentFragmentManager
-                fragmentManager.beginTransaction().apply {
-                    replace(
-                        R.id.main_frame_container,
-                        identificationResultFragment,
-                        IdentificationResultFragment::class.java.simpleName
-                    )
-                    addToBackStack(null)
-                    commit()
-                }
+                findNavController().navigate(R.id.action_historyFragment_to_resultFragment, bundle)
             }
         })
-    }
-
-    companion object {
-
     }
 }

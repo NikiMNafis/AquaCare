@@ -2,7 +2,6 @@ package com.capstone.aquacare.ui.identification
 
 import android.content.Context
 import android.os.Bundle
-import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +25,7 @@ class IdentificationFragment : Fragment() {
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
 
+    private var aquascapeId: String? = null
     private var style: String? = null
     private var result: String? = null
 
@@ -47,12 +47,12 @@ class IdentificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val aquascapeId = arguments?.getString("aquascapeId").toString()
+        aquascapeId = arguments?.getString("aquascapeId").toString()
         style = arguments?.getString("style").toString()
 
         binding.btnIdentified.setOnClickListener {
             if (checkForm()) {
-                addIdentification(aquascapeId)
+                addIdentification(aquascapeId!!)
             }
         }
     }
@@ -94,12 +94,27 @@ class IdentificationFragment : Fragment() {
 
     private fun addIdentification(aquascapeId: String) {
 
+        val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
+        val userId = sharedPreferences?.getString("userId", "")
+
         val currentDate = getCurrentDate()
         val temperature = binding.edtTemperature.text.toString().toDoubleOrNull() ?: 0.0
         val ph = binding.edtPh.text.toString().toDoubleOrNull() ?: 0.0
         val ammonia = binding.edtAmmonia.text.toString().toDoubleOrNull() ?: 0.0
         val kh = binding.edtKh.text.toString().toDoubleOrNull() ?: 0.0
         val gh = binding.edtGh.text.toString().toDoubleOrNull() ?: 0.0
+
+        val bundle = Bundle().apply {
+            putString("aquascapeId", aquascapeId)
+            putString("style", style)
+            putString("result", result)
+            putString("date", currentDate)
+            putString("temperature", temperature.toString())
+            putString("ph", ph.toString())
+            putString("ammonia", ammonia.toString())
+            putString("kh", kh.toString())
+            putString("gh", gh.toString())
+        }
 
         val fuzzyDutchStyle = FuzzyDutchStyle()
 
@@ -111,9 +126,6 @@ class IdentificationFragment : Fragment() {
             Toast.makeText(activity, "Aquascape ID not found", Toast.LENGTH_SHORT).show()
             return
         }
-
-        val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
-        val userId = sharedPreferences?.getString("userId", "")
 
         if (userId.isNullOrEmpty()) {
             Toast.makeText(activity, "User ID not found", Toast.LENGTH_SHORT).show()
@@ -129,8 +141,7 @@ class IdentificationFragment : Fragment() {
             identificationReference.child(newIdentificationId).setValue(newIdentificationData)
                 .addOnSuccessListener {
                     Toast.makeText(activity, "Success to Identification Aquascape", Toast.LENGTH_SHORT).show()
-                    val fragmentManager = parentFragmentManager
-                    fragmentManager.popBackStack()
+                    findNavController().navigate(R.id.action_identificationFragment_to_resultFragment, bundle)
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(activity, "Failed to Identification Aquascape: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -146,7 +157,4 @@ class IdentificationFragment : Fragment() {
         return dateFormat.format(calendar.time)
     }
 
-    companion object {
-
-    }
 }
