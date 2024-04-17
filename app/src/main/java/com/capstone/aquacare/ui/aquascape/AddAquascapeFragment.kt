@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.databinding.FragmentAddAquascapeBinding
 import com.google.firebase.database.*
@@ -62,7 +64,7 @@ class AddAquascapeFragment : Fragment() {
         }
 
         val myCalendar = Calendar.getInstance()
-        val datePicker = DatePickerDialog.OnDateSetListener { datePicker, year, month, dayOfMonth ->
+        val datePicker = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             myCalendar.set(Calendar.YEAR, year)
             myCalendar.set(Calendar.MONTH, month)
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -127,8 +129,7 @@ class AddAquascapeFragment : Fragment() {
             aquascapeReference.child(newAquascapeId).setValue(newAquascapeData)
                 .addOnSuccessListener {
                     Toast.makeText(activity, "Success to Add Aquascape", Toast.LENGTH_SHORT).show()
-                    val fragmentManager = parentFragmentManager
-                    fragmentManager.popBackStack()
+                    findNavController().navigate(R.id.action_addAquascapeFragment_to_homeFragment)
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(activity, "Failed to add Aquascape: ${e.message}", Toast.LENGTH_SHORT).show()

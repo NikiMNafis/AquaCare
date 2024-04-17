@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.capstone.aquacare.R
 import com.capstone.aquacare.data.UserData
 import com.capstone.aquacare.databinding.FragmentEditProfileBinding
 import com.capstone.aquacare.ui.auth.AuthActivity
@@ -97,8 +99,7 @@ class EditProfileFragment : Fragment() {
                                     saveLoginSession(userId, name, email, photo, userType)
 
                                     Toast.makeText(activity, "Success to Edit User Profile", Toast.LENGTH_SHORT).show()
-                                    val fragmentManager = parentFragmentManager
-                                    fragmentManager.popBackStack()
+                                    findNavController().navigate(R.id.action_editProfileFragment_to_settingFragment)
                                 }
                                 .addOnFailureListener { e ->
                                     Toast.makeText(activity, "Failed to Edit User Profile: ${e.message}", Toast.LENGTH_SHORT).show()

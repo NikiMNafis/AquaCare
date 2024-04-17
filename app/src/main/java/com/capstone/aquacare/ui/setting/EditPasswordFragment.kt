@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.capstone.aquacare.R
 import com.capstone.aquacare.data.UserData
 import com.capstone.aquacare.databinding.FragmentEditPasswordBinding
 import com.google.firebase.database.*
@@ -76,8 +78,7 @@ class EditPasswordFragment : Fragment() {
                                     .addOnSuccessListener {
 
                                         Toast.makeText(activity, "Success to Edit Password", Toast.LENGTH_SHORT).show()
-                                        val fragmentManager = parentFragmentManager
-                                        fragmentManager.popBackStack()
+                                        findNavController().navigate(R.id.action_editPasswordFragment_to_settingFragment)
                                     }
                                     .addOnFailureListener { e ->
                                         Toast.makeText(activity, "Failed to Edit Password: ${e.message}", Toast.LENGTH_SHORT).show()

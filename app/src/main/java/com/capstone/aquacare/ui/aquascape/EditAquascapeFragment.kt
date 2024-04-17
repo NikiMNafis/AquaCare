@@ -10,10 +10,10 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.databinding.FragmentEditAquascapeBinding
-import com.capstone.aquacare.ui.home.HomeFragment
 import com.google.firebase.database.*
 
 class EditAquascapeFragment : Fragment() {
@@ -104,18 +104,18 @@ class EditAquascapeFragment : Fragment() {
                         val aquascapeData = snapshot.getValue(AquascapeData::class.java)
                         if (aquascapeData != null) {
 
-                            val status = aquascapeData.status.toString()
-                            val lastCheckDate = aquascapeData.lastCheckDate.toString()
                             val createDate = aquascapeData.createDate.toString()
 
-                            val updateData = mapOf("id" to aquascapeId, "name" to name, "style" to style, "createDate" to createDate, "status" to status, "lastCheckDate" to lastCheckDate)
+                            val updateData = mapOf("name" to name, "style" to style, "createDate" to createDate)
 
                             aquascapeReference.child(aquascapeId).updateChildren(updateData)
                                 .addOnSuccessListener {
 
                                     Toast.makeText(activity, "Success to Edit Aquascape", Toast.LENGTH_SHORT).show()
-                                    val fragmentManager = parentFragmentManager
-                                    fragmentManager.popBackStack()
+                                    val bundle = Bundle().apply {
+                                        putString("aquascapeId", aquascapeId)
+                                    }
+                                    findNavController().navigate(R.id.action_editAquascapeFragment_to_historyFragment, bundle)
                                 }
                                 .addOnFailureListener { e ->
                                     Toast.makeText(activity, "Failed to Edit Aquascape: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -142,16 +142,7 @@ class EditAquascapeFragment : Fragment() {
         val aquascapeReference = databaseReference.child(userId).child("aquascapes")
 
         aquascapeReference.child(aquascapeId).removeValue().addOnSuccessListener {
-            val homeFragment = HomeFragment()
-            val fragmentManager = parentFragmentManager
-            fragmentManager.beginTransaction().apply {
-                replace(
-                    R.id.main_frame_container,
-                    homeFragment,
-                    HomeFragment::class.java.simpleName
-                )
-                commit()
-            }
+            findNavController().navigate(R.id.action_editAquascapeFragment_to_homeFragment)
         }
 
     }

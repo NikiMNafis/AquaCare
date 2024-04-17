@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.UserData
@@ -82,42 +83,15 @@ class SettingFragment : Fragment() {
         val fragmentManager = parentFragmentManager
 
         binding.btnEditProfile.setOnClickListener {
-            val editProfileFragment = EditProfileFragment()
-            fragmentManager.beginTransaction().apply {
-                replace(
-                    R.id.main_frame_container,
-                    editProfileFragment,
-                    EditProfileFragment::class.java.simpleName
-                )
-                addToBackStack(null)
-                commit()
-            }
+            findNavController().navigate(R.id.action_settingFragment_to_editProfileFragment)
         }
 
         binding.btnChangePassword.setOnClickListener {
-            val editPasswordFragment = EditPasswordFragment()
-            fragmentManager.beginTransaction().apply {
-                replace(
-                    R.id.main_frame_container,
-                    editPasswordFragment,
-                    EditPasswordFragment::class.java.simpleName
-                )
-                addToBackStack(null)
-                commit()
-            }
+            findNavController().navigate(R.id.action_settingFragment_to_editPasswordFragment)
         }
 
         binding.btnAquascapeInfo.setOnClickListener {
-            val listAquascapeInfoFragment = AquascapeInfoFragment()
-            fragmentManager.beginTransaction().apply {
-                replace(
-                    R.id.main_frame_container,
-                    listAquascapeInfoFragment,
-                    AquascapeInfoFragment::class.java.simpleName
-                )
-                addToBackStack(null)
-                commit()
-            }
+            findNavController().navigate(R.id.action_settingFragment_to_aquascapeInfoFragment)
         }
 
         binding.btnLogOut.setOnClickListener {

@@ -13,9 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.databinding.FragmentHomeBinding
-import com.capstone.aquacare.ui.aquascape.AddAquascapeFragment
-import com.capstone.aquacare.ui.identification.IdentificationHistoryFragment
-import com.capstone.aquacare.ui.setting.SettingFragment
 import com.google.firebase.database.*
 
 class HomeFragment : Fragment() {
