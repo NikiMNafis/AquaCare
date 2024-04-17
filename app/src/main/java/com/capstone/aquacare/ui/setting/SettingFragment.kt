@@ -91,7 +91,7 @@ class SettingFragment : Fragment() {
         }
 
         binding.btnAquascapeInfo.setOnClickListener {
-            findNavController().navigate(R.id.action_settingFragment_to_aquascapeInfoFragment)
+            findNavController().navigate(R.id.action_settingFragment_to_listAquascapeInfoFragment)
         }
 
         binding.btnLogOut.setOnClickListener {

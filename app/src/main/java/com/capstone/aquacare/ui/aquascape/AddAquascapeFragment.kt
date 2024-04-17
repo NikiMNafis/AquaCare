@@ -139,9 +139,4 @@ class AddAquascapeFragment : Fragment() {
         }
     }
 
-
-
-    companion object {
-
-    }
 }

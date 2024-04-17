@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_addAquascapeFragment"
             app:destination="@id/addAquascapeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_AquascapeInfoFragment"
+            app:destination="@id/AquascapeInfoFragment" />
     </fragment>
 
     <fragment
@@ -104,8 +107,8 @@
             android:id="@+id/action_settingFragment_to_editPasswordFragment"
             app:destination="@id/editPasswordFragment" />
         <action
-            android:id="@+id/action_settingFragment_to_aquascapeInfoFragment"
-            app:destination="@id/aquascapeInfoFragment" />
+            android:id="@+id/action_settingFragment_to_listAquascapeInfoFragment"
+            app:destination="@id/listAquascapeInfoFragment" />
     </fragment>
 
     <fragment
@@ -135,16 +138,26 @@
     </fragment>
 
     <fragment
-        android:id="@+id/aquascapeInfoFragment"
-        android:name="com.capstone.aquacare.ui.setting.AquascapeInfoFragment"
-        android:label="AquascapeInfoFragment"
-        tools:layout="@layout/fragment_aquascape_info">
+        android:id="@+id/listAquascapeInfoFragment"
+        android:name="com.capstone.aquacare.ui.setting.ListAquascapeInfoFragment"
+        android:label="ListAquascapeInfoFragment"
+        tools:layout="@layout/fragment_list_aquascape_info">
         <action
-            android:id="@+id/action_aquascapeInfoFragment_to_addAquascapeInfoFragment"
+            android:id="@+id/action_listAquascapeInfoFragment_to_addAquascapeInfoFragment"
             app:destination="@id/addAquascapeInfoFragment" />
         <action
-            android:id="@+id/action_aquascapeInfoFragment_to_editAquascapeInfoFragment"
+            android:id="@+id/action_listAquascapeInfoFragment_to_editAquascapeInfoFragment"
             app:destination="@id/editAquascapeInfoFragment" />
+        <action
+            android:id="@+id/action_listAquascapeInfoFragment_to_AquascapeInfoFragment"
+            app:destination="@id/AquascapeInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AquascapeInfoFragment"
+        android:name="com.capstone.aquacare.ui.aquascape.AquascapeInfoFragment"
+        android:label="AquascapeInfoFragment"
+        tools:layout="@layout/fragment_aquascape_info">
     </fragment>
 
     <fragment
@@ -154,8 +167,8 @@
         tools:layout="@layout/fragment_add_aquascape_info">
         <action
             android:id="@+id/action_addAquascapeInfoFragment_to_aquascapeInfoFragment"
-            app:destination="@id/aquascapeInfoFragment"
-            app:popUpTo="@+id/aquascapeInfoFragment"
+            app:destination="@id/listAquascapeInfoFragment"
+            app:popUpTo="@+id/listAquascapeInfoFragment"
             app:launchSingleTop="true"
             app:popUpToInclusive="true"/>
     </fragment>
@@ -167,8 +180,8 @@
         tools:layout="@layout/fragment_edit_aquascape_info">
         <action
             android:id="@+id/action_editAquascapeInfoFragment_to_aquascapeInfoFragment"
-            app:destination="@id/aquascapeInfoFragment"
-            app:popUpTo="@+id/aquascapeInfoFragment"
+            app:destination="@id/listAquascapeInfoFragment"
+            app:popUpTo="@+id/listAquascapeInfoFragment"
             app:launchSingleTop="true"
             app:popUpToInclusive="true"/>
     </fragment>
