@@ -25,7 +25,6 @@ class AddAquascapeInfoFragment : Fragment() {
 
         firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = firebaseDatabase.reference.child("aquascape_info")
-
     }
 
     override fun onCreateView(

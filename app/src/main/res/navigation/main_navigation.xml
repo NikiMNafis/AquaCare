@@ -146,18 +146,18 @@
             android:id="@+id/action_listAquascapeInfoFragment_to_addAquascapeInfoFragment"
             app:destination="@id/addAquascapeInfoFragment" />
         <action
-            android:id="@+id/action_listAquascapeInfoFragment_to_editAquascapeInfoFragment"
-            app:destination="@id/editAquascapeInfoFragment" />
-        <action
             android:id="@+id/action_listAquascapeInfoFragment_to_AquascapeInfoFragment"
             app:destination="@id/AquascapeInfoFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/AquascapeInfoFragment"
-        android:name="com.capstone.aquacare.ui.aquascape.AquascapeInfoFragment"
+        android:name="com.capstone.aquacare.ui.setting.AquascapeInfoFragment"
         android:label="AquascapeInfoFragment"
         tools:layout="@layout/fragment_aquascape_info">
+        <action
+            android:id="@+id/action_AquascapeInfoFragment_to_editAquascapeInfoFragment"
+            app:destination="@id/editAquascapeInfoFragment" />
     </fragment>
 
     <fragment
