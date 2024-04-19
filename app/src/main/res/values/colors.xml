@@ -14,4 +14,6 @@
     <color name="blue_button">#0096C7</color>
     <color name="red_google">#CA3A3A</color>
     <color name="blue_setting">#00B4D8</color>
+
+    <color name="transparent">#00FFFFFF</color>
 </resources>

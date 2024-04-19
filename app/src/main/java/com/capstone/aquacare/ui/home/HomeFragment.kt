@@ -66,7 +66,7 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
         }
 
-        binding.btnAddAquascape.visibility = View.GONE
+//        binding.btnAddAquascape.visibility = View.GONE
 //        binding.btnAddAquascape.setOnClickListener {
 //            val addAquascapeFragment = AddAquascapeFragment()
 //            val fragmentManager = parentFragmentManager
@@ -136,7 +136,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showAquascape() {
-        val btnAddAquascape = AquascapeData("AddAquascape", "", "Add", "", "Add Aquascape")
+        val btnAddAquascape = AquascapeData("AddAquascape", "", "Add", "", "")
         list.add(btnAddAquascape)
         val adapter = AquascapeAdapter(list)
         binding.rvListAquascape.adapter = adapter

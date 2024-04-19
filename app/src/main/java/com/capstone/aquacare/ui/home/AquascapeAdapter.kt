@@ -1,6 +1,7 @@
 package com.capstone.aquacare.ui.home
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.aquacare.data.AquascapeData
@@ -29,6 +30,12 @@ class AquascapeAdapter (private val list: List<AquascapeData>) : RecyclerView.Ad
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentAquascape = list[position]
+
+        if (currentAquascape.id != "AddAquascape") {
+            holder.binding.ivPlus.visibility = View.GONE
+            holder.binding.tvAddAquascape.visibility = View.GONE
+        }
+
         holder.binding.tvAquascapeName.text = currentAquascape.name
         holder.binding.tvStatusAquascape.text = currentAquascape.status
         holder.binding.tvDate.text = currentAquascape.lastCheckDate

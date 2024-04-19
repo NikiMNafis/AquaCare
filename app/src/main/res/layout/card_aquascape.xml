@@ -5,50 +5,120 @@
     android:layout_height="75dp"
     android:layout_marginEnd="5dp"
     app:cardBackgroundColor="@color/white"
-    app:cardElevation="10dp"
     app:cardCornerRadius="5dp">
 
-        <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_plus"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
+            android:paddingTop="5dp"
+            android:src="@drawable/ic_plus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_add_aquascape"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true">
+            android:text="@string/add_aquascape"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_plus" />
 
-            <TextView
-                android:id="@+id/tvAquascapeName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/aquascape_name"
-                android:textAlignment="center"
-                android:textStyle="normal"
-                android:textSize="14sp"
-                android:textColor="@color/black"/>
 
-            <TextView
-                android:id="@+id/tvStatusAquascape"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/status"
-                android:textAlignment="center"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/tvAquascapeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/aquascape_name"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="2dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textAlignment="center"
-                android:text="@string/date"/>
+        <TextView
+            android:id="@+id/tvStatusAquascape"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/status"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAquascapeName" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/date"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvStatusAquascape" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentEnd="true">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvAquascapeName"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:text="@string/aquascape_name"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textStyle="normal"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textColor="@color/black"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvStatusAquascape"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="4dp"-->
+<!--            android:text="@string/status"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textColor="@color/black"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvDate"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="4dp"-->
+<!--            android:layout_marginBottom="2dp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textAlignment="center"-->
+<!--            android:text="@string/date"/>-->
+
+<!--    </LinearLayout>-->
 
 </androidx.cardview.widget.CardView>
