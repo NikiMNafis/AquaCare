@@ -66,20 +66,9 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
         }
 
-//        binding.btnAddAquascape.visibility = View.GONE
-//        binding.btnAddAquascape.setOnClickListener {
-//            val addAquascapeFragment = AddAquascapeFragment()
-//            val fragmentManager = parentFragmentManager
-//            fragmentManager.beginTransaction().apply {
-//                replace(
-//                    R.id.main_frame_container,
-//                    addAquascapeFragment,
-//                    AddAquascapeFragment::class.java.simpleName
-//                )
-//                addToBackStack(null)
-//                commit()
-//            }
-//        }
+        binding.tvAdd.setOnClickListener{
+            findNavController().navigate(R.id.action_homeFragment_to_addAquascapeFragment)
+        }
 
         getAquascapeData(userId)
         getAquascapeInfoData()
@@ -136,8 +125,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun showAquascape() {
-        val btnAddAquascape = AquascapeData("AddAquascape", "", "Add", "", "")
-        list.add(btnAddAquascape)
         val adapter = AquascapeAdapter(list)
         binding.rvListAquascape.adapter = adapter
         Log.d("DataList", "Jumlah data dalam list aquascape: ${list.size}")
@@ -147,14 +134,11 @@ class HomeFragment : Fragment() {
 
                 val aquascapeId = data.id
 
-                if (aquascapeId == "AddAquascape") {
-                    findNavController().navigate(R.id.action_homeFragment_to_addAquascapeFragment)
-                } else {
-                    val bundle = Bundle().apply {
-                        putString("aquascapeId", aquascapeId)
-                    }
+                val bundle = Bundle().apply {
+                    putString("aquascapeId", aquascapeId)
+                }
 
-                    findNavController().navigate(R.id.action_homeFragment_to_historyFragment, bundle)
+                findNavController().navigate(R.id.action_homeFragment_to_historyFragment, bundle)
 
 //                    val identificationHistoryFragment = IdentificationHistoryFragment()
 //                    identificationHistoryFragment.arguments = bundle
@@ -168,7 +152,6 @@ class HomeFragment : Fragment() {
 //                        addToBackStack(null)
 //                        commit()
 //                    }
-                }
             }
         })
     }

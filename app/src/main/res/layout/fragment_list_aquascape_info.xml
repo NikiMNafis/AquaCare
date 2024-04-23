@@ -7,45 +7,31 @@
     tools:context=".ui.setting.ListAquascapeInfoFragment"
     android:background="@color/background">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_aquascape_info"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:background="@color/white"
-        android:elevation="10dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/aquascape_info"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/aquascape_info"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_add_aquascape_info"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/bg_border_rounded_2"
-            android:elevation="10dp"
-            android:padding="3dp"
-            android:src="@drawable/ic_plus"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_add_aquascape_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/add"
+        android:textColor="@color/blue_text"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_aquascape_info"
@@ -53,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:padding="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_aquascape_info" />
 
     <ProgressBar
         android:id="@+id/progressBar"

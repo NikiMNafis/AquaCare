@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeInfoData
-import com.capstone.aquacare.data.UserData
 import com.capstone.aquacare.databinding.FragmentEditAquascapeInfoBinding
 import com.google.firebase.database.*
 
@@ -32,7 +31,7 @@ class EditAquascapeInfoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentEditAquascapeInfoBinding.inflate(inflater, container, false)
         return binding.root

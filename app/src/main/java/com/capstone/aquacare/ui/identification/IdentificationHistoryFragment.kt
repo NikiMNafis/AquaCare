@@ -63,12 +63,13 @@ class IdentificationHistoryFragment : Fragment() {
         binding.btnAddIdentification.setOnClickListener {
             val bundle = Bundle().apply {
                 putString("aquascapeId", aquascapeId)
+                putString("aquascapeName", aquascapeName)
                 putString("style", style)
             }
             findNavController().navigate(R.id.action_historyFragment_to_identificationFragment, bundle)
         }
 
-        binding.btnEdit.setOnClickListener {
+        binding.tvEdit.setOnClickListener {
             val bundleEdit = Bundle().apply {
                 putString("aquascapeId", aquascapeId)
                 putString("aquascapeName", aquascapeName)

@@ -35,7 +35,7 @@ class AquascapeInfoFragment : Fragment() {
         val edit = arguments?.getString("edit").toString()
 
         if (edit == "false") {
-            binding.editInfo.visibility = View.GONE
+            binding.tvEdit.visibility = View.GONE
         }
 
         binding.tvTitle.text = title
@@ -44,7 +44,7 @@ class AquascapeInfoFragment : Fragment() {
             .load(image)
             .into(binding.ivImage)
 
-        binding.ivEditAquascapeInfo.setOnClickListener {
+        binding.tvEdit.setOnClickListener {
             val bundle = Bundle().apply {
                 putString("infoId", infoId)
                 putString("title", title)

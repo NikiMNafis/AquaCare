@@ -48,7 +48,7 @@ class ListAquascapeInfoFragment : Fragment() {
         rvAquascapeInfo.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         rvAquascapeInfo.setHasFixedSize(true)
 
-        binding.ivAddAquascapeInfo.setOnClickListener {
+        binding.tvAddAquascapeInfo.setOnClickListener {
             findNavController().navigate(R.id.action_listAquascapeInfoFragment_to_addAquascapeInfoFragment)
         }
 

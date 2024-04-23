@@ -71,6 +71,11 @@ class SignUpFragment : Fragment() {
             return false
         }
 
+        if (!validEmail()) {
+            Toast.makeText(activity, "Invalid Email", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(activity, "Enter Password", Toast.LENGTH_SHORT).show()
             return false
@@ -161,18 +166,12 @@ class SignUpFragment : Fragment() {
         })
     }
 
-    private fun validEmail(): String? {
+    private fun validEmail(): Boolean {
         val email = binding.edtEmail.text.toString()
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
         {
-            return "Invalid Email Address"
+            return false
         }
-        return null
-    }
-
-    companion object {
-
-        private const val TAG = "AuthActivity"
-
+        return true
     }
 }

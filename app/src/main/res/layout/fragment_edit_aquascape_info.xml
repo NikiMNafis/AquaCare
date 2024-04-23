@@ -14,7 +14,7 @@
         android:layout_marginTop="15dp"
         android:text="@string/edit_aquascape_info"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +28,7 @@
         android:layout_marginTop="5dp"
         android:text="@string/title"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -54,7 +54,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/image"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_title" />
 
@@ -92,7 +92,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/body"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_image" />
 

@@ -14,7 +14,6 @@ import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.IdentificationData
 import com.capstone.aquacare.databinding.FragmentIdentificationBinding
 import com.capstone.aquacare.fuzzy.FuzzyDutchStyle
-import com.capstone.aquacare.ui.aquascape.EditAquascapeFragment
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,6 +27,7 @@ class IdentificationFragment : Fragment() {
     private lateinit var databaseReference: DatabaseReference
 
     private var aquascapeId: String? = null
+    private var aquascapeName: String? = null
     private var style: String? = null
     private var result: String? = null
     private var currentDate: String? = null
@@ -51,7 +51,10 @@ class IdentificationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         aquascapeId = arguments?.getString("aquascapeId").toString()
+        aquascapeName = arguments?.getString("aquascapeName").toString()
         style = arguments?.getString("style").toString()
+
+        binding.tvName.text = aquascapeName
 
         binding.btnIdentified.setOnClickListener {
             if (checkForm()) {
@@ -146,7 +149,7 @@ class IdentificationFragment : Fragment() {
                     }
                     findNavController().navigate(R.id.action_identificationFragment_to_resultFragment, bundle)
 
-                    Toast.makeText(activity, "Success to Identification Aquascape", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(activity, "Success to Identification Aquascape", Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(activity, "Failed to Identification Aquascape: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -171,10 +174,10 @@ class IdentificationFragment : Fragment() {
 
                             aquascapeReference.child(aquascapeId).updateChildren(updateData)
                                 .addOnSuccessListener {
-
+                                    Toast.makeText(activity, "Success to Identification Aquascape", Toast.LENGTH_SHORT).show()
                                 }
                                 .addOnFailureListener { e ->
-
+                                    Toast.makeText(activity, "Failed to Identification Aquascape: ${e.message}", Toast.LENGTH_SHORT).show()
                                 }
 
                             Log.d(TAG, "Aquascape ID: ${snapshot.key}, Name: ${aquascapeData.name}, Style: ${aquascapeData.style}, Date: ${aquascapeData.createDate}")

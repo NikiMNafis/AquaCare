@@ -80,8 +80,6 @@ class SettingFragment : Fragment() {
 
         getUpdateData(userId)
 
-        val fragmentManager = parentFragmentManager
-
         binding.btnEditProfile.setOnClickListener {
             findNavController().navigate(R.id.action_settingFragment_to_editProfileFragment)
         }

@@ -5,11 +5,15 @@
     android:layout_height="75dp"
     android:layout_marginEnd="5dp"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="5dp">
+    android:backgroundTint="@color/white"
+    android:backgroundTintMode="screen"
+    app:cardCornerRadius="5dp"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_border_rounded_3">
 
         <ImageView
             android:id="@+id/iv_plus"
@@ -53,7 +57,7 @@
             android:id="@+id/tvStatusAquascape"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="5dp"
             android:text="@string/status"
             android:textAlignment="center"
             android:textColor="@color/black"
@@ -71,7 +75,7 @@
             android:text="@string/date"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvStatusAquascape" />

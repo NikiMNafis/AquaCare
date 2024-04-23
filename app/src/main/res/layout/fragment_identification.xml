@@ -8,27 +8,18 @@
     tools:context=".ui.identification.IdentificationFragment"
     android:background="@color/background">
 
-    <LinearLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="15dp"
-        android:background="@color/white"
-        android:elevation="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/app_name"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
@@ -39,9 +30,9 @@
         android:text="@string/enter_parameter_values"
         android:textColor="@color/black"
         android:textSize="14sp"
-        android:textStyle="bold"
+        android:textStyle="normal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -53,7 +44,6 @@
         android:layout_marginEnd="20dp"
         android:padding="5dp"
         android:background="@drawable/bg_border_rounded"
-        android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
@@ -91,7 +81,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@color/black"
+            android:background="@color/gray_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edt_temperature" />
@@ -129,7 +119,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@color/black"
+            android:background="@color/gray_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edt_ph" />
@@ -167,7 +157,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@color/black"
+            android:background="@color/gray_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edt_ammonia" />
@@ -205,7 +195,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@color/black"
+            android:background="@color/gray_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edt_kh" />
