@@ -15,8 +15,9 @@
         android:alpha="1"
         android:text="@string/sign_up"
         android:textColor="@color/black"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:textStyle="bold"
+        android:fontFamily="@font/poppins_semi_bold"
         android:layout_marginTop="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +50,8 @@
             android:hint="@string/name"
             android:inputType="textEmailAddress"
             android:lines="1"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_regular"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +82,8 @@
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:lines="1"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_regular"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,7 +117,8 @@
             android:inputType="textPassword"
             android:lines="0"
             android:textColor="@color/black"
-            android:maxLength="16" />
+            android:maxLength="16"
+            android:fontFamily="@font/poppins_regular"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,7 +152,8 @@
             android:inputType="textPassword"
             android:lines="0"
             android:textColor="@color/black"
-            android:maxLength="16" />
+            android:maxLength="16"
+            android:fontFamily="@font/poppins_regular"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,6 +170,7 @@
         android:textColor="@color/white"
         android:textSize="15sp"
         app:cornerRadius="15dp"
+        android:fontFamily="@font/poppins_semi_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordConfirmContainer" />

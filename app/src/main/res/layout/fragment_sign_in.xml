@@ -17,8 +17,8 @@
         android:alpha="1"
         android:text="@string/sign_in"
         android:textColor="@color/black"
-        android:textSize="22sp"
-        android:textStyle="bold"
+        android:textSize="20sp"
+        android:fontFamily="@font/poppins_semi_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +50,8 @@
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:lines="1"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_regular"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,7 +86,8 @@
             android:inputType="textPassword"
             android:lines="0"
             android:textColor="@color/black"
-            android:maxLength="16" />
+            android:maxLength="16"
+            android:fontFamily="@font/poppins_regular"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,11 +95,12 @@
         android:id="@+id/tv_forgot_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:alpha="1"
         android:text="@string/forgot_password"
         android:textColor="@color/black"
         android:textSize="12sp"
-        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins_regular"
         app:layout_constraintEnd_toEndOf="@+id/passwordContainer"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintTop_toBottomOf="@+id/passwordContainer"
@@ -116,6 +119,7 @@
         android:textColor="@color/white"
         android:textSize="15sp"
         app:cornerRadius="15dp"
+        android:fontFamily="@font/poppins_semi_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_forgot_password" />
@@ -129,6 +133,7 @@
         android:text="@string/sign_in_with"
         android:textColor="@color/black"
         android:textSize="12sp"
+        android:fontFamily="@font/poppins_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_login"
@@ -146,6 +151,7 @@
         android:textColor="@color/white"
         app:backgroundTint="@color/red_google"
         app:cornerRadius="15dp"
+        android:fontFamily="@font/poppins_semi_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_continue"
@@ -167,7 +173,8 @@
             android:alpha="1"
             android:text="@string/dont_have_account"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:id="@+id/tv_signup"
@@ -179,7 +186,8 @@
             android:text="@string/register"
             android:textColor="@color/blue_button"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_regular"/>
 
     </LinearLayout>
 

@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.capstone.aquacare.R
 import com.capstone.aquacare.databinding.FragmentIdentificationResultBinding
 import com.capstone.aquacare.fuzzy.FuzzyDutchStyle
+import com.capstone.aquacare.fuzzy.FuzzyNaturalStyle
 
 class IdentificationResultFragment : Fragment() {
 
@@ -88,9 +89,17 @@ class IdentificationResultFragment : Fragment() {
         val gh = gh?.toDouble()
 
         val fuzzyDutchStyle = FuzzyDutchStyle()
+        val fuzzyNaturalStyle = FuzzyNaturalStyle()
 
         if (style == "Dutch Style") {
             val checkResult = fuzzyDutchStyle.checkParameter(temperature!!, ph!!, ammonia!!, kh!!, gh!!)
+            binding.tvTemperature.text = "${checkResult.temperature} - $temperature"
+            binding.tvPh.text = "${checkResult.ph} - $ph"
+            binding.tvAmmonia.text = "${checkResult.ammonia} - $ammonia"
+            binding.tvKh.text = "${checkResult.kh} - $kh"
+            binding.tvGh.text = "${checkResult.gh} - $gh"
+        } else {
+            val checkResult = fuzzyNaturalStyle.checkParameter(temperature!!, ph!!, ammonia!!, kh!!, gh!!)
             binding.tvTemperature.text = "${checkResult.temperature} - $temperature"
             binding.tvPh.text = "${checkResult.ph} - $ph"
             binding.tvAmmonia.text = "${checkResult.ammonia} - $ammonia"

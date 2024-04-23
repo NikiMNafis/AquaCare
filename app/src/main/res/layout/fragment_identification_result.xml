@@ -28,7 +28,7 @@
             android:text="@string/identification_results"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/poppins_semi_bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,6 +42,7 @@
             android:text="@string/water_quality"
             android:textColor="@color/black"
             android:textSize="16sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -54,7 +55,7 @@
             android:text="@string/result"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/poppins_semi_bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -79,6 +80,7 @@
             android:text="@string/parameter_details"
             android:textColor="@color/black"
             android:textSize="16sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/line1" />
 
@@ -91,6 +93,7 @@
             android:text="@string/temperature"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail" />
 
@@ -103,6 +106,7 @@
             android:text="@string/temperature"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail" />
 
@@ -114,6 +118,7 @@
             android:text="@string/ph"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_temperature" />
 
@@ -125,6 +130,7 @@
             android:text="@string/ph"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_temperature" />
 
@@ -136,6 +142,7 @@
             android:text="@string/ammonia"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_ph" />
 
@@ -147,6 +154,7 @@
             android:text="@string/ammonia"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_ph" />
 
@@ -158,6 +166,7 @@
             android:text="@string/kh"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_ammonia" />
 
@@ -169,6 +178,7 @@
             android:text="@string/kh"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_ammonia" />
 
@@ -180,6 +190,7 @@
             android:text="@string/gh"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_kh" />
 
@@ -191,6 +202,7 @@
             android:text="@string/gh"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_kh" />
 
@@ -215,6 +227,7 @@
             android:text="@string/tips"
             android:textColor="@color/black"
             android:textSize="16sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/line2" />
 
@@ -228,6 +241,7 @@
             android:text="@string/tips"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_tips" />
 
@@ -252,6 +266,7 @@
             android:text="@string/date"
             android:textColor="@color/black"
             android:textSize="12sp"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/line3" />

@@ -23,6 +23,7 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:fontFamily="@font/poppins_bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +49,8 @@
         android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:fontFamily="@font/poppins_semi_bold"/>
 
 
     <LinearLayout
@@ -75,6 +77,7 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold"
+                    android:fontFamily="@font/poppins_semi_bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -86,6 +89,7 @@
                     android:textColor="@color/blue_text"
                     android:textSize="12sp"
                     android:textStyle="normal"
+                    android:fontFamily="@font/poppins_regular"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -117,6 +121,7 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/poppins_semi_bold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

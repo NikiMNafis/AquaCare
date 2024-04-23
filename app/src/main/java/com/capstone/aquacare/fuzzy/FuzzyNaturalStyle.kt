@@ -2,7 +2,7 @@ package com.capstone.aquacare.fuzzy
 
 import com.capstone.aquacare.data.StatusParameter
 
-class FuzzyDutchStyle {
+class FuzzyNaturalStyle {
 
     fun calculateWaterQuality(temperature: Double, ph: Double, ammonia: Double, kh: Double, gh: Double): String {
 
@@ -326,25 +326,25 @@ class FuzzyDutchStyle {
 
     private fun fungsiKeanggotaanKhBaik(kh: Double): Double {
         return when {
-            kh <= 1 -> 1.0
-            kh > 1 && kh < 2 -> (2 - kh) / (2 - 1)
+            kh <= 6 -> 1.0
+            kh > 6 && kh < 8 -> (8 - kh) / (8 - 6)
             else -> 0.0
         }
     }
 
     private fun fungsiKeanggotaanKhSedang(kh: Double): Double {
         return when {
-            kh in 2.0..4.0 -> 1.0
-            kh > 1 && kh < 2 -> (kh - 1) / (2 - 1)
-            kh > 4 && kh < 6 -> (6 - kh) / (6 - 4)
+            kh in 8.0..10.0 -> 1.0
+            kh > 6 && kh < 8 -> (kh - 6) / (8 - 6)
+            kh > 10 && kh < 12 -> (12 - kh) / (12 - 10)
             else -> 0.0
         }
     }
 
     private fun fungsiKeanggotaanKhBuruk(kh: Double): Double {
         return when {
-            kh >= 6 -> 1.0
-            kh > 4 && kh < 6 -> (kh - 4) / (6 - 4)
+            kh >= 12 -> 1.0
+            kh > 10 && kh < 12 -> (kh - 10) / (12 - 10)
             else -> 0.0
         }
     }

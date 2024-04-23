@@ -14,6 +14,7 @@ import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.IdentificationData
 import com.capstone.aquacare.databinding.FragmentIdentificationBinding
 import com.capstone.aquacare.fuzzy.FuzzyDutchStyle
+import com.capstone.aquacare.fuzzy.FuzzyNaturalStyle
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -111,9 +112,12 @@ class IdentificationFragment : Fragment() {
         val gh = binding.edtGh.text.toString().toDoubleOrNull() ?: 0.0
 
         val fuzzyDutchStyle = FuzzyDutchStyle()
+        val fuzzyNaturalStyle = FuzzyNaturalStyle()
 
-        if (style == "Dutch Style") {
-            result = fuzzyDutchStyle.calculateWaterQuality(temperature, ph, ammonia, kh, gh)
+        result = if (style == "Dutch Style") {
+            fuzzyDutchStyle.calculateWaterQuality(temperature, ph, ammonia, kh, gh)
+        } else {
+            fuzzyNaturalStyle.calculateWaterQuality(temperature, ph, ammonia, kh, gh)
         }
 
         if (aquascapeId.isEmpty()) {
@@ -149,7 +153,7 @@ class IdentificationFragment : Fragment() {
                     }
                     findNavController().navigate(R.id.action_identificationFragment_to_resultFragment, bundle)
 
-//                    Toast.makeText(activity, "Success to Identification Aquascape", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Success to Identification Aquascape", Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(activity, "Failed to Identification Aquascape: ${e.message}", Toast.LENGTH_SHORT).show()
