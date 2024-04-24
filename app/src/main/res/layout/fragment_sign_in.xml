@@ -50,8 +50,7 @@
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:lines="1"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_regular"/>
+            android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,8 +85,7 @@
             android:inputType="textPassword"
             android:lines="0"
             android:textColor="@color/black"
-            android:maxLength="16"
-            android:fontFamily="@font/poppins_regular"/>
+            android:maxLength="16" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

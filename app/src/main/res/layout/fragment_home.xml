@@ -11,8 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:elevation="10dp">
+        android:layout_height="60dp">
 
         <TextView
             android:id="@+id/tv_app_name"
@@ -87,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/add"
                     android:textColor="@color/blue_text"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal"
                     android:fontFamily="@font/poppins_regular"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -131,7 +130,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="@color/transparent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
