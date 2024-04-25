@@ -5,4 +5,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.auth.AuthActivity"
-    android:id="@+id/auth_frame_container"/>
+    android:id="@+id/auth_frame_container"
+    android:background="@color/white"/>

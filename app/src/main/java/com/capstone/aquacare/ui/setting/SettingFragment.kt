@@ -92,6 +92,10 @@ class SettingFragment : Fragment() {
             findNavController().navigate(R.id.action_settingFragment_to_listAquascapeInfoFragment)
         }
 
+        binding.btnAboutApp.setOnClickListener {
+            findNavController().navigate(R.id.action_settingFragment_to_AboutFragment)
+        }
+
         binding.btnLogOut.setOnClickListener {
             Firebase.auth.signOut()
             deleteLoginSession(requireContext())
