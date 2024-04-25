@@ -74,12 +74,12 @@ class EditProfileFragment : Fragment() {
         val email = binding.edtEmail.text.toString()
 
         if (name.isEmpty()) {
-            binding.edtName.error = "Enter Name"
+            binding.edtName.error = getString(R.string.please_enter_name)
             return
         }
 
         if (email.isEmpty()) {
-            binding.edtEmail.error = "Enter Email"
+            binding.edtEmail.error = getString(R.string.please_enter_email)
             return
         }
 
@@ -98,7 +98,7 @@ class EditProfileFragment : Fragment() {
 
                                     saveLoginSession(userId, name, email, photo, userType)
 
-                                    Toast.makeText(activity, "Success to Edit User Profile", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(activity, getString(R.string.success_to_edit_profile), Toast.LENGTH_SHORT).show()
                                     findNavController().navigate(R.id.action_editProfileFragment_to_settingFragment)
                                 }
                                 .addOnFailureListener { e ->
@@ -132,7 +132,7 @@ class EditProfileFragment : Fragment() {
                 )
             )
             activity?.finish()
-            Toast.makeText(activity, "Success to Delete User Profile", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, getString(R.string.success_to_delete_account), Toast.LENGTH_SHORT).show()
         }.addOnFailureListener {
             Toast.makeText(activity, "Failed to Delete User Profile", Toast.LENGTH_SHORT).show()
         }

@@ -90,6 +90,7 @@ class ListAquascapeInfoFragment : Fragment() {
                 val infoId = data.id
                 val title = data.title
                 val image = data.image
+                val type = data.type
                 val body = data.body
                 val edit = "true"
 
@@ -97,6 +98,7 @@ class ListAquascapeInfoFragment : Fragment() {
                     putString("infoId", infoId)
                     putString("title", title)
                     putString("image", image)
+                    putString("type", type)
                     putString("body", body)
                     putString("edit", edit)
                 }

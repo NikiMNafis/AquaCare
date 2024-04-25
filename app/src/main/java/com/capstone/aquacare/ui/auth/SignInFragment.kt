@@ -93,14 +93,12 @@ class SignInFragment : Fragment() {
         val password = binding.edtPassword.text.toString()
 
         if (TextUtils.isEmpty(email)) {
-            binding.edtEmail.error = "Enter email"
-//            Toast.makeText(activity, "Enter Email", Toast.LENGTH_SHORT).show()
+            binding.edtEmail.error = getString(R.string.please_enter_email)
             return false
         }
 
         if (TextUtils.isEmpty(password)) {
-            binding.edtPassword.error = "Enter password"
-//            Toast.makeText(activity, "Enter Password", Toast.LENGTH_SHORT).show()
+            binding.edtPassword.error = getString(R.string.please_enter_password)
             return false
         }
 
@@ -156,15 +154,15 @@ class SignInFragment : Fragment() {
 
                             saveLoginSession(id, name, email, photo, userType)
 
-                            Toast.makeText(activity, "Login Success", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
                             startActivity(Intent(activity, MainActivity::class.java))
                             requireActivity().finish()
                         } else {
-                            Toast.makeText(activity, "Wrong Password", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, getString(R.string.wrong_password), Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
-                    Toast.makeText(activity, "Account not found", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.account_not_found), Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -227,7 +225,7 @@ class SignInFragment : Fragment() {
 
                                 saveLoginSession(id, name, email, photo, userType)
 
-                                Toast.makeText(activity, "Login Success", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(activity, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
                                 startActivity(Intent(activity, MainActivity::class.java))
                                 requireActivity().finish()
                             } else {
@@ -241,7 +239,7 @@ class SignInFragment : Fragment() {
 
                                     saveLoginSession(id, name, email, photo, userType)
 
-                                    Toast.makeText(activity, "Login Success", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(activity, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
                                     startActivity(Intent(activity, MainActivity::class.java))
                                     requireActivity().finish()
 
@@ -254,8 +252,6 @@ class SignInFragment : Fragment() {
                         }
                     })
 
-//                    startActivity(Intent(activity, MainActivity::class.java))
-//                    requireActivity().finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -286,8 +282,8 @@ class SignInFragment : Fragment() {
 
 
     companion object {
+
         private const val TAG = "AuthActivity"
         private const val RC_SIGN_IN = 9001
-
     }
 }

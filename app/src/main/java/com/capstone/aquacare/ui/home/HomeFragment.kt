@@ -88,7 +88,6 @@ class HomeFragment : Fragment() {
                         list.add(dataAquascape)
                     }
                 }
-
 //                binding.rvListAquascape.visibility = View.VISIBLE
 
                 showAquascape()

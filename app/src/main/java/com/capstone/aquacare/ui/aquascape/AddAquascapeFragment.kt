@@ -93,13 +93,12 @@ class AddAquascapeFragment : Fragment() {
         val date = binding.tvDateCreate.text.toString()
 
         if (TextUtils.isEmpty(email)) {
-            binding.edtName.error = "Please enter name"
-//            Toast.makeText(activity, "Please enter name", Toast.LENGTH_SHORT).show()
+            binding.edtName.error = getString(R.string.please_enter_name)
             return false
         }
 
-        if (date == "Select Date") {
-            Toast.makeText(activity, "Please enter date", Toast.LENGTH_SHORT).show()
+        if (date == "Select Date" || date == "Pilih Tanggal") {
+            Toast.makeText(activity, getString(R.string.please_enter_date), Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -128,7 +127,7 @@ class AddAquascapeFragment : Fragment() {
             val newAquascapeData = AquascapeData(newAquascapeId, name, style, date, status, lastCheckDate)
             aquascapeReference.child(newAquascapeId).setValue(newAquascapeData)
                 .addOnSuccessListener {
-                    Toast.makeText(activity, "Success to Add Aquascape", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.success_to_add_aquascape), Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_addAquascapeFragment_to_homeFragment)
                 }
                 .addOnFailureListener { e ->

@@ -63,4 +63,35 @@
     <string name="aquascape">Aquascape</string>
     <string name="article">Article</string>
     <string name="profile">Profile</string>
+
+
+    <string name="login_success">Login Success</string>
+    <string name="wrong_password">Wrong Password</string>
+    <string name="account_not_found">Account not found</string>
+    <string name="please_enter_name">Please enter name</string>
+    <string name="please_enter_email">Please enter email</string>
+    <string name="please_enter_password">Please enter password</string>
+    <string name="please_enter_confirm_password">Please enter confirm password</string>
+    <string name="please_enter_date">Please enter date</string>
+    <string name="account_created">Account Created</string>
+    <string name="account_already_exists">Account already Exists</string>
+
+    <string name="success_to_add_aquascape">Success to Add Aquascape</string>
+    <string name="success_to_edit_aquascape">Success to Edit Aquascape</string>
+
+    <string name="enter_temperature">Enter temperature</string>
+    <string name="enter_ph">Enter Ph</string>
+    <string name="enter_ammonia">Enter ammonia</string>
+    <string name="enter_kh">Enter KH</string>
+    <string name="enter_gh">Enter GH</string>
+
+    <string name="successful_identification">Successful identification of water quality</string>
+    <string name="success_to_add_aquascape_info">Success to Add Aquascape Info</string>
+    <string name="success_to_edit_aquascape_info">Success to Edit Aquascape Info</string>
+
+    <string name="success_to_edit_password">Success to Edit Password</string>
+    <string name="enter_new_password">Please enter new password</string>
+
+    <string name="success_to_edit_profile">Success to Edit User Profile</string>
+    <string name="success_to_delete_account">Success to Delete User Account</string>
 </resources>

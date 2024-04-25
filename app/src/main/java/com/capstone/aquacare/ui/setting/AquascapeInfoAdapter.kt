@@ -36,6 +36,7 @@ class AquascapeInfoAdapter (private val list: List<AquascapeInfoData>) : Recycle
                 .load(currentAquascapeInfo.image)
                 .into(holder.binding.ivImage)
         }
+        holder.binding.tvType.text = currentAquascapeInfo.type
 
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(list[holder.adapterPosition])

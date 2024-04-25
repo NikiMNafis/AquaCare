@@ -59,7 +59,7 @@ class EditPasswordFragment : Fragment() {
         val confirmPassword = binding.edtConfirmPassword.text.toString()
 
         if (password.isEmpty()) {
-            binding.edtNewPassword.error = "Enter New Password"
+            binding.edtNewPassword.error = getString(R.string.enter_new_password)
             return
         }
 
@@ -77,7 +77,7 @@ class EditPasswordFragment : Fragment() {
                                 databaseReference.child(userId).updateChildren(updateData)
                                     .addOnSuccessListener {
 
-                                        Toast.makeText(activity, "Success to Edit Password", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(activity, getString(R.string.success_to_edit_password), Toast.LENGTH_SHORT).show()
                                         findNavController().navigate(R.id.action_editPasswordFragment_to_settingFragment)
                                     }
                                     .addOnFailureListener { e ->
@@ -97,7 +97,7 @@ class EditPasswordFragment : Fragment() {
                 }
             })
         } else {
-            binding.edtConfirmPassword.error = "Wrong Confirm Password"
+            binding.edtConfirmPassword.error = getString(R.string.please_enter_confirm_password)
         }
 
     }

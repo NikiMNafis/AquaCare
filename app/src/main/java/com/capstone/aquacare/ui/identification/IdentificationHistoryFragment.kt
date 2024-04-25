@@ -133,7 +133,6 @@ class IdentificationHistoryFragment : Fragment() {
                         list.add(dataIdentification)
                     }
                 }
-
                 showIdentification()
             }
 

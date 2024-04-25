@@ -43,10 +43,12 @@ class EditAquascapeInfoFragment : Fragment() {
         val infoId = arguments?.getString("infoId").toString()
         val title = arguments?.getString("title").toString()
         val image = arguments?.getString("image").toString()
+        val type = arguments?.getString("type").toString()
         val body = arguments?.getString("body").toString()
 
         binding.edtTitle.setText(title)
         binding.edtImage.setText(image)
+        binding.edtType.setText(type)
         binding.edtBody.setText(body)
 
         binding.btnSave.setOnClickListener {
@@ -62,6 +64,7 @@ class EditAquascapeInfoFragment : Fragment() {
 
         val title = binding.edtTitle.text.toString()
         val image = binding.edtImage.text.toString()
+        val type = binding.edtType.text.toString()
         val body = binding.edtBody.text.toString()
 
         databaseReference.orderByChild("id").equalTo(id).addListenerForSingleValueEvent(object :
@@ -72,12 +75,12 @@ class EditAquascapeInfoFragment : Fragment() {
                         val infoData = snapshot.getValue(AquascapeInfoData::class.java)
                         if (infoData != null) {
 
-                            val updateData = mapOf("title" to title, "image" to image, "body" to body)
+                            val updateData = mapOf("title" to title, "image" to image, "type" to type, "body" to body)
 
                             databaseReference.child(id).updateChildren(updateData)
                                 .addOnSuccessListener {
 
-                                    Toast.makeText(activity, "Success to Edit Aquascape Info", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(activity, getString(R.string.success_to_edit_aquascape_info), Toast.LENGTH_SHORT).show()
                                     findNavController().navigate(R.id.action_editAquascapeInfoFragment_to_aquascapeInfoFragment)
                                 }
                                 .addOnFailureListener { e ->

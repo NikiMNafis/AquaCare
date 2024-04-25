@@ -111,7 +111,7 @@ class EditAquascapeFragment : Fragment() {
                             aquascapeReference.child(aquascapeId).updateChildren(updateData)
                                 .addOnSuccessListener {
 
-                                    Toast.makeText(activity, "Success to Edit Aquascape", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(activity, getString(R.string.success_to_edit_aquascape), Toast.LENGTH_SHORT).show()
                                     val bundle = Bundle().apply {
                                         putString("aquascapeId", aquascapeId)
                                     }

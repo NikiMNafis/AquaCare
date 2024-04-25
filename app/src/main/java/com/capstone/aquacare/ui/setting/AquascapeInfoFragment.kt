@@ -31,6 +31,7 @@ class AquascapeInfoFragment : Fragment() {
         val infoId = arguments?.getString("infoId").toString()
         val title = arguments?.getString("title").toString()
         val image = arguments?.getString("image").toString()
+        val type = arguments?.getString("type").toString()
         val body = arguments?.getString("body").toString()
         val edit = arguments?.getString("edit").toString()
 
@@ -40,15 +41,20 @@ class AquascapeInfoFragment : Fragment() {
 
         binding.tvTitle.text = title
         binding.tvBody.text = body
-        Glide.with(requireActivity())
-            .load(image)
-            .into(binding.ivImage)
+        if (!image.isNullOrEmpty()) {
+            Glide.with(requireActivity())
+                .load(image)
+                .into(binding.ivImage)
+        } else {
+            binding.ivImage.visibility = View.GONE
+        }
 
         binding.tvEdit.setOnClickListener {
             val bundle = Bundle().apply {
                 putString("infoId", infoId)
                 putString("title", title)
                 putString("image", image)
+                putString("type", type)
                 putString("body", body)
             }
             findNavController().navigate(R.id.action_AquascapeInfoFragment_to_editAquascapeInfoFragment, bundle)

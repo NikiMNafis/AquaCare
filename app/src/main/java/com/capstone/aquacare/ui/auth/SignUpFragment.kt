@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.capstone.aquacare.R
 import com.capstone.aquacare.data.UserData
 import com.capstone.aquacare.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -62,12 +63,12 @@ class SignUpFragment : Fragment() {
         val confirmPassword = binding.edtConfirmPassword.text.toString()
 
         if (TextUtils.isEmpty(name)) {
-            Toast.makeText(activity, "Enter Name", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, getString(R.string.please_enter_name), Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(activity, "Enter Email", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, getString(R.string.please_enter_email), Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -77,12 +78,12 @@ class SignUpFragment : Fragment() {
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(activity, "Enter Password", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, getString(R.string.please_enter_password), Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (TextUtils.isEmpty(confirmPassword)) {
-            Toast.makeText(activity, "Enter Confirm Password", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, getString(R.string.please_enter_confirm_password), Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -132,7 +133,7 @@ class SignUpFragment : Fragment() {
                     val userData = UserData(id, name, email, password, userType)
                     databaseReference.child(id!!).setValue(userData)
 
-                    Toast.makeText(activity, "Account Created", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.account_created), Toast.LENGTH_SHORT).show()
                     val fragmentManager = parentFragmentManager
                     fragmentManager.popBackStack()
                 } else {
@@ -145,18 +146,15 @@ class SignUpFragment : Fragment() {
                             val newDataUser = mapOf("name" to userName, "password" to password)
                             databaseReference.child(userId).updateChildren(newDataUser)
 
-                            Toast.makeText(activity, "Account Created", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, getString(R.string.account_created), Toast.LENGTH_SHORT).show()
                             val fragmentManager = parentFragmentManager
                             fragmentManager.popBackStack()
                         } else {
-                            Toast.makeText(activity, "Account already Exists", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, getString(R.string.account_already_exists), Toast.LENGTH_SHORT).show()
                             val fragmentManager = parentFragmentManager
                             fragmentManager.popBackStack()
                         }
                     }
-//                    Toast.makeText(activity, "Account already Exists", Toast.LENGTH_SHORT).show()
-//                    val fragmentManager = parentFragmentManager
-//                    fragmentManager.popBackStack()
                 }
             }
 

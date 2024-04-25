@@ -72,27 +72,27 @@ class IdentificationFragment : Fragment() {
         val gh = binding.edtGh.text.toString()
 
         if (temperature.isEmpty()) {
-            binding.edtTemperature.error = "Enter temperature"
+            binding.edtTemperature.error = getString(R.string.enter_temperature)
             return false
         }
 
         if (ph.isEmpty()) {
-            binding.edtPh.error = "Enter PH"
+            binding.edtPh.error = getString(R.string.enter_ph)
             return false
         }
 
         if (ammonia.isEmpty()) {
-            binding.edtAmmonia.error = "Enter Ammonia"
+            binding.edtAmmonia.error = getString(R.string.enter_ammonia)
             return false
         }
 
         if (kh.isEmpty()) {
-            binding.edtKh.error = "Enter KH"
+            binding.edtKh.error = getString(R.string.enter_kh)
             return false
         }
 
         if (gh.isEmpty()) {
-            binding.edtGh.error = "Enter GH"
+            binding.edtGh.error = getString(R.string.enter_gh)
             return false
         }
 
@@ -153,10 +153,10 @@ class IdentificationFragment : Fragment() {
                     }
                     findNavController().navigate(R.id.action_identificationFragment_to_resultFragment, bundle)
 
-                    Toast.makeText(activity, "Success to Identification Aquascape", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(activity, getString(R.string.successful_identification), Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener { e ->
-                    Toast.makeText(activity, "Failed to Identification Aquascape: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Failed to Identification Water Quality: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         } else {
             Toast.makeText(activity, "Failed to generate Identification ID", Toast.LENGTH_SHORT).show()
@@ -178,10 +178,10 @@ class IdentificationFragment : Fragment() {
 
                             aquascapeReference.child(aquascapeId).updateChildren(updateData)
                                 .addOnSuccessListener {
-                                    Toast.makeText(activity, "Success to Identification Aquascape", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(activity, getString(R.string.successful_identification), Toast.LENGTH_SHORT).show()
                                 }
                                 .addOnFailureListener { e ->
-                                    Toast.makeText(activity, "Failed to Identification Aquascape: ${e.message}", Toast.LENGTH_SHORT).show()
+//                                    Toast.makeText(activity, "Failed to Identification Water Quality: ${e.message}", Toast.LENGTH_SHORT).show()
                                 }
 
                             Log.d(TAG, "Aquascape ID: ${snapshot.key}, Name: ${aquascapeData.name}, Style: ${aquascapeData.style}, Date: ${aquascapeData.createDate}")

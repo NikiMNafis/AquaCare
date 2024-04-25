@@ -49,15 +49,16 @@ class AddAquascapeInfoFragment : Fragment() {
 
         val title = binding.edtTitle.text.toString()
         val image = binding.edtImage.text.toString()
+        val type = binding.edtType.text.toString()
         val body = binding.edtBody.text.toString()
 
         val infoId = databaseReference.push().key
 
         if (infoId != null) {
-            val infoData = AquascapeInfoData(infoId, title, image, body)
+            val infoData = AquascapeInfoData(infoId, title, image, type, body)
             databaseReference.child(infoId).setValue(infoData)
                 .addOnSuccessListener {
-                    Toast.makeText(activity, "Success to Add Aquascape Info", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.success_to_add_aquascape_info), Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_addAquascapeInfoFragment_to_aquascapeInfoFragment)
                 }
                 .addOnFailureListener { e ->
