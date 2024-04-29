@@ -22,15 +22,17 @@
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:layout_marginStart="90dp"
+            android:fontFamily="@font/poppins_semi_bold"
             android:paddingHorizontal="15dp"
             android:text="@string/aquascape_info"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="14sp"
-            android:fontFamily="@font/poppins_semi_bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_image"
             app:layout_constraintTop_toTopOf="parent" />
 

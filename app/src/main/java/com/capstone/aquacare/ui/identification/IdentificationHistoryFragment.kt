@@ -112,6 +112,8 @@ class IdentificationHistoryFragment : Fragment() {
     }
 
     private fun getIdentificationData(userId : String, aquascapeId : String) {
+        binding.pbHistory.visibility = View.VISIBLE
+
         if (aquascapeId.isEmpty()) {
             Toast.makeText(activity, "Aquascape ID not found", Toast.LENGTH_SHORT).show()
             return
@@ -133,6 +135,7 @@ class IdentificationHistoryFragment : Fragment() {
                         list.add(dataIdentification)
                     }
                 }
+                binding.pbHistory.visibility = View.GONE
                 showIdentification()
             }
 

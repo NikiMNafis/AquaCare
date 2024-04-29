@@ -75,7 +75,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun getAquascapeData(userId: String) {
-//        binding.rvListAquascape.visibility = View.GONE
+        binding.pbAquascape.visibility = View.VISIBLE
+        binding.rvListAquascape.visibility = View.GONE
 
         val aquascapeReference = databaseReference.child(userId).child("aquascapes")
 
@@ -88,8 +89,8 @@ class HomeFragment : Fragment() {
                         list.add(dataAquascape)
                     }
                 }
-//                binding.rvListAquascape.visibility = View.VISIBLE
-
+                binding.pbAquascape.visibility = View.GONE
+                binding.rvListAquascape.visibility = View.VISIBLE
                 showAquascape()
             }
 
@@ -100,6 +101,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getAquascapeInfoData() {
+        binding.pbArticle.visibility = View.VISIBLE
         binding.rvAquascapeInfo.visibility = View.GONE
 
         databaseInfoReference.addValueEventListener(object : ValueEventListener {
@@ -113,7 +115,7 @@ class HomeFragment : Fragment() {
                 }
 
                 binding.rvAquascapeInfo.visibility = View.VISIBLE
-
+                binding.pbArticle.visibility = View.GONE
                 showAquascapeInfo()
             }
 
