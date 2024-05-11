@@ -13,6 +13,7 @@
     <string name="dont_have_account">don\'t have an account yet?</string>
     <string name="register">Register</string>
     <string name="sign_up">Sign Up</string>
+    <string name="hello">Hello</string>
     <string name="name">Name</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="aquascape_info">Aquascape Info</string>
@@ -54,6 +55,10 @@
     <string name="body">Body</string>
     <string name="delete">Delete</string>
     <string name="edit_aquascape_info">Edit Aquascape Info</string>
+
+    <string name="good">Good</string>
+    <string name="medium">Medium</string>
+    <string name="bad">Bad</string>
 
     <string name="defaultweb_client_id">762708816606-b7q7lnlu2mjk5tguiqkhvm1plvmsu5sb.apps.googleusercontent.com</string>
     <string name="select_date">Select Date</string>

@@ -51,7 +51,8 @@ class HomeFragment : Fragment() {
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
         val name = sharedPreferences?.getString("name", "")
         val userId = sharedPreferences?.getString("userId", "").toString()
-        binding.tvName.text = "Halo, $name"
+        val hello = getString(R.string.hello)
+        binding.tvName.text = "$hello, $name"
 
         val rvAquascape = binding.rvListAquascape
         val rvAquascapeInfo = binding.rvAquascapeInfo

@@ -146,11 +146,11 @@ class IdentificationHistoryFragment : Fragment() {
     }
 
     private fun showIdentification() {
-        val adapter = IdentificationAdapter(list)
+        val adapter = IdentificationHistoryAdapter(list)
         binding.rvListIdentification.adapter = adapter
         Log.d("DataList", "Jumlah data dalam list identification: ${list.size}")
 
-        adapter.setOnItemClickCallBack(object : IdentificationAdapter.OnItemClickCallback{
+        adapter.setOnItemClickCallBack(object : IdentificationHistoryAdapter.OnItemClickCallback{
             override fun onItemClicked(data: IdentificationData) {
                 val result = data.result
                 val date = data.date

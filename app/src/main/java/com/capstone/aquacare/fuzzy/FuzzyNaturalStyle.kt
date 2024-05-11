@@ -1,8 +1,14 @@
 package com.capstone.aquacare.fuzzy
 
+import android.content.Context
+import com.capstone.aquacare.R
 import com.capstone.aquacare.data.StatusParameter
 
-class FuzzyNaturalStyle {
+class FuzzyNaturalStyle(private val context: Context) {
+
+    private val good = context.getString(R.string.good)
+    private val medium = context.getString(R.string.medium)
+    private val bad = context.getString(R.string.bad)
 
     fun calculateWaterQuality(temperature: Double, ph: Double, ammonia: Double, kh: Double, gh: Double): String {
 
@@ -196,11 +202,11 @@ class FuzzyNaturalStyle {
         val defuzzifikasi = totalDefuzzifikasi1 / totalDefuzzifikasi2
 
         val resultDefuzzifikasi = if (defuzzifikasi >= 70) {
-            "Good"
+            good
         } else if (defuzzifikasi <= 30){
-            "Bad"
+            bad
         } else {
-            "Medium"
+            medium
         }
 
         return resultDefuzzifikasi
@@ -225,37 +231,37 @@ class FuzzyNaturalStyle {
         val ghBuruk = fungsiKeanggotaanGhBuruk(gh)
 
         val _temperature = if (suhuBaik >= suhuBuruk) {
-            "Good"
+            good
         } else {
-            "Bad"
+            bad
         }
 
         val _ph = if (phBaik >= phSedang && phBaik >= phBuruk) {
-            "Good"
+            good
         } else if (phSedang >= phBaik && phSedang >= phBuruk) {
-            "Medium"
+            medium
         } else {
-            "Bad"
+            bad
         }
 
         val _ammonia = if (ammoniaBaik >= ammoniaBuruk) {
-            "Good"
+            good
         } else {
-            "Bad"
+            bad
         }
 
         val _kh = if (khBaik >= khSedang && khBaik >= khBuruk) {
-            "Good"
+            good
         } else if (khSedang >= khBaik && khSedang >= khBuruk) {
-            "Medium"
+            medium
         } else {
-            "Bad"
+            bad
         }
 
         val _gh = if (ghBaik >= ghBuruk) {
-            "Good"
+            good
         } else {
-            "Bad"
+            bad
         }
 
         return StatusParameter(_temperature, _ph, _ammonia, _kh, _gh)

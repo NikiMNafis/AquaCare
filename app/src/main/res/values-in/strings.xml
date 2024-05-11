@@ -14,6 +14,7 @@
     <string name="dont_have_account">belum memiliki akun?</string>
     <string name="register">Registrasi</string>
     <string name="sign_up">Registrasi</string>
+    <string name="hello">Halo</string>
     <string name="name">Nama</string>
     <string name="confirm_password">Konfirmasi Kata Sandi</string>
     <string name="aquascape_info">Info Aquascape</string>
@@ -55,6 +56,10 @@
     <string name="body">Isi</string>
     <string name="delete">Hapus</string>
     <string name="edit_aquascape_info">Edit Info Aquascape</string>
+
+    <string name="good">Baik</string>
+    <string name="medium">Sedang</string>
+    <string name="bad">Buruk</string>
 
     <string name="defaultweb_client_id">762708816606-b7q7lnlu2mjk5tguiqkhvm1plvmsu5sb.apps.googleusercontent.com</string>
     <string name="select_date">Pilih Tanggal</string>

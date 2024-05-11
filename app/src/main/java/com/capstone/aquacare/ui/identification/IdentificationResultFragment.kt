@@ -88,8 +88,13 @@ class IdentificationResultFragment : Fragment() {
         val kh = kh?.toDouble()
         val gh = gh?.toDouble()
 
-        val fuzzyDutchStyle = FuzzyDutchStyle()
-        val fuzzyNaturalStyle = FuzzyNaturalStyle()
+        val fuzzyDutchStyle = FuzzyDutchStyle(requireContext())
+        val fuzzyNaturalStyle = FuzzyNaturalStyle(requireContext())
+
+        val good = getString(R.string.good)
+        val medium = getString(R.string.medium)
+
+        var tips = ""
 
         if (style == "Dutch Style") {
             val checkResult = fuzzyDutchStyle.checkParameter(temperature!!, ph!!, ammonia!!, kh!!, gh!!)
@@ -98,6 +103,49 @@ class IdentificationResultFragment : Fragment() {
             binding.tvAmmonia.text = "${checkResult.ammonia} - $ammonia"
             binding.tvKh.text = "${checkResult.kh} - $kh"
             binding.tvGh.text = "${checkResult.gh} - $gh"
+
+            tips += when (checkResult.temperature) {
+                good -> {
+                    " - Selalu jaga suhu air"
+                }
+                else -> " - Tambah kipas kecil untuk mendinginkan air"
+            }
+
+            tips += when (checkResult.ph) {
+                good -> {
+                    " - Selalu jaga PH optimal air"
+                }
+                medium -> {
+                    " - Selalu jaga PH di batas optimal"
+                }
+                else -> " - Ganti sumber air untuk menyesuaikan PH atau injeksikan CO2 tambahan"
+            }
+
+            tips += when (checkResult.ammonia) {
+                good -> {
+                    " - Selalu jaga kadar ammonia air"
+                }
+                else -> " - Segera lakukan pergantian air dan bersihkan kotoran penyebab ammonia"
+            }
+
+            tips += when (checkResult.kh) {
+                good -> {
+                    " - Selalu jaga kadar KH air"
+                }
+                medium -> {
+                    " - Selalu jaga kadar KH di batas optimal"
+                }
+                else -> " - Ganti sumber air untuk mengurangi kadar KH"
+            }
+
+            tips += when (checkResult.gh) {
+                good -> {
+                    " - Selalu jaga kadar GH air"
+                }
+                else -> " - Ganti sumber air untuk mengurangi kadar GH"
+            }
+
+            binding.tvDetailTips.text = tips
         } else {
             val checkResult = fuzzyNaturalStyle.checkParameter(temperature!!, ph!!, ammonia!!, kh!!, gh!!)
             binding.tvTemperature.text = "${checkResult.temperature} - $temperature"
@@ -105,6 +153,49 @@ class IdentificationResultFragment : Fragment() {
             binding.tvAmmonia.text = "${checkResult.ammonia} - $ammonia"
             binding.tvKh.text = "${checkResult.kh} - $kh"
             binding.tvGh.text = "${checkResult.gh} - $gh"
+
+            tips += when (checkResult.temperature) {
+                good -> {
+                    " - Selalu jaga suhu air"
+                }
+                else -> " - Tambah kipas kecil untuk mendinginkan air"
+            }
+
+            tips += when (checkResult.ph) {
+                good -> {
+                    "- Selalu jaga PH optimal air"
+                }
+                medium -> {
+                    "- Selalu jaga PH di batas optimal"
+                }
+                else -> "- Ganti sumber air untuk menyesuaikan PH atau injeksikan CO2 tambahan"
+            }
+
+            tips += when (checkResult.ammonia) {
+                good -> {
+                    " - Selalu jaga kadar ammonia air"
+                }
+                else -> " - Segera lakukan pergantian air dan bersihkan kotoran penyebab ammonia"
+            }
+
+            tips += when (checkResult.kh) {
+                good -> {
+                    " - Selalu jaga kadar KH air"
+                }
+                medium -> {
+                    " - Selalu jaga kadar KH di batas optimal"
+                }
+                else -> " - Ganti sumber air untuk mengurangi kadar KH"
+            }
+
+            tips += when (checkResult.gh) {
+                good -> {
+                    " - Selalu jaga kadar GH air"
+                }
+                else -> " - Ganti sumber air untuk mengurangi kadar GH"
+            }
+
+            binding.tvDetailTips.text = tips
         }
     }
 
