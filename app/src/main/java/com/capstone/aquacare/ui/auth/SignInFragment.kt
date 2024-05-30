@@ -57,12 +57,11 @@ class SignInFragment : Fragment() {
         binding.apply {
             btnLogin.setOnClickListener {
                 if (checkForm()) {
-//                    submitForm()
-
                     val email = binding.edtEmail.text.toString()
                     val password = binding.edtPassword.text.toString()
 
-                    signInUser(email, password)
+//                    signInUser(email, password)
+                    signInAuth(email, password)
                 }
             }
 
@@ -82,6 +81,15 @@ class SignInFragment : Fragment() {
 
             btnLoginGoogle.setOnClickListener{
                 signInGoogle()
+            }
+
+            tvForgotPassword.setOnClickListener{
+                val email = binding.edtEmail.text.toString()
+                if (email.isEmpty()) {
+                    Toast.makeText(activity, getString(R.string.please_enter_email), Toast.LENGTH_SHORT).show()
+                } else {
+                    forgotPassword(email)
+                }
             }
 
         }
@@ -105,38 +113,71 @@ class SignInFragment : Fragment() {
         return true
     }
 
-//    private fun signInAuth() {
-//        val email = binding.edtEmail.text.toString()
-//        val password = binding.edtPassword.text.toString()
-//
-//        auth.signInWithEmailAndPassword(email, password)
-//            .addOnCompleteListener(requireActivity()) { task ->
-//                if (task.isSuccessful) {
-//                    // Sign in success, update UI with the signed-in user's information
-//                    Log.d(TAG, "signInWithEmail:success")
-//                    Toast.makeText(activity, "Login Success", Toast.LENGTH_SHORT).show()
-//                    val user = auth.currentUser
+    private fun signInAuth(email: String, password: String) {
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithEmail:success")
+                    Toast.makeText(activity, "Login Success", Toast.LENGTH_SHORT).show()
+                    val user = auth.currentUser
 //                    val id = user?.uid.toString()
-//                    val name = user?.displayName.toString()
+                    val name = user?.displayName.toString()
 //                    val email = user?.email.toString()
-//                    val photo = user?.photoUrl.toString()
-//
-//                    saveLoginSession(id, name, email, photo)
-//
-//                    startActivity(Intent(activity, MainActivity::class.java))
-//                    requireActivity().finish()
-//                } else {
-//                    // If sign in fails, display a message to the user.
-//                    Log.w(TAG, "signInWithEmail:failure", task.exception)
-//                    Toast.makeText(
-//                        activity,
-//                        "Authentication failed.",
-//                        Toast.LENGTH_SHORT,
-//                    ).show()
-//                }
-//            }
-//
-//    }
+                    val photo = ""
+
+                    val userType = "user"
+
+                    val passwordDefault = "Regular Account"
+
+                    databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            if (!dataSnapshot.exists()) {
+                                val id = databaseReference.push().key
+                                val userData = UserData(id, name, email, passwordDefault, userType)
+                                databaseReference.child(id!!).setValue(userData)
+
+                                saveLoginSession(id, name, email, photo, userType)
+
+                                Toast.makeText(activity, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(activity, MainActivity::class.java))
+                                requireActivity().finish()
+                            } else {
+                                for (userSnapshot in dataSnapshot.children) {
+                                    val userData = userSnapshot.getValue(UserData::class.java)
+
+                                    val id = userData?.id.toString()
+                                    val name = userData?.name.toString()
+                                    val email = userData?.email.toString()
+                                    val userType = userData?.userType.toString()
+
+                                    saveLoginSession(id, name, email, photo, userType)
+
+                                    Toast.makeText(activity, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
+                                    startActivity(Intent(activity, MainActivity::class.java))
+                                    requireActivity().finish()
+
+                                }
+                            }
+                        }
+
+                        override fun onCancelled(databaseError: DatabaseError) {
+                            Toast.makeText(activity, "Database Error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        activity,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
+            }
+
+    }
 
     private fun signInUser(email: String, password: String) {
         databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
@@ -259,6 +300,16 @@ class SignInFragment : Fragment() {
             }
     }
 
+    private fun forgotPassword(email: String) {
+        auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(activity, "Reset password email sent.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(activity, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun saveLoginSession(userId: String, name: String, email: String, photo: String, userType: String) {
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
         val editor = sharedPreferences?.edit()
@@ -271,10 +322,9 @@ class SignInFragment : Fragment() {
     }
 
     private fun checkUserLoginStatus() {
-        val currentUser = auth.currentUser
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
         val id = sharedPreferences?.getString("userId", "")
-        if (currentUser != null || id != "") {
+        if (id != "") {
             startActivity(Intent(activity, MainActivity::class.java))
             requireActivity().finish()
         }

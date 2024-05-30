@@ -1,7 +1,9 @@
 package com.capstone.aquacare.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +13,7 @@ import android.widget.Toast
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.UserData
 import com.capstone.aquacare.databinding.FragmentSignUpBinding
+import com.capstone.aquacare.ui.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -45,13 +48,12 @@ class SignUpFragment : Fragment() {
 
         binding.btnSignup.setOnClickListener {
             if (checkForm()) {
-//                submitForm()
-
                 val name = binding.edtName.text.toString()
                 val email = binding.edtEmail.text.toString()
                 val password = binding.edtPassword.text.toString()
 
-                signUpUser(name, email, password)
+//                signUpUser(name, email, password)
+                signUpAuth(name, email, password)
             }
         }
     }
@@ -87,42 +89,58 @@ class SignUpFragment : Fragment() {
             return false
         }
 
+        if (password != confirmPassword) {
+            Toast.makeText(activity, getString(R.string.confirm_password_wrong), Toast.LENGTH_SHORT).show()
+            return false
+        }
+
         return true
     }
 
-//    private fun signUpAuth() {
-//
-//        val name = binding.edtName.text.toString()
-//        val email = binding.edtEmail.text.toString()
-//        val password = binding.edtPassword.text.toString()
-//        val confirmPassword = binding.edtConfirmPassword.text.toString()
-//
-//        binding.emailContainer.helperText = validEmail()
-////        binding.passwordContainer.helperText = validPassword()
-////        binding.passwordConfirmContainer.helperText = validPasswordConfirm()
-//
-//        auth.createUserWithEmailAndPassword(email, confirmPassword)
-//            .addOnCompleteListener(requireActivity()) { task ->
-//                if (task.isSuccessful) {
-//                    // Sign in success, update UI with the signed-in user's information
-//                    Log.d(TAG, "createUserWithEmail:success")
-//                    Toast.makeText(activity, "Account Created", Toast.LENGTH_SHORT).show()
+    private fun signUpAuth(name: String, email: String, password: String) {
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success")
 //                    val user = auth.currentUser
-//
-//                    val fragmentManager = parentFragmentManager
-//                    fragmentManager.popBackStack()
-//
-//                } else {
-//                    // If sign in fails, display a message to the user.
-//                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-//                    Toast.makeText(
-//                        activity,
-//                        "Authentication failed.",
-//                        Toast.LENGTH_SHORT,
-//                    ).show()
-//                }
-//            }
-//    }
+                    val userType = "user"
+                    val passwordDefault = "Regular Account"
+
+                    databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            if (!dataSnapshot.exists()) {
+                                val id = databaseReference.push().key
+                                val userData = UserData(id, name, email, passwordDefault, userType)
+                                databaseReference.child(id!!).setValue(userData)
+
+                                Toast.makeText(activity, getString(R.string.account_created), Toast.LENGTH_SHORT).show()
+                                val fragmentManager = parentFragmentManager
+                                fragmentManager.popBackStack()
+                            } else {
+//                                Toast.makeText(activity, getString(R.string.account_already_exists), Toast.LENGTH_SHORT).show()
+                                val fragmentManager = parentFragmentManager
+                                fragmentManager.popBackStack()
+                            }
+                        }
+
+                        override fun onCancelled(databaseError: DatabaseError) {
+                            Toast.makeText(activity, "Database Error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        activity,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
+            }
+    }
 
     private fun signUpUser(name: String, email: String, password: String) {
         val userType = "user"
@@ -171,5 +189,9 @@ class SignUpFragment : Fragment() {
             return false
         }
         return true
+    }
+
+    companion object {
+        private const val TAG = "AuthActivity"
     }
 }

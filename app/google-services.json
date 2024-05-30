@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "762708816606-ieg98qv6jk7pa4bhpr9156hl0jd9eb6v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.capstone.aquacare",
+            "certificate_hash": "8f6c91d4dd9ef2ff88ba8065d5c2e2fead7806df"
+          }
+        },
+        {
           "client_id": "762708816606-b7q7lnlu2mjk5tguiqkhvm1plvmsu5sb.apps.googleusercontent.com",
           "client_type": 3
         }

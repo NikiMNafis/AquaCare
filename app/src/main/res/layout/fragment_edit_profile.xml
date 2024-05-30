@@ -96,6 +96,7 @@
             android:paddingStart="5dp"
             android:paddingVertical="4dp"
             android:background="@drawable/bg_border_rounded_form"
+            android:editable="false"
             android:textSize="14sp"
             android:textColor="@color/black"
             android:fontFamily="@font/poppins_regular"
