@@ -181,7 +181,7 @@ class IdentificationFragment : Fragment() {
                                     Toast.makeText(activity, getString(R.string.successful_identification), Toast.LENGTH_SHORT).show()
                                 }
                                 .addOnFailureListener { e ->
-//                                    Toast.makeText(activity, "Failed to Identification Water Quality: ${e.message}", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(activity, "Failed to Identification Water Quality: ${e.message}", Toast.LENGTH_SHORT).show()
                                 }
 
                             Log.d(TAG, "Aquascape ID: ${snapshot.key}, Name: ${aquascapeData.name}, Style: ${aquascapeData.style}, Date: ${aquascapeData.createDate}")

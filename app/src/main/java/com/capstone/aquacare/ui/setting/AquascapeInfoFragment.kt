@@ -41,7 +41,7 @@ class AquascapeInfoFragment : Fragment() {
 
         binding.tvTitle.text = title
         binding.tvBody.text = body
-        if (!image.isNullOrEmpty()) {
+        if (image.isNotEmpty()) {
             Glide.with(requireActivity())
                 .load(image)
                 .into(binding.ivImage)

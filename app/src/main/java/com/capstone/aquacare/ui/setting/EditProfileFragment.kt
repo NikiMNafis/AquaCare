@@ -60,7 +60,7 @@ class EditProfileFragment : Fragment() {
         }
 
         binding.btnDelete.setOnClickListener {
-//            deleteUser()
+            deleteUser()
         }
     }
 
