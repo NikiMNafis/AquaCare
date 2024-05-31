@@ -129,16 +129,16 @@ class SignInFragment : Fragment() {
 
                     val userType = "user"
 
-                    val passwordDefault = "Regular Account"
+                    val accountType = "Regular Account"
 
                     databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
                             if (!dataSnapshot.exists()) {
                                 val id = databaseReference.push().key
-                                val userData = UserData(id, name, email, passwordDefault, userType)
+                                val userData = UserData(id, name, email, accountType, userType)
                                 databaseReference.child(id!!).setValue(userData)
 
-                                saveLoginSession(id, name, email, photo, userType)
+                                saveLoginSession(id, name, email, photo, userType, accountType)
 
                                 Toast.makeText(activity, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
                                 startActivity(Intent(activity, MainActivity::class.java))
@@ -152,7 +152,7 @@ class SignInFragment : Fragment() {
                                     val email = userData?.email.toString()
                                     val userType = userData?.userType.toString()
 
-                                    saveLoginSession(id, name, email, photo, userType)
+                                    saveLoginSession(id, name, email, photo, userType, accountType)
 
                                     Toast.makeText(activity, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
                                     startActivity(Intent(activity, MainActivity::class.java))
@@ -179,39 +179,40 @@ class SignInFragment : Fragment() {
 
     }
 
-    private fun signInUser(email: String, password: String) {
-        databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for (userSnapshot in dataSnapshot.children) {
-                        val userData = userSnapshot.getValue(UserData::class.java)
-
-                        if (userData != null && userData.password == password){
-                            val id = userData.id.toString()
-                            val name = userData.name.toString()
-                            val email = userData.email.toString()
-                            val userType = userData.userType.toString()
-                            val photo = ""
-
-                            saveLoginSession(id, name, email, photo, userType)
-
-                            Toast.makeText(activity, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(activity, MainActivity::class.java))
-                            requireActivity().finish()
-                        } else {
-                            Toast.makeText(activity, getString(R.string.wrong_password), Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                } else {
-                    Toast.makeText(activity, getString(R.string.account_not_found), Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(activity, "Database Error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
+//    private fun signInUser(email: String, password: String) {
+//        databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                if (dataSnapshot.exists()) {
+//                    for (userSnapshot in dataSnapshot.children) {
+//                        val userData = userSnapshot.getValue(UserData::class.java)
+//
+//                        if (userData != null && userData.accountType == password){
+//                            val id = userData.id.toString()
+//                            val name = userData.name.toString()
+//                            val email = userData.email.toString()
+//                            val userType = userData.userType.toString()
+//                            val accountType = userData.accountType.toString()
+//                            val photo = ""
+//
+//                            saveLoginSession(id, name, email, photo, userType, accountType)
+//
+//                            Toast.makeText(activity, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
+//                            startActivity(Intent(activity, MainActivity::class.java))
+//                            requireActivity().finish()
+//                        } else {
+//                            Toast.makeText(activity, getString(R.string.wrong_password), Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//                } else {
+//                    Toast.makeText(activity, getString(R.string.account_not_found), Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//            override fun onCancelled(databaseError: DatabaseError) {
+//                Toast.makeText(activity, "Database Error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+//            }
+//        })
+//    }
 
     private fun signInGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -255,16 +256,16 @@ class SignInFragment : Fragment() {
                     val photo = user?.photoUrl.toString()
                     val userType = "user"
 
-                    val password = "Google Account"
+                    val accountType = "Google Account"
 
                     databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
                             if (!dataSnapshot.exists()) {
                                 val id = databaseReference.push().key
-                                val userData = UserData(id, name, email, password, userType)
+                                val userData = UserData(id, name, email, accountType, userType)
                                 databaseReference.child(id!!).setValue(userData)
 
-                                saveLoginSession(id, name, email, photo, userType)
+                                saveLoginSession(id, name, email, photo, userType, accountType)
 
                                 Toast.makeText(activity, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
                                 startActivity(Intent(activity, MainActivity::class.java))
@@ -278,7 +279,7 @@ class SignInFragment : Fragment() {
                                     val email = userData?.email.toString()
                                     val userType = userData?.userType.toString()
 
-                                    saveLoginSession(id, name, email, photo, userType)
+                                    saveLoginSession(id, name, email, photo, userType, accountType)
 
                                     Toast.makeText(activity, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
                                     startActivity(Intent(activity, MainActivity::class.java))
@@ -310,7 +311,7 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun saveLoginSession(userId: String, name: String, email: String, photo: String, userType: String) {
+    private fun saveLoginSession(userId: String, name: String, email: String, photo: String, userType: String, accountType: String) {
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
         val editor = sharedPreferences?.edit()
         editor?.putString("userId", userId)
@@ -318,6 +319,7 @@ class SignInFragment : Fragment() {
         editor?.putString("email", email)
         editor?.putString("photo", photo)
         editor?.putString("userType", userType)
+        editor?.putString("accountType", accountType)
         editor?.apply()
     }
 

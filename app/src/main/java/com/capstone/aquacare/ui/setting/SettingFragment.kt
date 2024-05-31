@@ -56,6 +56,7 @@ class SettingFragment : Fragment() {
         val name = sharedPreferences?.getString("name", "")
         val email = sharedPreferences?.getString("email", "")
         val photo = sharedPreferences?.getString("photo", "")
+        val accountType = sharedPreferences?.getString("accountType", "")
 
         Log.d(TAG, "Photo URL : $photo")
 
@@ -67,8 +68,7 @@ class SettingFragment : Fragment() {
             binding.btnAquascapeInfo.visibility = View.GONE
         }
 
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
+        if (accountType == "Google Account") {
             binding.viewPassword.visibility = View.GONE
             binding.btnChangePassword.visibility = View.GONE
             Glide.with(requireActivity())
