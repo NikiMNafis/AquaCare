@@ -1,6 +1,7 @@
 package com.capstone.aquacare.ui.setting
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,13 +10,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.capstone.aquacare.R
-import com.capstone.aquacare.data.AquascapeInfoData
-import com.capstone.aquacare.databinding.FragmentEditAquascapeInfoBinding
+import com.capstone.aquacare.data.ArticleData
+import com.capstone.aquacare.databinding.FragmentEditArticleBinding
 import com.google.firebase.database.*
 
-class EditAquascapeInfoFragment : Fragment() {
+class EditArticleFragment : Fragment() {
 
-    private var _binding: FragmentEditAquascapeInfoBinding? = null
+    private var _binding: FragmentEditArticleBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var firebaseDatabase: FirebaseDatabase
@@ -25,7 +26,7 @@ class EditAquascapeInfoFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = firebaseDatabase.reference.child("aquascape_info")
+        databaseReference = firebaseDatabase.reference.child("article")
     }
 
     override fun onCreateView(
@@ -33,7 +34,7 @@ class EditAquascapeInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentEditAquascapeInfoBinding.inflate(inflater, container, false)
+        _binding = FragmentEditArticleBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -45,19 +46,52 @@ class EditAquascapeInfoFragment : Fragment() {
         val image = arguments?.getString("image").toString()
         val type = arguments?.getString("type").toString()
         val body = arguments?.getString("body").toString()
+        val link = arguments?.getString("link").toString()
 
         binding.edtTitle.setText(title)
         binding.edtImage.setText(image)
         binding.edtType.setText(type)
         binding.edtBody.setText(body)
+        binding.edtLink.setText(link)
 
         binding.btnSave.setOnClickListener {
-            editAquascapeInfo(infoId)
+            if (checkForm()) {
+                editAquascapeInfo(infoId)
+            }
         }
 
         binding.btnDelete.setOnClickListener {
             deleteAquascapeInfo(infoId)
         }
+    }
+
+    private fun checkForm(): Boolean {
+        val title = binding.edtTitle.text.toString()
+        val image = binding.edtImage.text.toString()
+        val body = binding.edtBody.text.toString()
+        val type = binding.edtType.text.toString()
+
+        if (TextUtils.isEmpty(title)) {
+            binding.edtTitle.error = getString(R.string.please_fill)
+            return false
+        }
+
+        if (TextUtils.isEmpty(image)) {
+            binding.edtImage.error = getString(R.string.please_fill)
+            return false
+        }
+
+        if (TextUtils.isEmpty(body)) {
+            binding.edtBody.error = getString(R.string.please_fill)
+            return false
+        }
+
+        if (TextUtils.isEmpty(type)) {
+            binding.edtType.error = getString(R.string.please_fill)
+            return false
+        }
+
+        return true
     }
 
     private fun editAquascapeInfo(id: String) {
@@ -66,16 +100,17 @@ class EditAquascapeInfoFragment : Fragment() {
         val image = binding.edtImage.text.toString()
         val type = binding.edtType.text.toString()
         val body = binding.edtBody.text.toString()
+        val link = binding.edtLink.text.toString()
 
         databaseReference.orderByChild("id").equalTo(id).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (snapshot in dataSnapshot.children) {
-                        val infoData = snapshot.getValue(AquascapeInfoData::class.java)
+                        val infoData = snapshot.getValue(ArticleData::class.java)
                         if (infoData != null) {
 
-                            val updateData = mapOf("title" to title, "image" to image, "type" to type, "body" to body)
+                            val updateData = mapOf("title" to title, "image" to image, "type" to type, "body" to body, "link" to link)
 
                             databaseReference.child(id).updateChildren(updateData)
                                 .addOnSuccessListener {

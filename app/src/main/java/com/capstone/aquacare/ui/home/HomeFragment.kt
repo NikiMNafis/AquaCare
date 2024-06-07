@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
-import com.capstone.aquacare.data.AquascapeInfoData
+import com.capstone.aquacare.data.ArticleData
 import com.capstone.aquacare.databinding.FragmentHomeBinding
 import com.google.firebase.database.*
 
@@ -26,14 +26,14 @@ class HomeFragment : Fragment() {
     private lateinit var databaseInfoReference: DatabaseReference
 
     val list = mutableListOf<AquascapeData>()
-    val listInfo = mutableListOf<AquascapeInfoData>()
+    val listInfo = mutableListOf<ArticleData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = firebaseDatabase.reference.child("users")
-        databaseInfoReference = firebaseDatabase.reference.child("aquascape_info")
+        databaseInfoReference = firebaseDatabase.reference.child("article")
     }
 
     override fun onCreateView(
@@ -109,7 +109,7 @@ class HomeFragment : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 listInfo.clear()
                 for (snapshot in dataSnapshot.children) {
-                    val dataAquascapeInfo = snapshot.getValue(AquascapeInfoData::class.java)
+                    val dataAquascapeInfo = snapshot.getValue(ArticleData::class.java)
                     if (dataAquascapeInfo != null) {
                         listInfo.add(dataAquascapeInfo)
                     }
@@ -117,7 +117,7 @@ class HomeFragment : Fragment() {
 
                 binding.rvAquascapeInfo.visibility = View.VISIBLE
                 binding.pbArticle.visibility = View.GONE
-                showAquascapeInfo()
+                showArticle()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -158,18 +158,19 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun showAquascapeInfo() {
-        val adapter = AquascapeInfoAdapter(listInfo)
+    private fun showArticle() {
+        val adapter = ArticleAdapter(listInfo)
         binding.rvAquascapeInfo.adapter = adapter
         Log.d("DataList", "Jumlah data dalam list aquascape info: ${listInfo.size}")
 
-        adapter.setOnItemClickCallBack(object : AquascapeInfoAdapter.OnItemClickCallback{
-            override fun onItemClicked(data: AquascapeInfoData) {
+        adapter.setOnItemClickCallBack(object : ArticleAdapter.OnItemClickCallback{
+            override fun onItemClicked(data: ArticleData) {
 
                 val infoId = data.id
                 val title = data.title
                 val image = data.image
                 val body = data.body
+                val link = data.link
                 val edit = "false"
 
                 val bundle = Bundle().apply {
@@ -177,6 +178,7 @@ class HomeFragment : Fragment() {
                     putString("title", title)
                     putString("image", image)
                     putString("body", body)
+                    putString("link", link)
                     putString("edit", edit)
                 }
 

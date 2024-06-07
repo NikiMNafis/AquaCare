@@ -142,9 +142,9 @@
 
     <fragment
         android:id="@+id/listAquascapeInfoFragment"
-        android:name="com.capstone.aquacare.ui.setting.ListAquascapeInfoFragment"
+        android:name="com.capstone.aquacare.ui.setting.ListArticleFragment"
         android:label="ListAquascapeInfoFragment"
-        tools:layout="@layout/fragment_list_aquascape_info">
+        tools:layout="@layout/fragment_list_article">
         <action
             android:id="@+id/action_listAquascapeInfoFragment_to_addAquascapeInfoFragment"
             app:destination="@id/addAquascapeInfoFragment" />
@@ -155,9 +155,9 @@
 
     <fragment
         android:id="@+id/AquascapeInfoFragment"
-        android:name="com.capstone.aquacare.ui.setting.AquascapeInfoFragment"
+        android:name="com.capstone.aquacare.ui.setting.ArticleFragment"
         android:label="AquascapeInfoFragment"
-        tools:layout="@layout/fragment_aquascape_info">
+        tools:layout="@layout/fragment_article">
         <action
             android:id="@+id/action_AquascapeInfoFragment_to_editAquascapeInfoFragment"
             app:destination="@id/editAquascapeInfoFragment" />
@@ -165,9 +165,9 @@
 
     <fragment
         android:id="@+id/addAquascapeInfoFragment"
-        android:name="com.capstone.aquacare.ui.setting.AddAquascapeInfoFragment"
+        android:name="com.capstone.aquacare.ui.setting.AddArticleFragment"
         android:label="AddAquascapeInfoFragment"
-        tools:layout="@layout/fragment_add_aquascape_info">
+        tools:layout="@layout/fragment_add_article">
         <action
             android:id="@+id/action_addAquascapeInfoFragment_to_aquascapeInfoFragment"
             app:destination="@id/listAquascapeInfoFragment"
@@ -178,9 +178,9 @@
 
     <fragment
         android:id="@+id/editAquascapeInfoFragment"
-        android:name="com.capstone.aquacare.ui.setting.EditAquascapeInfoFragment"
+        android:name="com.capstone.aquacare.ui.setting.EditArticleFragment"
         android:label="EditAquascapeInfoFragment"
-        tools:layout="@layout/fragment_edit_aquascape_info">
+        tools:layout="@layout/fragment_edit_article">
         <action
             android:id="@+id/action_editAquascapeInfoFragment_to_aquascapeInfoFragment"
             app:destination="@id/listAquascapeInfoFragment"

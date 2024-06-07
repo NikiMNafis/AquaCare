@@ -1,6 +1,7 @@
 package com.capstone.aquacare.ui.setting
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +9,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.capstone.aquacare.R
-import com.capstone.aquacare.data.AquascapeInfoData
-import com.capstone.aquacare.databinding.FragmentAddAquascapeInfoBinding
+import com.capstone.aquacare.data.ArticleData
+import com.capstone.aquacare.databinding.FragmentAddArticleBinding
 import com.google.firebase.database.*
 
-class AddAquascapeInfoFragment : Fragment() {
+class AddArticleFragment : Fragment() {
 
-    private var _binding: FragmentAddAquascapeInfoBinding? = null
+    private var _binding: FragmentAddArticleBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var firebaseDatabase: FirebaseDatabase
@@ -24,7 +25,7 @@ class AddAquascapeInfoFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = firebaseDatabase.reference.child("aquascape_info")
+        databaseReference = firebaseDatabase.reference.child("article")
     }
 
     override fun onCreateView(
@@ -32,7 +33,7 @@ class AddAquascapeInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentAddAquascapeInfoBinding.inflate(inflater, container, false)
+        _binding = FragmentAddArticleBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -40,9 +41,40 @@ class AddAquascapeInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnSave.setOnClickListener {
-            addAquascapeInfo()
+            if (checkForm()) {
+                addAquascapeInfo()
+            }
         }
 
+    }
+
+    private fun checkForm(): Boolean {
+        val title = binding.edtTitle.text.toString()
+        val image = binding.edtImage.text.toString()
+        val body = binding.edtBody.text.toString()
+        val type = binding.edtType.text.toString()
+
+        if (TextUtils.isEmpty(title)) {
+            binding.edtTitle.error = getString(R.string.please_fill)
+            return false
+        }
+
+        if (TextUtils.isEmpty(image)) {
+            binding.edtImage.error = getString(R.string.please_fill)
+            return false
+        }
+
+        if (TextUtils.isEmpty(body)) {
+            binding.edtBody.error = getString(R.string.please_fill)
+            return false
+        }
+
+        if (TextUtils.isEmpty(type)) {
+            binding.edtType.error = getString(R.string.please_fill)
+            return false
+        }
+
+        return true
     }
 
     private fun addAquascapeInfo() {
@@ -51,11 +83,12 @@ class AddAquascapeInfoFragment : Fragment() {
         val image = binding.edtImage.text.toString()
         val type = binding.edtType.text.toString()
         val body = binding.edtBody.text.toString()
+        val link = binding.edtLink.text.toString()
 
         val infoId = databaseReference.push().key
 
         if (infoId != null) {
-            val infoData = AquascapeInfoData(infoId, title, image, type, body)
+            val infoData = ArticleData(infoId, title, image, type, body, link)
             databaseReference.child(infoId).setValue(infoData)
                 .addOnSuccessListener {
                     Toast.makeText(activity, getString(R.string.success_to_add_aquascape_info), Toast.LENGTH_SHORT).show()

@@ -1,13 +1,13 @@
-package com.capstone.aquacare.ui.setting
+package com.capstone.aquacare.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.capstone.aquacare.data.AquascapeInfoData
-import com.capstone.aquacare.databinding.CardAquascapeInfoBinding
+import com.capstone.aquacare.data.ArticleData
+import com.capstone.aquacare.databinding.CardArticleBinding
 
-class AquascapeInfoAdapter (private val list: List<AquascapeInfoData>) : RecyclerView.Adapter<AquascapeInfoAdapter.ViewHolder>() {
+class ArticleAdapter (private val list: List<ArticleData>) : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -16,13 +16,13 @@ class AquascapeInfoAdapter (private val list: List<AquascapeInfoData>) : Recycle
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: AquascapeInfoData)
+        fun onItemClicked(data: ArticleData)
     }
 
-    class ViewHolder(var binding: CardAquascapeInfoBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(var binding: CardArticleBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = CardAquascapeInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = CardArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -36,6 +36,7 @@ class AquascapeInfoAdapter (private val list: List<AquascapeInfoData>) : Recycle
                 .load(currentAquascapeInfo.image)
                 .into(holder.binding.ivImage)
         }
+
         holder.binding.tvType.text = currentAquascapeInfo.type
 
         holder.itemView.setOnClickListener {

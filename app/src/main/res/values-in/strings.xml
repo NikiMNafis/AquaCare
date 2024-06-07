@@ -82,6 +82,8 @@
     <string name="account_created">Akun berhasil dibuat</string>
     <string name="account_already_exists">Akun sudah ada</string>
 
+    <string name="please_fill">Isi form ini</string>
+
     <string name="success_to_add_aquascape">Sukses Menambah Aquascape</string>
     <string name="success_to_edit_aquascape">Sukses Mengubah Aquascape</string>
 
@@ -100,4 +102,6 @@
 
     <string name="success_to_edit_profile">Sukses mengubah Profil Pengguna</string>
     <string name="success_to_delete_account">Sukses menghapus Akun Pengguna</string>
+    <string name="link_article">Link Artikel</string>
+
 </resources>

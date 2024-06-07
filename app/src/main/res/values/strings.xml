@@ -82,6 +82,8 @@
     <string name="account_created">Account Created</string>
     <string name="account_already_exists">Account already Exists</string>
 
+    <string name="please_fill">Please fill this form</string>
+
     <string name="success_to_add_aquascape">Success to Add Aquascape</string>
     <string name="success_to_edit_aquascape">Success to Edit Aquascape</string>
 
@@ -100,4 +102,6 @@
 
     <string name="success_to_edit_profile">Success to Edit User Profile</string>
     <string name="success_to_delete_account">Success to Delete User Account</string>
+    <string name="link_article">Link Article</string>
+
 </resources>
