@@ -45,7 +45,10 @@ class ListArticleFragment : Fragment() {
 
         val rvAquascapeInfo = binding.rvAquascapeInfo
 
-        rvAquascapeInfo.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true)
+        layoutManager.stackFromEnd = true
+
+        rvAquascapeInfo.layoutManager = layoutManager
         rvAquascapeInfo.setHasFixedSize(true)
 
         binding.tvAddAquascapeInfo.setOnClickListener {

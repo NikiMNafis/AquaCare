@@ -14,6 +14,7 @@ import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.ArticleData
 import com.capstone.aquacare.databinding.FragmentHomeBinding
+import com.google.android.play.integrity.internal.l
 import com.google.firebase.database.*
 
 class HomeFragment : Fragment() {
@@ -57,10 +58,16 @@ class HomeFragment : Fragment() {
         val rvAquascape = binding.rvListAquascape
         val rvAquascapeInfo = binding.rvAquascapeInfo
 
-        rvAquascape.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
+        layoutManager.stackFromEnd = true
+
+        rvAquascape.layoutManager = layoutManager
         rvAquascape.setHasFixedSize(true)
 
-        rvAquascapeInfo.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager2 = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true)
+        layoutManager2.stackFromEnd = true
+
+        rvAquascapeInfo.layoutManager = layoutManager2
         rvAquascapeInfo.setHasFixedSize(true)
 
         binding.ivProfile.setOnClickListener {

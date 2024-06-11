@@ -63,6 +63,8 @@ class SettingFragment : Fragment() {
         binding.tvName.text = name
         binding.tvEmail.text = email
 
+        binding.btnLanguage.visibility = View.GONE
+
         if (userType != "admin") {
             binding.viewInfo.visibility = View.GONE
             binding.btnAquascapeInfo.visibility = View.GONE

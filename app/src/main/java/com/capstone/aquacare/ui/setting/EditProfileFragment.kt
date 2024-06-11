@@ -14,6 +14,7 @@ import com.capstone.aquacare.R
 import com.capstone.aquacare.data.UserData
 import com.capstone.aquacare.databinding.FragmentEditProfileBinding
 import com.capstone.aquacare.ui.auth.AuthActivity
+import com.google.android.play.integrity.internal.ac
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
@@ -120,22 +121,33 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun deleteUser() {
+        val user = auth.currentUser
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
         val userId = sharedPreferences?.getString("userId", "").toString()
 
-        databaseReference.child(userId).removeValue().addOnSuccessListener {
-            Firebase.auth.signOut()
-            deleteLoginSession(requireContext())
-            startActivity(
-                Intent(
-                    activity, AuthActivity::class.java
-                )
-            )
-            activity?.finish()
-            Toast.makeText(activity, getString(R.string.success_to_delete_account), Toast.LENGTH_SHORT).show()
-        }.addOnFailureListener {
-            Toast.makeText(activity, "Failed to Delete User Profile", Toast.LENGTH_SHORT).show()
+        user?.let {
+            it.delete()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        databaseReference.child(userId).removeValue().addOnSuccessListener {
+                            Firebase.auth.signOut()
+                            deleteLoginSession(requireContext())
+                            startActivity(
+                                Intent(
+                                    activity, AuthActivity::class.java
+                                )
+                            )
+                            activity?.finish()
+                            Toast.makeText(activity, getString(R.string.success_to_delete_account), Toast.LENGTH_SHORT).show()
+                        }.addOnFailureListener {
+                            Toast.makeText(activity, "Failed to Delete User Account", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(activity, "Failed to Delete Account", Toast.LENGTH_SHORT).show()
+                    }
+                }
         }
+
     }
 
     private fun saveLoginSession(userId: String, name: String, email: String, photo: String, userType: String) {

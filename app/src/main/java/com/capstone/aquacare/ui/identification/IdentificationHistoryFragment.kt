@@ -57,7 +57,10 @@ class IdentificationHistoryFragment : Fragment() {
 
         val rvIdentification = binding.rvListIdentification
 
-        rvIdentification.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true)
+        layoutManager.stackFromEnd = true
+
+        rvIdentification.layoutManager = layoutManager
         rvIdentification.setHasFixedSize(true)
 
         binding.btnAddIdentification.setOnClickListener {

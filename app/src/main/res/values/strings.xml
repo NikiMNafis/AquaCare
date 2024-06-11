@@ -49,12 +49,12 @@
     <string name="status">Status</string>
     <string name="detail_status">Detail Status</string>
     <string name="add_aquascape">Add Aquascape</string>
-    <string name="add_aquascape_info">Add Aquascape Info</string>
+    <string name="add_article">Add Article</string>
     <string name="title">Title</string>
-    <string name="image">Image</string>
+    <string name="image_link">Image Link</string>
     <string name="body">Body</string>
     <string name="delete">Delete</string>
-    <string name="edit_aquascape_info">Edit Aquascape Info</string>
+    <string name="edit_article">Edit Article</string>
 
     <string name="good">Good</string>
     <string name="medium">Medium</string>
@@ -102,6 +102,6 @@
 
     <string name="success_to_edit_profile">Success to Edit User Profile</string>
     <string name="success_to_delete_account">Success to Delete User Account</string>
-    <string name="link_article">Link Article</string>
+    <string name="article_link">Article Link</string>
 
 </resources>

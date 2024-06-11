@@ -50,12 +50,12 @@
     <string name="status">Status</string>
     <string name="detail_status">Detail Status</string>
     <string name="add_aquascape">Tambah Aquascape</string>
-    <string name="add_aquascape_info">Tambah Aquascape Info</string>
+    <string name="add_article">Tambah Artikel</string>
     <string name="title">Judul</string>
-    <string name="image">Gambar</string>
+    <string name="image_link">Tautan Gambar</string>
     <string name="body">Isi</string>
     <string name="delete">Hapus</string>
-    <string name="edit_aquascape_info">Edit Info Aquascape</string>
+    <string name="edit_article">Edit Artikel</string>
 
     <string name="good">Baik</string>
     <string name="medium">Sedang</string>
@@ -102,6 +102,6 @@
 
     <string name="success_to_edit_profile">Sukses mengubah Profil Pengguna</string>
     <string name="success_to_delete_account">Sukses menghapus Akun Pengguna</string>
-    <string name="link_article">Link Artikel</string>
+    <string name="article_link">Tautan Artikel</string>
 
 </resources>

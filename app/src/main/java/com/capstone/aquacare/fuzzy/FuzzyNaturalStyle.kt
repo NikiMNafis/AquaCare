@@ -106,6 +106,7 @@ class FuzzyNaturalStyle(private val context: Context) {
         val inferensi69 = minOf(badTemperature, goodPh, goodAmmonia, goodKh, badGh)
         val inferensi70 = minOf(badTemperature, goodPh, goodAmmonia, mediumKh, badGh)
         val inferensi71 = minOf(badTemperature, goodPh, goodAmmonia, badKh, badGh)
+        val inferensi72 = minOf(badTemperature, goodPh, badAmmonia, goodKh, badGh)
 
         val hasilInferensi1 = fungsiKeanggotaanStatusBaik(inferensi1)
         val hasilInferensi2 = fungsiKeanggotaanStatusBaik(inferensi2)
@@ -184,17 +185,18 @@ class FuzzyNaturalStyle(private val context: Context) {
         val hasilInferensi69 = fungsiKeanggotaanStatusSedang(inferensi69)
         val hasilInferensi70 = fungsiKeanggotaanStatusSedang(inferensi70)
         val hasilInferensi71 = fungsiKeanggotaanStatusBuruk(inferensi71)
+        val hasilInferensi72 = fungsiKeanggotaanStatusBuruk(inferensi72)
 
         val defuzzifikasi1 = ((inferensi1 * hasilInferensi1) + (inferensi2 * hasilInferensi2) + (inferensi3 * hasilInferensi3) + (inferensi4 * hasilInferensi4) + (inferensi5 * hasilInferensi5) + (inferensi6 * hasilInferensi6)  + (inferensi7 * hasilInferensi7)  + (inferensi8 * hasilInferensi8)  + (inferensi9 * hasilInferensi9)  + (inferensi10 * hasilInferensi10) + (inferensi11 * hasilInferensi11)  + (inferensi12 * hasilInferensi12) + (inferensi13 * hasilInferensi13) + (inferensi14 * hasilInferensi14) + (inferensi15 * hasilInferensi15))
         val defuzzifikasi2 = ((inferensi16 * hasilInferensi16) + (inferensi17 * hasilInferensi17) + (inferensi18 * hasilInferensi18) + (inferensi19 * hasilInferensi19) + (inferensi20 * hasilInferensi20) + (inferensi21 * hasilInferensi21) + (inferensi22 * hasilInferensi22) + (inferensi23 * hasilInferensi23) + (inferensi24 * hasilInferensi24) + (inferensi25 * hasilInferensi25) + (inferensi26 * hasilInferensi26) + (inferensi27 * hasilInferensi27) + (inferensi28 * hasilInferensi28) + (inferensi29 * hasilInferensi29) + (inferensi30 * hasilInferensi30))
         val defuzzifikasi3 = ((inferensi31 * hasilInferensi31) + (inferensi32 * hasilInferensi32) + (inferensi33 * hasilInferensi33) + (inferensi34 * hasilInferensi34) + (inferensi35 * hasilInferensi35) + (inferensi36 * hasilInferensi36)  + (inferensi37 * hasilInferensi37)  + (inferensi38 * hasilInferensi38)  + (inferensi39 * hasilInferensi39)  + (inferensi40 * hasilInferensi40) + (inferensi41 * hasilInferensi41)  + (inferensi42 * hasilInferensi42) + (inferensi43 * hasilInferensi43) + (inferensi44 * hasilInferensi44) + (inferensi45 * hasilInferensi45))
         val defuzzifikasi4 = ((inferensi46 * hasilInferensi46) + (inferensi47 * hasilInferensi47) + (inferensi48 * hasilInferensi48) + (inferensi49 * hasilInferensi49) + (inferensi50 * hasilInferensi50) + (inferensi51 * hasilInferensi51) + (inferensi52 * hasilInferensi52) + (inferensi53 * hasilInferensi53) + (inferensi54 * hasilInferensi54) + (inferensi55 * hasilInferensi55) + (inferensi56 * hasilInferensi56) + (inferensi57 * hasilInferensi57) + (inferensi58 * hasilInferensi58) + (inferensi59 * hasilInferensi59) + (inferensi60 * hasilInferensi60))
-        val defuzzifikasi5 = ((inferensi61 * hasilInferensi61) + (inferensi62 * hasilInferensi62) + (inferensi63 * hasilInferensi63) + (inferensi64 * hasilInferensi64) + (inferensi65 * hasilInferensi65) + (inferensi66 * hasilInferensi66)  + (inferensi67 * hasilInferensi67)  + (inferensi68 * hasilInferensi68)  + (inferensi69 * hasilInferensi69)  + (inferensi70 * hasilInferensi70) + (inferensi71 * hasilInferensi71))
+        val defuzzifikasi5 = ((inferensi61 * hasilInferensi61) + (inferensi62 * hasilInferensi62) + (inferensi63 * hasilInferensi63) + (inferensi64 * hasilInferensi64) + (inferensi65 * hasilInferensi65) + (inferensi66 * hasilInferensi66)  + (inferensi67 * hasilInferensi67)  + (inferensi68 * hasilInferensi68)  + (inferensi69 * hasilInferensi69)  + (inferensi70 * hasilInferensi70) + (inferensi71 * hasilInferensi71) + (inferensi72 * hasilInferensi72))
 
         val defuzzifikasiA = inferensi1 + inferensi2 + inferensi3 + inferensi4 + inferensi5 + inferensi6 + inferensi7 + inferensi8 + inferensi9 + inferensi10 + inferensi11 + inferensi12 + inferensi13 + inferensi14 + inferensi15 + inferensi16 + inferensi17 + inferensi18 + inferensi19 + inferensi20
         val defuzzifikasiB = inferensi21 + inferensi22 + inferensi23 + inferensi24 + inferensi25 + inferensi26 + inferensi27 + inferensi28 + inferensi29 + inferensi30 + inferensi31 + inferensi32 + inferensi33 + inferensi34 + inferensi35 + inferensi36 + inferensi37 + inferensi38 + inferensi39 + inferensi40
         val defuzzifikasiC = inferensi41 + inferensi42 + inferensi43 + inferensi44 + inferensi45 + inferensi46 + inferensi47 + inferensi48 + inferensi49 + inferensi50 + inferensi51 + inferensi52 + inferensi53 + inferensi54 + inferensi55 + inferensi56 + inferensi57 + inferensi58 + inferensi59 + inferensi60
-        val defuzzifikasiD = inferensi61 + inferensi62 + inferensi63 + inferensi64 + inferensi65 + inferensi66 + inferensi67 + inferensi68 + inferensi69 + inferensi70 + inferensi71
+        val defuzzifikasiD = inferensi61 + inferensi62 + inferensi63 + inferensi64 + inferensi65 + inferensi66 + inferensi67 + inferensi68 + inferensi69 + inferensi70 + inferensi71 + inferensi72
 
         val totalDefuzzifikasi1 = defuzzifikasi1 + defuzzifikasi2 + defuzzifikasi3 + defuzzifikasi4 + defuzzifikasi5
         val totalDefuzzifikasi2 = defuzzifikasiA + defuzzifikasiB + defuzzifikasiC + defuzzifikasiD
