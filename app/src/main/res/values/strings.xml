@@ -104,4 +104,6 @@
     <string name="success_to_delete_account">Success to Delete User Account</string>
     <string name="article_link">Article Link</string>
 
+    <string name="app_description">This application is designed to monitor water quality in aquascapes using the Fuzzy Tsukamoto method. By utilizing a fuzzy algorithm, this application is able to measure important parameters, namely temperature, pH, ammonia, KH, and GH. Users will get recommendations for surefire tips to keep the aquascape ecosystem healthy and beautiful. In this application there are also articles about aquascape which can increase the users knowledge.</string>
+
 </resources>

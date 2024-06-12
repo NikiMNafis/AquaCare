@@ -104,4 +104,7 @@
     <string name="success_to_delete_account">Sukses menghapus Akun Pengguna</string>
     <string name="article_link">Tautan Artikel</string>
 
+    <string name="app_description">
+Aplikasi ini dirancang untuk memonitoring kualitas air pada aquascape menggunakan metode Fuzzy Tsukamoto. Dengan memanfaatkan algoritma fuzzy, aplikasi ini mampu mengukur parameter-parameter penting yaitu suhu, pH, ammonia, KH, dan GH. Pengguna akan mendapatkan rekomendasi tips yang tepat untuk menjaga ekosistem aquascapenya tetap sehat dan indah. Dalam aplikasi ini juga terdapat artikel seputar aquascape yang dapat menambah pengetahuan para pengguna.</string>
+
 </resources>

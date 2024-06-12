@@ -1,6 +1,7 @@
 package com.capstone.aquacare.fuzzy
 
 import android.content.Context
+import android.util.Log
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.StatusParameter
 
@@ -203,13 +204,24 @@ class FuzzyNaturalStyle(private val context: Context) {
 
         val defuzzifikasi = totalDefuzzifikasi1 / totalDefuzzifikasi2
 
-        val resultDefuzzifikasi = if (defuzzifikasi >= 70) {
+        val resultDefuzzifikasi = if (defuzzifikasi >= 40) {
             good
-        } else if (defuzzifikasi <= 30){
+        } else if (defuzzifikasi <= 20){
             bad
         } else {
             medium
         }
+
+//        Log.d("Fuzzy Natural", "Hasil Inferensi Aturan 3: α = $inferensi3, Z3 = $hasilInferensi3")
+//        Log.d("Fuzzy Natural", "Hasil Inferensi Aturan 13: α = $inferensi13, Z13 = $hasilInferensi13")
+//        Log.d("Fuzzy Natural", "Hasil Inferensi Aturan 25: α = $inferensi25, Z25 = $hasilInferensi25")
+//        Log.d("Fuzzy Natural", "Hasil Inferensi Aturan 32: α = $inferensi32, Z32 = $hasilInferensi32")
+//        Log.d("Fuzzy Natural", "Hasil Inferensi Aturan 44: α = $inferensi44, Z44 = $hasilInferensi44")
+//        Log.d("Fuzzy Natural", "Hasil Inferensi Aturan 58: α = $inferensi58, Z58 = $hasilInferensi58")
+//        Log.d("Fuzzy Natural", "Hasil Inferensi Aturan 63: α = $inferensi63, Z63 = $hasilInferensi63")
+//        Log.d("Fuzzy Natural", "Hasil Inferensi Aturan 70: α = $inferensi70, Z70 = $hasilInferensi70")
+//
+//        Log.d("Fuzzy Natural", "Defuzzyfikasi: Jumlah α * Z = $totalDefuzzifikasi1, Jumlah α = $totalDefuzzifikasi2, Grade = $resultDefuzzifikasi")
 
         return resultDefuzzifikasi
     }
@@ -377,25 +389,25 @@ class FuzzyNaturalStyle(private val context: Context) {
 
     private fun fungsiKeanggotaanStatusBaik(inverensi: Double): Double {
         return when (inverensi) {
-            1.0 -> 70.0
-            in 0.1..0.9 -> (inverensi * 20) + 50
-            else -> 50.0
+            1.0 -> 40.0
+            in 0.1..0.9 -> (inverensi * 10) + 30
+            else -> 30.0
         }
     }
 
     private fun fungsiKeanggotaanStatusSedang(inverensi: Double): Double {
         return when (inverensi) {
-            1.0 -> 50.0
-            in 0.1..0.9 -> (((inverensi * 20) + 30) + (70 - (inverensi * 20))) / 2
-            else -> 70.0
+            1.0 -> 30.0
+            in 0.1..0.9 -> (inverensi * 10) + 20
+            else -> 20.0
         }
     }
 
     private fun fungsiKeanggotaanStatusBuruk(inverensi: Double): Double {
         return when (inverensi) {
-            1.0 -> 30.0
-            in 0.1..0.9 -> 50 - (inverensi * 20)
-            else -> 50.0
+            1.0 -> 20.0
+            in 0.1..0.9 -> 30 - (inverensi * 10)
+            else -> 30.0
         }
     }
 

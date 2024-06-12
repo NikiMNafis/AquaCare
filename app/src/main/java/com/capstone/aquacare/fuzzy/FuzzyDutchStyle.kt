@@ -1,6 +1,7 @@
 package com.capstone.aquacare.fuzzy
 
 import android.content.Context
+import android.util.Log
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.StatusParameter
 
@@ -10,8 +11,10 @@ class FuzzyDutchStyle(private val context: Context) {
     private val medium = context.getString(R.string.medium)
     private val bad = context.getString(R.string.bad)
 
+    // function identified water quality
     fun calculateWaterQuality(temperature: Double, ph: Double, ammonia: Double, kh: Double, gh: Double): String {
 
+        // Fuzzyfikasi
         val goodTemperature = fungsiKeanggotaanSuhuBaik(temperature)
         val badTemperature = fungsiKeanggotaanSuhuBuruk(temperature)
 
@@ -29,6 +32,7 @@ class FuzzyDutchStyle(private val context: Context) {
         val goodGh = fungsiKeanggotaanGhBaik(gh)
         val badGh = fungsiKeanggotaanGhBuruk(gh)
 
+        // Inferensi
         val inferensi1 = minOf(goodTemperature, goodPh, goodAmmonia, goodKh, goodGh)
         val inferensi2 = minOf(goodTemperature, mediumPh, goodAmmonia, goodKh, goodGh)
         val inferensi3 = minOf(goodTemperature, badPh, goodAmmonia, goodKh, goodGh)
@@ -108,6 +112,7 @@ class FuzzyDutchStyle(private val context: Context) {
         val inferensi71 = minOf(badTemperature, goodPh, goodAmmonia, badKh, badGh)
         val inferensi72 = minOf(badTemperature, goodPh, badAmmonia, goodKh, badGh)
 
+        // Hasil Inferensi
         val hasilInferensi1 = fungsiKeanggotaanStatusBaik(inferensi1)
         val hasilInferensi2 = fungsiKeanggotaanStatusBaik(inferensi2)
         val hasilInferensi3 = fungsiKeanggotaanStatusSedang(inferensi3)
@@ -187,6 +192,7 @@ class FuzzyDutchStyle(private val context: Context) {
         val hasilInferensi71 = fungsiKeanggotaanStatusBuruk(inferensi71)
         val hasilInferensi72 = fungsiKeanggotaanStatusBuruk(inferensi72)
 
+        // Defuzzyfikasi
         val defuzzifikasi1 = ((inferensi1 * hasilInferensi1) + (inferensi2 * hasilInferensi2) + (inferensi3 * hasilInferensi3) + (inferensi4 * hasilInferensi4) + (inferensi5 * hasilInferensi5) + (inferensi6 * hasilInferensi6)  + (inferensi7 * hasilInferensi7)  + (inferensi8 * hasilInferensi8)  + (inferensi9 * hasilInferensi9)  + (inferensi10 * hasilInferensi10) + (inferensi11 * hasilInferensi11)  + (inferensi12 * hasilInferensi12) + (inferensi13 * hasilInferensi13) + (inferensi14 * hasilInferensi14) + (inferensi15 * hasilInferensi15))
         val defuzzifikasi2 = ((inferensi16 * hasilInferensi16) + (inferensi17 * hasilInferensi17) + (inferensi18 * hasilInferensi18) + (inferensi19 * hasilInferensi19) + (inferensi20 * hasilInferensi20) + (inferensi21 * hasilInferensi21) + (inferensi22 * hasilInferensi22) + (inferensi23 * hasilInferensi23) + (inferensi24 * hasilInferensi24) + (inferensi25 * hasilInferensi25) + (inferensi26 * hasilInferensi26) + (inferensi27 * hasilInferensi27) + (inferensi28 * hasilInferensi28) + (inferensi29 * hasilInferensi29) + (inferensi30 * hasilInferensi30))
         val defuzzifikasi3 = ((inferensi31 * hasilInferensi31) + (inferensi32 * hasilInferensi32) + (inferensi33 * hasilInferensi33) + (inferensi34 * hasilInferensi34) + (inferensi35 * hasilInferensi35) + (inferensi36 * hasilInferensi36)  + (inferensi37 * hasilInferensi37)  + (inferensi38 * hasilInferensi38)  + (inferensi39 * hasilInferensi39)  + (inferensi40 * hasilInferensi40) + (inferensi41 * hasilInferensi41)  + (inferensi42 * hasilInferensi42) + (inferensi43 * hasilInferensi43) + (inferensi44 * hasilInferensi44) + (inferensi45 * hasilInferensi45))
@@ -203,13 +209,24 @@ class FuzzyDutchStyle(private val context: Context) {
 
         val defuzzifikasi = totalDefuzzifikasi1 / totalDefuzzifikasi2
 
-        val resultDefuzzifikasi = if (defuzzifikasi >= 70) {
+        val resultDefuzzifikasi = if (defuzzifikasi >= 40) {
             good
-        } else if (defuzzifikasi <= 30){
+        } else if (defuzzifikasi <= 20){
             bad
         } else {
             medium
         }
+
+//        Log.d("Fuzzy Dutch", "Hasil Inferensi Aturan 1: α = $inferensi1, Z1 = $hasilInferensi1")
+//        Log.d("Fuzzy Dutch", "Hasil Inferensi Aturan 13: α = $inferensi13, Z13 = $hasilInferensi13")
+//        Log.d("Fuzzy Dutch", "Hasil Inferensi Aturan 25: α = $inferensi25, Z25 = $hasilInferensi25")
+//        Log.d("Fuzzy Dutch", "Hasil Inferensi Aturan 32: α = $inferensi32, Z32 = $hasilInferensi32")
+//        Log.d("Fuzzy Dutch", "Hasil Inferensi Aturan 44: α = $inferensi44, Z44 = $hasilInferensi44")
+//        Log.d("Fuzzy Dutch", "Hasil Inferensi Aturan 58: α = $inferensi58, Z58 = $hasilInferensi58")
+//        Log.d("Fuzzy Dutch", "Hasil Inferensi Aturan 63: α = $inferensi63, Z63 = $hasilInferensi63")
+//        Log.d("Fuzzy Dutch", "Hasil Inferensi Aturan 70: α = $inferensi70, Z70 = $hasilInferensi70")
+//
+//        Log.d("Fuzzy Dutch", "Defuzzyfikasi: Jumlah α * Z = $totalDefuzzifikasi1, Jumlah α = $totalDefuzzifikasi2, Grade = $resultDefuzzifikasi")
 
         return resultDefuzzifikasi
     }
@@ -377,27 +394,51 @@ class FuzzyDutchStyle(private val context: Context) {
 
     private fun fungsiKeanggotaanStatusBaik(inverensi: Double): Double {
         return when (inverensi) {
-            1.0 -> 70.0
-            in 0.1..0.9 -> (inverensi * 20) + 50
-            else -> 50.0
+            1.0 -> 40.0
+            in 0.1..0.9 -> (inverensi * 10) + 30
+            else -> 30.0
         }
     }
 
     private fun fungsiKeanggotaanStatusSedang(inverensi: Double): Double {
         return when (inverensi) {
-            1.0 -> 50.0
-            in 0.1..0.9 -> (((inverensi * 20) + 30) + (70 - (inverensi * 20))) / 2
-            else -> 70.0
+            1.0 -> 30.0
+            in 0.1..0.9 -> (inverensi * 10) + 20
+            else -> 20.0
         }
     }
 
     private fun fungsiKeanggotaanStatusBuruk(inverensi: Double): Double {
         return when (inverensi) {
-            1.0 -> 30.0
-            in 0.1..0.9 -> 50 - (inverensi * 20)
-            else -> 50.0
+            1.0 -> 20.0
+            in 0.1..0.9 -> 30 - (inverensi * 10)
+            else -> 30.0
         }
     }
+
+//    private fun fungsiKeanggotaanStatusBaik(inverensi: Double): Double {
+//        return when (inverensi) {
+//            1.0 -> 70.0
+//            in 0.1..0.9 -> (inverensi * 20) + 50
+//            else -> 50.0
+//        }
+//    }
+//
+//    private fun fungsiKeanggotaanStatusSedang(inverensi: Double): Double {
+//        return when (inverensi) {
+//            1.0 -> 50.0
+//            in 0.1..0.9 -> (((inverensi * 20) + 30) + (70 - (inverensi * 20))) / 2
+//            else -> 70.0
+//        }
+//    }
+//
+//    private fun fungsiKeanggotaanStatusBuruk(inverensi: Double): Double {
+//        return when (inverensi) {
+//            1.0 -> 30.0
+//            in 0.1..0.9 -> 50 - (inverensi * 20)
+//            else -> 50.0
+//        }
+//    }
 
 }
 
