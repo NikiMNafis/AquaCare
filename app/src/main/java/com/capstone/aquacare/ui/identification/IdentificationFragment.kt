@@ -14,6 +14,7 @@ import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.IdentificationData
 import com.capstone.aquacare.databinding.FragmentIdentificationBinding
 import com.capstone.aquacare.fuzzy.FuzzyDutchStyle
+import com.capstone.aquacare.fuzzy.FuzzyIdentification
 import com.capstone.aquacare.fuzzy.FuzzyNaturalStyle
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
@@ -111,14 +112,18 @@ class IdentificationFragment : Fragment() {
         val kh = binding.edtKh.text.toString().toDoubleOrNull() ?: 0.0
         val gh = binding.edtGh.text.toString().toDoubleOrNull() ?: 0.0
 
-        val fuzzyDutchStyle = FuzzyDutchStyle(requireContext())
-        val fuzzyNaturalStyle = FuzzyNaturalStyle(requireContext())
+//        val fuzzyDutchStyle = FuzzyDutchStyle(requireContext())
+//        val fuzzyNaturalStyle = FuzzyNaturalStyle(requireContext())
+//
+//        result = if (style == "Dutch Style") {
+//            fuzzyDutchStyle.calculateWaterQuality(temperature, ph, ammonia, kh, gh)
+//        } else {
+//            fuzzyNaturalStyle.calculateWaterQuality(temperature, ph, ammonia, kh, gh)
+//        }
 
-        result = if (style == "Dutch Style") {
-            fuzzyDutchStyle.calculateWaterQuality(temperature, ph, ammonia, kh, gh)
-        } else {
-            fuzzyNaturalStyle.calculateWaterQuality(temperature, ph, ammonia, kh, gh)
-        }
+        val fuzzyIdentification = FuzzyIdentification(requireContext(), style.toString())
+
+        result = fuzzyIdentification.calculateWaterQuality(temperature, ph, ammonia, kh, gh)
 
         if (aquascapeId.isEmpty()) {
             Toast.makeText(activity, "Aquascape ID not found", Toast.LENGTH_SHORT).show()

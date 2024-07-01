@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.capstone.aquacare.R
 import com.capstone.aquacare.databinding.FragmentIdentificationResultBinding
 import com.capstone.aquacare.fuzzy.FuzzyDutchStyle
+import com.capstone.aquacare.fuzzy.FuzzyIdentification
 import com.capstone.aquacare.fuzzy.FuzzyNaturalStyle
 
 class IdentificationResultFragment : Fragment() {
@@ -88,42 +89,57 @@ class IdentificationResultFragment : Fragment() {
         val kh = kh?.toDouble()
         val gh = gh?.toDouble()
 
-        val fuzzyDutchStyle = FuzzyDutchStyle(requireContext())
-        val fuzzyNaturalStyle = FuzzyNaturalStyle(requireContext())
+//        val fuzzyDutchStyle = FuzzyDutchStyle(requireContext())
+//        val fuzzyNaturalStyle = FuzzyNaturalStyle(requireContext())
+        val fuzzyIdentification = FuzzyIdentification(requireContext(), style.toString())
 
-        if (style == "Dutch Style") {
-            val checkResult = fuzzyDutchStyle.checkParameter(temperature!!, ph!!, ammonia!!, kh!!, gh!!)
-            val temperatureD = checkResult.temperature
-            val phD = checkResult.ph
-            val ammoniaD = checkResult.ammonia
-            val khD = checkResult.kh
-            val ghD = checkResult.gh
+        val checkResult = fuzzyIdentification.checkParameter(temperature!!, ph!!, ammonia!!, kh!!, gh!!)
+        val temperatureD = checkResult.temperature
+        val phD = checkResult.ph
+        val ammoniaD = checkResult.ammonia
+        val khD = checkResult.kh
+        val ghD = checkResult.gh
 
-            binding.tvTemperature.text = "$temperatureD - $temperature"
-            binding.tvPh.text = "$phD - $ph"
-            binding.tvAmmonia.text = "$ammoniaD - $ammonia"
-            binding.tvKh.text = "$khD - $kh"
-            binding.tvGh.text = "$ghD - $gh"
+        binding.tvTemperature.text = "$temperatureD - $temperature"
+        binding.tvPh.text = "$phD - $ph"
+        binding.tvAmmonia.text = "$ammoniaD - $ammonia"
+        binding.tvKh.text = "$khD - $kh"
+        binding.tvGh.text = "$ghD - $gh"
 
-            tipsResult(temperatureD, phD, ammoniaD, khD, ghD)
+        tipsResult(temperatureD, phD, ammoniaD, khD, ghD)
 
-        } else {
-            val checkResult =
-                fuzzyNaturalStyle.checkParameter(temperature!!, ph!!, ammonia!!, kh!!, gh!!)
-            val temperatureN = checkResult.temperature
-            val phN = checkResult.ph
-            val ammoniaN = checkResult.ammonia
-            val khN = checkResult.kh
-            val ghN = checkResult.gh
-
-            binding.tvTemperature.text = "$temperatureN - $temperature"
-            binding.tvPh.text = "$phN - $ph"
-            binding.tvAmmonia.text = "$ammoniaN - $ammonia"
-            binding.tvKh.text = "$khN - $kh"
-            binding.tvGh.text = "$ghN - $gh"
-
-            tipsResult(temperatureN, phN, ammoniaN, khN, ghN)
-        }
+//        if (style == "Dutch Style") {
+//            val checkResult = fuzzyDutchStyle.checkParameter(temperature!!, ph!!, ammonia!!, kh!!, gh!!)
+//            val temperatureD = checkResult.temperature
+//            val phD = checkResult.ph
+//            val ammoniaD = checkResult.ammonia
+//            val khD = checkResult.kh
+//            val ghD = checkResult.gh
+//
+//            binding.tvTemperature.text = "$temperatureD - $temperature"
+//            binding.tvPh.text = "$phD - $ph"
+//            binding.tvAmmonia.text = "$ammoniaD - $ammonia"
+//            binding.tvKh.text = "$khD - $kh"
+//            binding.tvGh.text = "$ghD - $gh"
+//
+//            tipsResult(temperatureD, phD, ammoniaD, khD, ghD)
+//
+//        } else {
+//            val checkResult = fuzzyNaturalStyle.checkParameter(temperature!!, ph!!, ammonia!!, kh!!, gh!!)
+//            val temperatureN = checkResult.temperature
+//            val phN = checkResult.ph
+//            val ammoniaN = checkResult.ammonia
+//            val khN = checkResult.kh
+//            val ghN = checkResult.gh
+//
+//            binding.tvTemperature.text = "$temperatureN - $temperature"
+//            binding.tvPh.text = "$phN - $ph"
+//            binding.tvAmmonia.text = "$ammoniaN - $ammonia"
+//            binding.tvKh.text = "$khN - $kh"
+//            binding.tvGh.text = "$ghN - $gh"
+//
+//            tipsResult(temperatureN, phN, ammoniaN, khN, ghN)
+//        }
     }
 
     private fun tipsResult(temperature: String?, ph: String?, ammonia: String?, kh: String?, gh: String?) {
