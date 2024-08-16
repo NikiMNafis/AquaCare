@@ -1,0 +1,109 @@
+<resources>
+    <string name="app_name">AquaCare</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="sign_in">Sign In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="login">Login</string>
+    <string name="sign_in_with">or sign in with</string>
+    <string name="google">google</string>
+    <string name="dont_have_account">don\'t have an account yet?</string>
+    <string name="register">Register</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="hello">Hello</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="aquascape_info">Aquascape Info</string>
+    <string name="enter_parameter_values">Enter Parameter Values</string>
+    <string name="temperature">Temperature</string>
+    <string name="ph">Ph</string>
+    <string name="ammonia">Ammonia</string>
+    <string name="kh">KH</string>
+    <string name="gh">GH</string>
+    <string name="check">Check</string>
+    <string name="result">Result</string>
+    <string name="identification_history">Identification History</string>
+    <string name="identification_results">Identification Results</string>
+    <string name="water_quality">Water Quality</string>
+    <string name="parameter_details">Parameter Details</string>
+    <string name="tips">Tips</string>
+    <string name="date">Date</string>
+    <string name="style">Style</string>
+    <string name="created">Created</string>
+    <string name="add">Add</string>
+    <string name="save">Save</string>
+    <string name="edit_aquascape">Edit Aquascape</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="language">Language</string>
+    <string name="about_application">About Application</string>
+    <string name="log_out">Log out</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="aquascape_name">Aquascape Name</string>
+    <string name="status">Status</string>
+    <string name="detail_status">Detail Status</string>
+    <string name="add_aquascape">Add Aquascape</string>
+    <string name="add_article">Add Article</string>
+    <string name="title">Title</string>
+    <string name="image_link">Image Link</string>
+    <string name="body">Body</string>
+    <string name="delete">Delete</string>
+    <string name="edit_article">Edit Article</string>
+
+    <string name="good">Good</string>
+    <string name="medium">Medium</string>
+    <string name="bad">Bad</string>
+
+    <string name="defaultweb_client_id">762708816606-b7q7lnlu2mjk5tguiqkhvm1plvmsu5sb.apps.googleusercontent.com</string>
+    <string name="select_date">Select Date</string>
+    <string name="delete_aquascape">delete aquascape</string>
+    <string name="type">Type</string>
+    <string name="edit">Edit</string>
+    <string name="aquascape">Aquascape</string>
+    <string name="article">Article</string>
+    <string name="profile">Profile</string>
+
+
+    <string name="login_success">Login Success</string>
+    <string name="wrong_password">Wrong Password</string>
+    <string name="account_not_found">Account not found</string>
+    <string name="please_enter_name">Please enter name</string>
+    <string name="please_enter_email">Please enter email</string>
+    <string name="please_enter_password">Please enter password</string>
+    <string name="please_enter_confirm_password">Please enter confirm password</string>
+    <string name="confirm_password_wrong">Confirm password wrong</string>
+    <string name="please_enter_date">Please enter date</string>
+    <string name="account_created">Account Created</string>
+    <string name="account_already_exists">Account already Exists</string>
+
+    <string name="please_fill">Please fill this form</string>
+
+    <string name="success_to_add_aquascape">Success to Add Aquascape</string>
+    <string name="success_to_edit_aquascape">Success to Edit Aquascape</string>
+
+    <string name="enter_temperature">Enter temperature</string>
+    <string name="enter_ph">Enter Ph</string>
+    <string name="enter_ammonia">Enter ammonia</string>
+    <string name="enter_kh">Enter KH</string>
+    <string name="enter_gh">Enter GH</string>
+
+    <string name="successful_identification">Successful identification of water quality</string>
+    <string name="success_to_add_aquascape_info">Success to Add Aquascape Info</string>
+    <string name="success_to_edit_aquascape_info">Success to Edit Aquascape Info</string>
+
+    <string name="success_to_edit_password">Success to Edit Password</string>
+    <string name="enter_new_password">Please enter new password</string>
+
+    <string name="success_to_edit_profile">Success to Edit User Profile</string>
+    <string name="success_to_delete_account">Success to Delete User Account</string>
+    <string name="article_link">Article Link</string>
+
+    <string name="app_description">This application is designed to monitor water quality in aquascapes using the Fuzzy Tsukamoto method. By utilizing a fuzzy algorithm, this application is able to measure important parameters, namely temperature, pH, ammonia, KH, and GH. Users will get recommendations for surefire tips to keep the aquascape ecosystem healthy and beautiful. In this application there are also articles about aquascape which can increase the users knowledge.</string>
+
+</resources>
