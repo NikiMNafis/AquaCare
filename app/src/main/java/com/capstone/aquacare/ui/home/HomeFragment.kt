@@ -8,13 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.ArticleData
+import com.capstone.aquacare.data.Repository
 import com.capstone.aquacare.databinding.FragmentHomeBinding
-import com.google.android.play.integrity.internal.l
+import com.capstone.aquacare.viewModel.DataViewModel
+import com.capstone.aquacare.viewModel.ViewModelFactory
 import com.google.firebase.database.*
 
 class HomeFragment : Fragment() {
@@ -24,7 +29,9 @@ class HomeFragment : Fragment() {
 
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
-    private lateinit var databaseInfoReference: DatabaseReference
+    private lateinit var databaseArticleReference: DatabaseReference
+
+    private lateinit var dataViewModel: DataViewModel
 
     val list = mutableListOf<AquascapeData>()
     val listInfo = mutableListOf<ArticleData>()
@@ -34,7 +41,7 @@ class HomeFragment : Fragment() {
 
         firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = firebaseDatabase.reference.child("users")
-        databaseInfoReference = firebaseDatabase.reference.child("article")
+        databaseArticleReference = firebaseDatabase.reference.child("article")
     }
 
     override fun onCreateView(
@@ -78,41 +85,36 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_addAquascapeFragment)
         }
 
-        getAquascapeData(userId)
-        getAquascapeInfoData()
-    }
+        val repository = Repository()
+        dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[DataViewModel::class.java]
 
-    private fun getAquascapeData(userId: String) {
-        binding.pbAquascape.visibility = View.VISIBLE
-        binding.rvListAquascape.visibility = View.GONE
-
-        val aquascapeReference = databaseReference.child(userId).child("aquascapes")
-
-        aquascapeReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                list.clear()
-                for (snapshot in dataSnapshot.children) {
-                    val dataAquascape = snapshot.getValue(AquascapeData::class.java)
-                    if (dataAquascape != null) {
-                        list.add(dataAquascape)
-                    }
-                }
+        dataViewModel.isLoadingA.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                binding.pbAquascape.visibility = View.VISIBLE
+                binding.rvListAquascape.visibility = View.GONE
+            } else {
                 binding.pbAquascape.visibility = View.GONE
                 binding.rvListAquascape.visibility = View.VISIBLE
-                showAquascape()
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(requireContext(), "Failed to retrieve aquascape data: ${databaseError.message}", Toast.LENGTH_SHORT).show()
             }
         })
+
+        dataViewModel.aquascapeData.observe( viewLifecycleOwner, Observer { aquascape ->
+            list.clear()
+            for (data in aquascape) {
+                list.add(data)
+            }
+            showAquascape()
+        })
+        dataViewModel.getAquascapeData(userId)
+
+        getAquascapeInfoData()
     }
 
     private fun getAquascapeInfoData() {
         binding.pbArticle.visibility = View.VISIBLE
         binding.rvAquascapeInfo.visibility = View.GONE
 
-        databaseInfoReference.addValueEventListener(object : ValueEventListener {
+        databaseArticleReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 listInfo.clear()
                 for (snapshot in dataSnapshot.children) {
