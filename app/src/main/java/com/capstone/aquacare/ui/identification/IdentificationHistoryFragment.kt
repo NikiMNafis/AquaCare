@@ -79,23 +79,23 @@ class IdentificationHistoryFragment : Fragment() {
         val repository = Repository()
         dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[DataViewModel::class.java]
 
-        dataViewModel.isLoadingC.observe(viewLifecycleOwner, Observer {
+        dataViewModel.isLoadingC.observe(viewLifecycleOwner) {
             if (it) {
                 binding.pbHistory.visibility = View.VISIBLE
             } else {
                 binding.pbHistory.visibility = View.GONE
             }
-        })
+        }
 
-        dataViewModel.identificationData.observe( viewLifecycleOwner, Observer { identification ->
+        dataViewModel.identificationData.observe( viewLifecycleOwner) { identification ->
             list.clear()
             for (data in identification) {
                 list.add(data)
             }
             showIdentification()
-        })
+        }
 
-        dataViewModel.aquascapeData.observe(viewLifecycleOwner, Observer { aquascape ->
+        dataViewModel.aquascapeData.observe(viewLifecycleOwner) { aquascape ->
             val selectedAquascape = aquascape.find { it.id == aquascapeId }
             if (selectedAquascape != null) {
                 aquascapeName = selectedAquascape.name
@@ -105,7 +105,7 @@ class IdentificationHistoryFragment : Fragment() {
             } else {
                 Log.d("DataViewModel", "No aquascape data available")
             }
-        })
+        }
 
         dataViewModel.getAquascapeData(userId)
         dataViewModel.getIdentificationData(userId, aquascapeId!!)

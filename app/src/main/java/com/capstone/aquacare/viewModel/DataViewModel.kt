@@ -1,10 +1,13 @@
 package com.capstone.aquacare.viewModel
 
+import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.ArticleData
 import com.capstone.aquacare.data.IdentificationData
@@ -36,6 +39,10 @@ class DataViewModel(private val repository: Repository): ViewModel() {
     // Loading daftar riwayat identifikasi
     private val _isLoadingC = MutableLiveData<Boolean>()
     val isLoadingC: LiveData<Boolean> get() = _isLoadingB
+
+    // Status hasil menambah aquascape
+    private val _isSuccess = MutableLiveData<Boolean>()
+    val isSuccess: LiveData<Boolean> get() = _isSuccess
 
     // Mengambil daftar aquascape
     fun getAquascapeData(userId: String) {
@@ -81,6 +88,19 @@ class DataViewModel(private val repository: Repository): ViewModel() {
                 Log.e("DataViewModel", "Error to retrieve identification history data: ${e.message}")
             } finally {
                 _isLoadingC.value = false
+            }
+        }
+    }
+
+    fun addNewAquascape(userId : String, name: String, style: String, date: String) {
+        viewModelScope.launch {
+            val newAquascapeData = AquascapeData("", name, style, date, "", "")
+            val result = repository.addNewAquascape(userId, newAquascapeData)
+
+            result.onSuccess {
+                _isSuccess.value = true
+            }.onFailure {
+                _isSuccess.value = false
             }
         }
     }

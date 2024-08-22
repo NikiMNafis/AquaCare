@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -73,7 +72,7 @@ class HomeFragment : Fragment() {
         val repository = Repository()
         dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[DataViewModel::class.java]
 
-        dataViewModel.isLoadingA.observe(viewLifecycleOwner, Observer {
+        dataViewModel.isLoadingA.observe(viewLifecycleOwner) {
             if (it) {
                 binding.pbAquascape.visibility = View.VISIBLE
                 binding.rvListAquascape.visibility = View.GONE
@@ -81,17 +80,17 @@ class HomeFragment : Fragment() {
                 binding.pbAquascape.visibility = View.GONE
                 binding.rvListAquascape.visibility = View.VISIBLE
             }
-        })
+        }
 
-        dataViewModel.aquascapeData.observe( viewLifecycleOwner, Observer { aquascape ->
+        dataViewModel.aquascapeData.observe( viewLifecycleOwner) { aquascape ->
             listAquascape.clear()
             for (data in aquascape) {
                 listAquascape.add(data)
             }
             showAquascape()
-        })
+        }
 
-        dataViewModel.isLoadingB.observe(viewLifecycleOwner, Observer {
+        dataViewModel.isLoadingB.observe(viewLifecycleOwner) {
             if (it) {
                 binding.pbArticle.visibility = View.VISIBLE
                 binding.rvAquascapeInfo.visibility = View.GONE
@@ -99,15 +98,15 @@ class HomeFragment : Fragment() {
                 binding.rvAquascapeInfo.visibility = View.VISIBLE
                 binding.pbArticle.visibility = View.GONE
             }
-        })
+        }
 
-        dataViewModel.articleData.observe(viewLifecycleOwner, Observer { article ->
+        dataViewModel.articleData.observe(viewLifecycleOwner) { article ->
             listArticle.clear()
             for (data in article) {
                 listArticle.add(data)
             }
             showArticle()
-        })
+        }
 
         dataViewModel.getAquascapeData(userId)
         dataViewModel.getArticleData()

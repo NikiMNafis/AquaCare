@@ -42,4 +42,20 @@ class Repository {
         }
     }
 
+    suspend fun addNewAquascape(userId: String, aquascapeData: AquascapeData): Result<Unit> {
+        return try {
+            val aquascapeReference = userDatabase.child(userId).child("aquascapes")
+            val newAquascapeId = aquascapeReference.push().key
+
+            if (newAquascapeId != null) {
+                aquascapeData.id = newAquascapeId
+                aquascapeReference.child(newAquascapeId).setValue(aquascapeData).await()
+                Result.success(Unit)
+            } else {
+                Result.failure(Exception("Failed to generate Aquascape Id"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }
