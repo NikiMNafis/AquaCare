@@ -13,9 +13,7 @@ import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.IdentificationData
 import com.capstone.aquacare.databinding.FragmentIdentificationBinding
-import com.capstone.aquacare.fuzzy.FuzzyDutchStyle
 import com.capstone.aquacare.fuzzy.FuzzyIdentification
-import com.capstone.aquacare.fuzzy.FuzzyNaturalStyle
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*

@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.capstone.aquacare.data.AquascapeData
+import com.capstone.aquacare.data.ArticleData
+import com.capstone.aquacare.data.IdentificationData
 import com.capstone.aquacare.data.Repository
 import kotlinx.coroutines.launch
 
@@ -15,9 +17,25 @@ class DataViewModel(private val repository: Repository): ViewModel() {
     private val _aquascapeData = MutableLiveData<List<AquascapeData>>()
     val aquascapeData: LiveData<List<AquascapeData>> get() = _aquascapeData
 
+    // Data daftar artikel
+    private val _articleData = MutableLiveData<List<ArticleData>>()
+    val articleData: LiveData<List<ArticleData>> get() = _articleData
+
+    // Data daftar riwayat identifikasi
+    private val _identificationData = MutableLiveData<List<IdentificationData>>()
+    val identificationData: LiveData<List<IdentificationData>> get() = _identificationData
+
     // Loading daftar aquascape
     private val _isLoadingA = MutableLiveData<Boolean>()
     val isLoadingA: LiveData<Boolean> get() = _isLoadingA
+
+    // Loading daftar artikel
+    private val _isLoadingB = MutableLiveData<Boolean>()
+    val isLoadingB: LiveData<Boolean> get() = _isLoadingB
+
+    // Loading daftar riwayat identifikasi
+    private val _isLoadingC = MutableLiveData<Boolean>()
+    val isLoadingC: LiveData<Boolean> get() = _isLoadingB
 
     // Mengambil daftar aquascape
     fun getAquascapeData(userId: String) {
@@ -28,10 +46,43 @@ class DataViewModel(private val repository: Repository): ViewModel() {
                 val aquascapeList = repository.getAquascapeData(userId)
                 _aquascapeData.postValue(aquascapeList)
             } catch (e: Exception) {
-                Log.e("DataViewModel", "Error to retrieve aquascape data")
+                Log.e("DataViewModel", "Error to retrieve aquascape data: ${e.message}")
             } finally {
                 _isLoadingA.value = false
             }
         }
     }
+
+    // Mengambil daftar artikel
+    fun getArticleData() {
+        _isLoadingB.value = true
+
+        viewModelScope.launch {
+            try {
+                val articleList = repository.getArticleData()
+                _articleData.postValue(articleList)
+            } catch (e: Exception) {
+                Log.e("DataViewModel", "Error to retrieve article data: ${e.message}")
+            } finally {
+                _isLoadingB.value = false
+            }
+        }
+    }
+
+    // Mengambil daftar riwayat identifikasi
+    fun getIdentificationData(userId : String, aquascapeId : String) {
+        _isLoadingC.value = true
+
+        viewModelScope.launch {
+            try {
+                val identificationList = repository.getIdentificationData(userId, aquascapeId)
+                _identificationData.postValue(identificationList)
+            } catch (e: Exception) {
+                Log.e("DataViewModel", "Error to retrieve identification history data: ${e.message}")
+            } finally {
+                _isLoadingC.value = false
+            }
+        }
+    }
+
 }
