@@ -18,7 +18,6 @@ import com.capstone.aquacare.data.Repository
 import com.capstone.aquacare.databinding.FragmentAddAquascapeBinding
 import com.capstone.aquacare.viewModel.DataViewModel
 import com.capstone.aquacare.viewModel.ViewModelFactory
-import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,17 +28,7 @@ class AddAquascapeFragment : Fragment() {
 
     private lateinit var dataViewModel: DataViewModel
 
-    private lateinit var firebaseDatabase: FirebaseDatabase
-    private lateinit var databaseReference: DatabaseReference
-
     private var selectedStyle: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = firebaseDatabase.reference.child("users")
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -127,7 +116,7 @@ class AddAquascapeFragment : Fragment() {
         dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[DataViewModel::class.java]
 
         dataViewModel.addNewAquascape(userId, name, style, date)
-        dataViewModel.isSuccess.observe(viewLifecycleOwner) {
+        dataViewModel.isSuccessA.observe(viewLifecycleOwner) {
             if (it) {
                 Toast.makeText(
                     activity,

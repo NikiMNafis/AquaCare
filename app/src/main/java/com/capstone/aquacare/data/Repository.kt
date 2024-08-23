@@ -1,6 +1,5 @@
 package com.capstone.aquacare.data
 
-import android.util.Log
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 
@@ -54,6 +53,38 @@ class Repository {
             } else {
                 Result.failure(Exception("Failed to generate Aquascape Id"))
             }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun editAquascape(userId: String, aquascapeId: String, name: String, style: String): Result<Unit> {
+        return try {
+            val aquascapeReference = userDatabase.child(userId).child("aquascapes")
+            val dataSnapshot = aquascapeReference.orderByChild("id").equalTo(aquascapeId).get().await()
+
+            if (dataSnapshot.exists()) {
+                for (snapshot in dataSnapshot.children) {
+                    val aquascapeData = snapshot.getValue(AquascapeData::class.java)
+                    if (aquascapeData != null) {
+                        val createDate = aquascapeData.createDate.toString()
+
+                        val updateData = mapOf("name" to name, "style" to style, "createDate" to createDate)
+                        aquascapeReference.child(aquascapeId).updateChildren(updateData).await()
+                        return Result.success(Unit)
+                    }
+                }
+            }
+            Result.failure(Exception("No aquascape data"))
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun deleteAquascape(userId: String, aquascapeId: String): Result<Unit> {
+        return try {
+            val dataSnapshot = userDatabase.child(userId).child("aquascapes").child(aquascapeId).removeValue().await()
+            Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
         }

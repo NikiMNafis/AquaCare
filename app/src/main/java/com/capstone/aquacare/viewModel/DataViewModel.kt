@@ -1,13 +1,10 @@
 package com.capstone.aquacare.viewModel
 
-import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.ArticleData
 import com.capstone.aquacare.data.IdentificationData
@@ -41,8 +38,16 @@ class DataViewModel(private val repository: Repository): ViewModel() {
     val isLoadingC: LiveData<Boolean> get() = _isLoadingB
 
     // Status hasil menambah aquascape
-    private val _isSuccess = MutableLiveData<Boolean>()
-    val isSuccess: LiveData<Boolean> get() = _isSuccess
+    private val _isSuccessA = MutableLiveData<Boolean>()
+    val isSuccessA: LiveData<Boolean> get() = _isSuccessA
+
+    // Status hasil mengubah aquascape
+    private val _isSuccessB = MutableLiveData<Boolean>()
+    val isSuccessB: LiveData<Boolean> get() = _isSuccessB
+
+    // Status hasil menghapus aquascape
+    private val _isSuccessC = MutableLiveData<Boolean>()
+    val isSuccessC: LiveData<Boolean> get() = _isSuccessC
 
     // Mengambil daftar aquascape
     fun getAquascapeData(userId: String) {
@@ -92,15 +97,40 @@ class DataViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
+    // Menambahkan data aquascape baru
     fun addNewAquascape(userId : String, name: String, style: String, date: String) {
         viewModelScope.launch {
             val newAquascapeData = AquascapeData("", name, style, date, "", "")
             val result = repository.addNewAquascape(userId, newAquascapeData)
 
             result.onSuccess {
-                _isSuccess.value = true
+                _isSuccessA.value = true
             }.onFailure {
-                _isSuccess.value = false
+                _isSuccessA.value = false
+            }
+        }
+    }
+
+    // Mengubah data Aquascape
+    fun editAquascape(userId: String, aquascapeId: String, name: String, style: String) {
+        viewModelScope.launch {
+            val result = repository.editAquascape(userId, aquascapeId, name, style)
+            result.onSuccess {
+                _isSuccessB.value = true
+            }.onFailure {
+                _isSuccessB.value = false
+            }
+        }
+    }
+
+    // Menghapus data aquascape
+    fun deleteAquascape(userId: String, aquascapeId: String) {
+        viewModelScope.launch {
+            val result = repository.deleteAquascape(userId, aquascapeId)
+            result.onSuccess {
+                _isSuccessC.value = true
+            }.onFailure {
+                _isSuccessC.value = false
             }
         }
     }
