@@ -10,12 +10,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-<<<<<<< HEAD
-import androidx.navigation.fragment.findNavController
-import com.capstone.aquacare.R
-import com.capstone.aquacare.data.AquascapeData
-import com.capstone.aquacare.databinding.FragmentEditAquascapeBinding
-=======
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.capstone.aquacare.R
@@ -24,7 +18,6 @@ import com.capstone.aquacare.data.Repository
 import com.capstone.aquacare.databinding.FragmentEditAquascapeBinding
 import com.capstone.aquacare.viewModel.DataViewModel
 import com.capstone.aquacare.viewModel.ViewModelFactory
->>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
 import com.google.firebase.database.*
 
 class EditAquascapeFragment : Fragment() {
@@ -32,11 +25,8 @@ class EditAquascapeFragment : Fragment() {
     private var _binding: FragmentEditAquascapeBinding? = null
     private val binding get() = _binding!!
 
-<<<<<<< HEAD
-=======
     private lateinit var dataViewModel: DataViewModel
 
->>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
 
@@ -61,12 +51,9 @@ class EditAquascapeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-<<<<<<< HEAD
-=======
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
         val userId = sharedPreferences?.getString("userId", "").toString()
 
->>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
         val aquascapeId = arguments?.getString("aquascapeId").toString()
         val aquascapeName = arguments?.getString("aquascapeName").toString()
         val style = arguments?.getString("style").toString()
@@ -100,26 +87,20 @@ class EditAquascapeFragment : Fragment() {
             }
         }
 
-<<<<<<< HEAD
-=======
         val repository = Repository()
         dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[DataViewModel::class.java]
 
->>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
         binding.btnSave.setOnClickListener {
             editAquascape(aquascapeId)
         }
 
         binding.btnDelete.setOnClickListener {
-<<<<<<< HEAD
-=======
 //            dataViewModel.deleteAquascape(userId, aquascapeId)
 //            dataViewModel.isLoadingC.observe(viewLifecycleOwner) {
 //                if (it) {
 //                    findNavController().navigate(R.id.action_editAquascapeFragment_to_homeFragment)
 //                }
 //            }
->>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
             deleteAquascape(aquascapeId)
         }
 
@@ -176,8 +157,6 @@ class EditAquascapeFragment : Fragment() {
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
         val userId = sharedPreferences?.getString("userId", "").toString()
 
-<<<<<<< HEAD
-=======
 //        val repository = Repository()
 //        dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[DataViewModel::class.java]
 //
@@ -193,7 +172,6 @@ class EditAquascapeFragment : Fragment() {
 //            }
 //        }
 
->>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
         val aquascapeReference = databaseReference.child(userId).child("aquascapes")
 
         aquascapeReference.child(aquascapeId).removeValue().addOnSuccessListener {

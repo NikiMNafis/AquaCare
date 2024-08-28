@@ -319,56 +319,6 @@ class FuzzyIdentification(private val context: Context, private val style: Strin
         val hasilInferensi107 = fungsiKeanggotaanStatusBuruk(inferensi107)
         val hasilInferensi108 = fungsiKeanggotaanStatusBuruk(inferensi108)
 
-<<<<<<< HEAD
-        val hasilInferensi109 = fungsiKeanggotaanStatusBuruk(inferensi19)
-        val hasilInferensi110 = fungsiKeanggotaanStatusBuruk(inferensi20)
-        val hasilInferensi111 = fungsiKeanggotaanStatusBuruk(inferensi21)
-        val hasilInferensi112 = fungsiKeanggotaanStatusBuruk(inferensi22)
-        val hasilInferensi113 = fungsiKeanggotaanStatusBuruk(inferensi23)
-        val hasilInferensi114 = fungsiKeanggotaanStatusBuruk(inferensi24)
-        val hasilInferensi115 = fungsiKeanggotaanStatusSedang(inferensi25)
-        val hasilInferensi116 = fungsiKeanggotaanStatusBuruk(inferensi26)
-        val hasilInferensi117 = fungsiKeanggotaanStatusSedang(inferensi27)
-        val hasilInferensi118 = fungsiKeanggotaanStatusSedang(inferensi28)
-        val hasilInferensi119 = fungsiKeanggotaanStatusBuruk(inferensi29)
-
-        val hasilInferensi120 = fungsiKeanggotaanStatusBuruk(inferensi49)
-        val hasilInferensi121 = fungsiKeanggotaanStatusBuruk(inferensi50)
-        val hasilInferensi122 = fungsiKeanggotaanStatusBuruk(inferensi51)
-        val hasilInferensi123 = fungsiKeanggotaanStatusBuruk(inferensi52)
-        val hasilInferensi124 = fungsiKeanggotaanStatusBuruk(inferensi53)
-        val hasilInferensi125 = fungsiKeanggotaanStatusBuruk(inferensi54)
-        val hasilInferensi126 = fungsiKeanggotaanStatusSedang(inferensi55)
-        val hasilInferensi127 = fungsiKeanggotaanStatusBuruk(inferensi56)
-        val hasilInferensi128 = fungsiKeanggotaanStatusBuruk(inferensi57)
-        val hasilInferensi129 = fungsiKeanggotaanStatusBuruk(inferensi58)
-        val hasilInferensi130 = fungsiKeanggotaanStatusBuruk(inferensi59)
-        val hasilInferensi131 = fungsiKeanggotaanStatusBuruk(inferensi60)
-
-        val hasilInferensi132 = fungsiKeanggotaanStatusBuruk(inferensi85)
-        val hasilInferensi133 = fungsiKeanggotaanStatusBuruk(inferensi86)
-        val hasilInferensi134 = fungsiKeanggotaanStatusBuruk(inferensi87)
-        val hasilInferensi135 = fungsiKeanggotaanStatusBuruk(inferensi88)
-        val hasilInferensi136 = fungsiKeanggotaanStatusBuruk(inferensi89)
-        val hasilInferensi137 = fungsiKeanggotaanStatusBuruk(inferensi90)
-        val hasilInferensi138 = fungsiKeanggotaanStatusSedang(inferensi91)
-        val hasilInferensi139 = fungsiKeanggotaanStatusBuruk(inferensi92)
-        val hasilInferensi140 = fungsiKeanggotaanStatusBuruk(inferensi93)
-        val hasilInferensi141 = fungsiKeanggotaanStatusBuruk(inferensi94)
-        val hasilInferensi142 = fungsiKeanggotaanStatusBuruk(inferensi95)
-        val hasilInferensi143 = fungsiKeanggotaanStatusBuruk(inferensi96)
-
-//        val defuzzifikasi1 = ((inferensi1 * hasilInferensi1) + (inferensi2 * hasilInferensi2) + (inferensi3 * hasilInferensi3) + (inferensi4 * hasilInferensi4) + (inferensi5 * hasilInferensi5) + (inferensi6 * hasilInferensi6)  + (inferensi7 * hasilInferensi7)  + (inferensi8 * hasilInferensi8)  + (inferensi9 * hasilInferensi9)  + (inferensi10 * hasilInferensi10) + (inferensi11 * hasilInferensi11)  + (inferensi12 * hasilInferensi12) + (inferensi13 * hasilInferensi13) + (inferensi14 * hasilInferensi14) + (inferensi15 * hasilInferensi15))
-//        val defuzzifikasi2 = ((inferensi16 * hasilInferensi16) + (inferensi17 * hasilInferensi17) + (inferensi18 * hasilInferensi18) + (inferensi19 * hasilInferensi19) + (inferensi20 * hasilInferensi20) + (inferensi21 * hasilInferensi21) + (inferensi22 * hasilInferensi22) + (inferensi23 * hasilInferensi23) + (inferensi24 * hasilInferensi24) + (inferensi25 * hasilInferensi25) + (inferensi26 * hasilInferensi26) + (inferensi27 * hasilInferensi27) + (inferensi28 * hasilInferensi28) + (inferensi29 * hasilInferensi29) + (inferensi30 * hasilInferensi30))
-//        val defuzzifikasi3 = ((inferensi31 * hasilInferensi31) + (inferensi32 * hasilInferensi32) + (inferensi33 * hasilInferensi33) + (inferensi34 * hasilInferensi34) + (inferensi35 * hasilInferensi35) + (inferensi36 * hasilInferensi36)  + (inferensi37 * hasilInferensi37)  + (inferensi38 * hasilInferensi38)  + (inferensi39 * hasilInferensi39)  + (inferensi40 * hasilInferensi40) + (inferensi41 * hasilInferensi41)  + (inferensi42 * hasilInferensi42) + (inferensi43 * hasilInferensi43) + (inferensi44 * hasilInferensi44) + (inferensi45 * hasilInferensi45))
-//        val defuzzifikasi4 = ((inferensi46 * hasilInferensi46) + (inferensi47 * hasilInferensi47) + (inferensi48 * hasilInferensi48) + (inferensi49 * hasilInferensi49) + (inferensi50 * hasilInferensi50) + (inferensi51 * hasilInferensi51) + (inferensi52 * hasilInferensi52) + (inferensi53 * hasilInferensi53) + (inferensi54 * hasilInferensi54) + (inferensi55 * hasilInferensi55) + (inferensi56 * hasilInferensi56) + (inferensi57 * hasilInferensi57) + (inferensi58 * hasilInferensi58) + (inferensi59 * hasilInferensi59) + (inferensi60 * hasilInferensi60))
-//        val defuzzifikasi5 = ((inferensi61 * hasilInferensi61) + (inferensi62 * hasilInferensi62) + (inferensi63 * hasilInferensi63) + (inferensi64 * hasilInferensi64) + (inferensi65 * hasilInferensi65) + (inferensi66 * hasilInferensi66)  + (inferensi67 * hasilInferensi67)  + (inferensi68 * hasilInferensi68)  + (inferensi69 * hasilInferensi69)  + (inferensi70 * hasilInferensi70) + (inferensi71 * hasilInferensi71) + (inferensi72 * hasilInferensi72))
-
-//        val defuzzifikasiA = inferensi1 + inferensi2 + inferensi3 + inferensi4 + inferensi5 + inferensi6 + inferensi7 + inferensi8 + inferensi9 + inferensi10 + inferensi11 + inferensi12 + inferensi13 + inferensi14 + inferensi15 + inferensi16 + inferensi17 + inferensi18 + inferensi19 + inferensi20
-//        val defuzzifikasiB = inferensi21 + inferensi22 + inferensi23 + inferensi24 + inferensi25 + inferensi26 + inferensi27 + inferensi28 + inferensi29 + inferensi30 + inferensi31 + inferensi32 + inferensi33 + inferensi34 + inferensi35 + inferensi36 + inferensi37 + inferensi38 + inferensi39 + inferensi40
-//        val defuzzifikasiC = inferensi41 + inferensi42 + inferensi43 + inferensi44 + inferensi45 + inferensi46 + inferensi47 + inferensi48 + inferensi49 + inferensi50 + inferensi51 + inferensi52 + inferensi53 + inferensi54 + inferensi55 + inferensi56 + inferensi57 + inferensi58 + inferensi59 + inferensi60
-//        val defuzzifikasiD = inferensi61 + inferensi62 + inferensi63 + inferensi64 + inferensi65 + inferensi66 + inferensi67 + inferensi68 + inferensi69 + inferensi70 + inferensi71 + inferensi72
-=======
         val hasilInferensi109 = fungsiKeanggotaanStatusBuruk(inferensi109)
         val hasilInferensi110 = fungsiKeanggotaanStatusBuruk(inferensi110)
         val hasilInferensi111 = fungsiKeanggotaanStatusBuruk(inferensi111)
@@ -406,7 +356,6 @@ class FuzzyIdentification(private val context: Context, private val style: Strin
         val hasilInferensi141 = fungsiKeanggotaanStatusBuruk(inferensi141)
         val hasilInferensi142 = fungsiKeanggotaanStatusBuruk(inferensi142)
         val hasilInferensi143 = fungsiKeanggotaanStatusBuruk(inferensi143)
->>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
 
         val totalA = listOf(
             inferensi1 * hasilInferensi1, inferensi2 * hasilInferensi2, inferensi3 * hasilInferensi3, inferensi4 * hasilInferensi4, inferensi5 * hasilInferensi5, inferensi6 * hasilInferensi6, inferensi7 * hasilInferensi7, inferensi8 * hasilInferensi8,
@@ -440,13 +389,6 @@ class FuzzyIdentification(private val context: Context, private val style: Strin
             inferensi137, inferensi138, inferensi139, inferensi140, inferensi141, inferensi142, inferensi143
         ).sumOf { it }
 
-<<<<<<< HEAD
-//        val totalDefuzzifikasi1 = defuzzifikasi1 + defuzzifikasi2 + defuzzifikasi3 + defuzzifikasi4 + defuzzifikasi5
-//        val totalDefuzzifikasi2 = defuzzifikasiA + defuzzifikasiB + defuzzifikasiC + defuzzifikasiD
-
-//        val defuzzifikasi = totalDefuzzifikasi1 / totalDefuzzifikasi2
-=======
->>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
         val defuzzifikasi = totalA / totalB
 
         val resultDefuzzifikasi = if (defuzzifikasi >= 70) {

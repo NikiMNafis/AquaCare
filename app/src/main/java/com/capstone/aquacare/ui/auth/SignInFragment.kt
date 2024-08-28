@@ -176,49 +176,8 @@ class SignInFragment : Fragment() {
                     ).show()
                 }
             }
-<<<<<<< HEAD
-
     }
 
-//    private fun signInUser(email: String, password: String) {
-//        databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    for (userSnapshot in dataSnapshot.children) {
-//                        val userData = userSnapshot.getValue(UserData::class.java)
-//
-//                        if (userData != null && userData.accountType == password){
-//                            val id = userData.id.toString()
-//                            val name = userData.name.toString()
-//                            val email = userData.email.toString()
-//                            val userType = userData.userType.toString()
-//                            val accountType = userData.accountType.toString()
-//                            val photo = ""
-//
-//                            saveLoginSession(id, name, email, photo, userType, accountType)
-//
-//                            Toast.makeText(activity, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
-//                            startActivity(Intent(activity, MainActivity::class.java))
-//                            requireActivity().finish()
-//                        } else {
-//                            Toast.makeText(activity, getString(R.string.wrong_password), Toast.LENGTH_SHORT).show()
-//                        }
-//                    }
-//                } else {
-//                    Toast.makeText(activity, getString(R.string.account_not_found), Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {
-//                Toast.makeText(activity, "Database Error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//    }
-
-=======
-    }
-
->>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
     private fun signInGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.defaultweb_client_id))

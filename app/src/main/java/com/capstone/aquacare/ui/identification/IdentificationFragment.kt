@@ -13,13 +13,7 @@ import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.IdentificationData
 import com.capstone.aquacare.databinding.FragmentIdentificationBinding
-<<<<<<< HEAD
-import com.capstone.aquacare.fuzzy.FuzzyDutchStyle
 import com.capstone.aquacare.fuzzy.FuzzyIdentification
-import com.capstone.aquacare.fuzzy.FuzzyNaturalStyle
-=======
-import com.capstone.aquacare.fuzzy.FuzzyIdentification
->>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -100,10 +94,6 @@ class IdentificationFragment : Fragment() {
             binding.edtGh.error = getString(R.string.enter_gh)
             return false
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
         return true
     }
 
@@ -119,18 +109,6 @@ class IdentificationFragment : Fragment() {
         val kh = binding.edtKh.text.toString().toDoubleOrNull() ?: 0.0
         val gh = binding.edtGh.text.toString().toDoubleOrNull() ?: 0.0
 
-<<<<<<< HEAD
-//        val fuzzyDutchStyle = FuzzyDutchStyle(requireContext())
-//        val fuzzyNaturalStyle = FuzzyNaturalStyle(requireContext())
-//
-//        result = if (style == "Dutch Style") {
-//            fuzzyDutchStyle.calculateWaterQuality(temperature, ph, ammonia, kh, gh)
-//        } else {
-//            fuzzyNaturalStyle.calculateWaterQuality(temperature, ph, ammonia, kh, gh)
-//        }
-
-=======
->>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
         val fuzzyIdentification = FuzzyIdentification(requireContext(), style.toString())
 
         result = fuzzyIdentification.calculateWaterQuality(temperature, ph, ammonia, kh, gh)

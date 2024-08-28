@@ -9,13 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.capstone.aquacare.R
 import com.capstone.aquacare.databinding.FragmentIdentificationResultBinding
-<<<<<<< HEAD
-import com.capstone.aquacare.fuzzy.FuzzyDutchStyle
 import com.capstone.aquacare.fuzzy.FuzzyIdentification
-import com.capstone.aquacare.fuzzy.FuzzyNaturalStyle
-=======
-import com.capstone.aquacare.fuzzy.FuzzyIdentification
->>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
 
 class IdentificationResultFragment : Fragment() {
 
