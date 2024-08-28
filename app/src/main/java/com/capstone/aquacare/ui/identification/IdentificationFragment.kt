@@ -94,7 +94,6 @@ class IdentificationFragment : Fragment() {
             binding.edtGh.error = getString(R.string.enter_gh)
             return false
         }
-
         return true
     }
 
@@ -109,15 +108,6 @@ class IdentificationFragment : Fragment() {
         val ammonia = binding.edtAmmonia.text.toString().toDoubleOrNull() ?: 0.0
         val kh = binding.edtKh.text.toString().toDoubleOrNull() ?: 0.0
         val gh = binding.edtGh.text.toString().toDoubleOrNull() ?: 0.0
-
-//        val fuzzyDutchStyle = FuzzyDutchStyle(requireContext())
-//        val fuzzyNaturalStyle = FuzzyNaturalStyle(requireContext())
-//
-//        result = if (style == "Dutch Style") {
-//            fuzzyDutchStyle.calculateWaterQuality(temperature, ph, ammonia, kh, gh)
-//        } else {
-//            fuzzyNaturalStyle.calculateWaterQuality(temperature, ph, ammonia, kh, gh)
-//        }
 
         val fuzzyIdentification = FuzzyIdentification(requireContext(), style.toString())
 
