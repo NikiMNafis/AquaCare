@@ -11,11 +11,21 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+<<<<<<< HEAD
 import androidx.navigation.fragment.findNavController
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.databinding.FragmentAddAquascapeBinding
 import com.google.firebase.database.*
+=======
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.capstone.aquacare.R
+import com.capstone.aquacare.data.Repository
+import com.capstone.aquacare.databinding.FragmentAddAquascapeBinding
+import com.capstone.aquacare.viewModel.DataViewModel
+import com.capstone.aquacare.viewModel.ViewModelFactory
+>>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,6 +34,7 @@ class AddAquascapeFragment : Fragment() {
     private var _binding: FragmentAddAquascapeBinding? = null
     private val binding get() = _binding!!
 
+<<<<<<< HEAD
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
 
@@ -36,6 +47,12 @@ class AddAquascapeFragment : Fragment() {
         databaseReference = firebaseDatabase.reference.child("users")
     }
 
+=======
+    private lateinit var dataViewModel: DataViewModel
+
+    private var selectedStyle: String? = null
+
+>>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -109,8 +126,11 @@ class AddAquascapeFragment : Fragment() {
         val name = binding.edtName.text.toString()
         val style = selectedStyle.toString()
         val date = binding.tvDateCreate.text.toString()
+<<<<<<< HEAD
         val status = ""
         val lastCheckDate = ""
+=======
+>>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
 
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
         val userId = sharedPreferences?.getString("userId", "")
@@ -120,6 +140,7 @@ class AddAquascapeFragment : Fragment() {
             return
         }
 
+<<<<<<< HEAD
         val aquascapeReference = databaseReference.child(userId).child("aquascapes")
         val newAquascapeId = aquascapeReference.push().key
 
@@ -135,6 +156,23 @@ class AddAquascapeFragment : Fragment() {
                 }
         } else {
             Toast.makeText(activity, "Failed to generate Aquascape ID", Toast.LENGTH_SHORT).show()
+=======
+        val repository = Repository()
+        dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[DataViewModel::class.java]
+
+        dataViewModel.addNewAquascape(userId, name, style, date)
+        dataViewModel.isSuccessA.observe(viewLifecycleOwner) {
+            if (it) {
+                Toast.makeText(
+                    activity,
+                    getString(R.string.success_to_add_aquascape),
+                    Toast.LENGTH_SHORT
+                ).show()
+                findNavController().navigate(R.id.action_addAquascapeFragment_to_homeFragment)
+            } else {
+                Toast.makeText(activity, "Failed to add Aquascape", Toast.LENGTH_SHORT).show()
+            }
+>>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
         }
     }
 

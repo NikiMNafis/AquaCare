@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+<<<<<<< HEAD
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,22 +16,40 @@ import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.IdentificationData
 import com.capstone.aquacare.databinding.FragmentIdentificationHistoryBinding
 import com.google.firebase.database.*
+=======
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.capstone.aquacare.R
+import com.capstone.aquacare.data.IdentificationData
+import com.capstone.aquacare.data.Repository
+import com.capstone.aquacare.databinding.FragmentIdentificationHistoryBinding
+import com.capstone.aquacare.viewModel.DataViewModel
+import com.capstone.aquacare.viewModel.ViewModelFactory
+>>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
 
 class IdentificationHistoryFragment : Fragment() {
 
     private var _binding: FragmentIdentificationHistoryBinding? = null
     private val binding get() = _binding!!
 
+<<<<<<< HEAD
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
 
     val list = mutableListOf<IdentificationData>()
+=======
+    private lateinit var dataViewModel: DataViewModel
+
+    private val list = mutableListOf<IdentificationData>()
+>>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
 
     private var aquascapeId: String? = null
     private var aquascapeName: String? = null
     private var style: String? = null
     private var createDate: String? = null
 
+<<<<<<< HEAD
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,6 +57,8 @@ class IdentificationHistoryFragment : Fragment() {
         databaseReference = firebaseDatabase.reference.child("users")
     }
 
+=======
+>>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -82,6 +103,7 @@ class IdentificationHistoryFragment : Fragment() {
             findNavController().navigate(R.id.action_historyFragment_to_editAquascapeFragment, bundleEdit)
         }
 
+<<<<<<< HEAD
         getUpdateData(userId, aquascapeId!!)
         getIdentificationData(userId, aquascapeId!!)
     }
@@ -146,6 +168,41 @@ class IdentificationHistoryFragment : Fragment() {
                 Toast.makeText(requireContext(), "Failed to retrieve aquascape data: ${databaseError.message}", Toast.LENGTH_SHORT).show()
             }
         })
+=======
+        val repository = Repository()
+        dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[DataViewModel::class.java]
+
+        dataViewModel.isLoadingC.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.pbHistory.visibility = View.VISIBLE
+            } else {
+                binding.pbHistory.visibility = View.GONE
+            }
+        }
+
+        dataViewModel.identificationData.observe( viewLifecycleOwner) { identification ->
+            list.clear()
+            for (data in identification) {
+                list.add(data)
+            }
+            showIdentification()
+        }
+
+        dataViewModel.aquascapeData.observe(viewLifecycleOwner) { aquascape ->
+            val selectedAquascape = aquascape.find { it.id == aquascapeId }
+            if (selectedAquascape != null) {
+                aquascapeName = selectedAquascape.name
+                style = selectedAquascape.style
+                createDate = selectedAquascape.createDate
+                binding.tvName.text = aquascapeName
+            } else {
+                Log.d("DataViewModel", "No aquascape data available")
+            }
+        }
+
+        dataViewModel.getAquascapeData(userId)
+        dataViewModel.getIdentificationData(userId, aquascapeId!!)
+>>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
     }
 
     private fun showIdentification() {
@@ -155,6 +212,7 @@ class IdentificationHistoryFragment : Fragment() {
 
         adapter.setOnItemClickCallBack(object : IdentificationHistoryAdapter.OnItemClickCallback{
             override fun onItemClicked(data: IdentificationData) {
+<<<<<<< HEAD
                 val result = data.result
                 val date = data.date
                 val temperature = data.temperature
@@ -162,10 +220,13 @@ class IdentificationHistoryFragment : Fragment() {
                 val ammonia = data.ammonia
                 val kh = data.kh
                 val gh = data.gh
+=======
+>>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
 
                 val bundle = Bundle().apply {
                     putString("aquascapeId", aquascapeId.toString())
                     putString("style", style.toString())
+<<<<<<< HEAD
                     putString("result", result)
                     putString("date", date)
                     putString("temperature", temperature)
@@ -173,6 +234,15 @@ class IdentificationHistoryFragment : Fragment() {
                     putString("ammonia", ammonia)
                     putString("kh", kh)
                     putString("gh", gh)
+=======
+                    putString("result", data.result)
+                    putString("date", data.date)
+                    putString("temperature", data.temperature)
+                    putString("ph", data.ph)
+                    putString("ammonia", data.ammonia)
+                    putString("kh", data.kh)
+                    putString("gh", data.gh)
+>>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
                 }
                 findNavController().navigate(R.id.action_historyFragment_to_resultFragment, bundle)
             }

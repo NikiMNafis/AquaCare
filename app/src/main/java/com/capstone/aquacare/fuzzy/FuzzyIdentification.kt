@@ -319,6 +319,7 @@ class FuzzyIdentification(private val context: Context, private val style: Strin
         val hasilInferensi107 = fungsiKeanggotaanStatusBuruk(inferensi107)
         val hasilInferensi108 = fungsiKeanggotaanStatusBuruk(inferensi108)
 
+<<<<<<< HEAD
         val hasilInferensi109 = fungsiKeanggotaanStatusBuruk(inferensi19)
         val hasilInferensi110 = fungsiKeanggotaanStatusBuruk(inferensi20)
         val hasilInferensi111 = fungsiKeanggotaanStatusBuruk(inferensi21)
@@ -367,6 +368,45 @@ class FuzzyIdentification(private val context: Context, private val style: Strin
 //        val defuzzifikasiB = inferensi21 + inferensi22 + inferensi23 + inferensi24 + inferensi25 + inferensi26 + inferensi27 + inferensi28 + inferensi29 + inferensi30 + inferensi31 + inferensi32 + inferensi33 + inferensi34 + inferensi35 + inferensi36 + inferensi37 + inferensi38 + inferensi39 + inferensi40
 //        val defuzzifikasiC = inferensi41 + inferensi42 + inferensi43 + inferensi44 + inferensi45 + inferensi46 + inferensi47 + inferensi48 + inferensi49 + inferensi50 + inferensi51 + inferensi52 + inferensi53 + inferensi54 + inferensi55 + inferensi56 + inferensi57 + inferensi58 + inferensi59 + inferensi60
 //        val defuzzifikasiD = inferensi61 + inferensi62 + inferensi63 + inferensi64 + inferensi65 + inferensi66 + inferensi67 + inferensi68 + inferensi69 + inferensi70 + inferensi71 + inferensi72
+=======
+        val hasilInferensi109 = fungsiKeanggotaanStatusBuruk(inferensi109)
+        val hasilInferensi110 = fungsiKeanggotaanStatusBuruk(inferensi110)
+        val hasilInferensi111 = fungsiKeanggotaanStatusBuruk(inferensi111)
+        val hasilInferensi112 = fungsiKeanggotaanStatusBuruk(inferensi112)
+        val hasilInferensi113 = fungsiKeanggotaanStatusBuruk(inferensi113)
+        val hasilInferensi114 = fungsiKeanggotaanStatusBuruk(inferensi114)
+        val hasilInferensi115 = fungsiKeanggotaanStatusSedang(inferensi115)
+        val hasilInferensi116 = fungsiKeanggotaanStatusBuruk(inferensi116)
+        val hasilInferensi117 = fungsiKeanggotaanStatusSedang(inferensi117)
+        val hasilInferensi118 = fungsiKeanggotaanStatusSedang(inferensi118)
+        val hasilInferensi119 = fungsiKeanggotaanStatusBuruk(inferensi119)
+
+        val hasilInferensi120 = fungsiKeanggotaanStatusBuruk(inferensi120)
+        val hasilInferensi121 = fungsiKeanggotaanStatusBuruk(inferensi121)
+        val hasilInferensi122 = fungsiKeanggotaanStatusBuruk(inferensi122)
+        val hasilInferensi123 = fungsiKeanggotaanStatusBuruk(inferensi123)
+        val hasilInferensi124 = fungsiKeanggotaanStatusBuruk(inferensi124)
+        val hasilInferensi125 = fungsiKeanggotaanStatusBuruk(inferensi125)
+        val hasilInferensi126 = fungsiKeanggotaanStatusSedang(inferensi126)
+        val hasilInferensi127 = fungsiKeanggotaanStatusBuruk(inferensi127)
+        val hasilInferensi128 = fungsiKeanggotaanStatusBuruk(inferensi128)
+        val hasilInferensi129 = fungsiKeanggotaanStatusBuruk(inferensi129)
+        val hasilInferensi130 = fungsiKeanggotaanStatusBuruk(inferensi130)
+        val hasilInferensi131 = fungsiKeanggotaanStatusBuruk(inferensi131)
+
+        val hasilInferensi132 = fungsiKeanggotaanStatusBuruk(inferensi132)
+        val hasilInferensi133 = fungsiKeanggotaanStatusBuruk(inferensi133)
+        val hasilInferensi134 = fungsiKeanggotaanStatusBuruk(inferensi134)
+        val hasilInferensi135 = fungsiKeanggotaanStatusBuruk(inferensi135)
+        val hasilInferensi136 = fungsiKeanggotaanStatusBuruk(inferensi136)
+        val hasilInferensi137 = fungsiKeanggotaanStatusBuruk(inferensi137)
+        val hasilInferensi138 = fungsiKeanggotaanStatusSedang(inferensi138)
+        val hasilInferensi139 = fungsiKeanggotaanStatusBuruk(inferensi139)
+        val hasilInferensi140 = fungsiKeanggotaanStatusBuruk(inferensi140)
+        val hasilInferensi141 = fungsiKeanggotaanStatusBuruk(inferensi141)
+        val hasilInferensi142 = fungsiKeanggotaanStatusBuruk(inferensi142)
+        val hasilInferensi143 = fungsiKeanggotaanStatusBuruk(inferensi143)
+>>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
 
         val totalA = listOf(
             inferensi1 * hasilInferensi1, inferensi2 * hasilInferensi2, inferensi3 * hasilInferensi3, inferensi4 * hasilInferensi4, inferensi5 * hasilInferensi5, inferensi6 * hasilInferensi6, inferensi7 * hasilInferensi7, inferensi8 * hasilInferensi8,
@@ -400,10 +440,13 @@ class FuzzyIdentification(private val context: Context, private val style: Strin
             inferensi137, inferensi138, inferensi139, inferensi140, inferensi141, inferensi142, inferensi143
         ).sumOf { it }
 
+<<<<<<< HEAD
 //        val totalDefuzzifikasi1 = defuzzifikasi1 + defuzzifikasi2 + defuzzifikasi3 + defuzzifikasi4 + defuzzifikasi5
 //        val totalDefuzzifikasi2 = defuzzifikasiA + defuzzifikasiB + defuzzifikasiC + defuzzifikasiD
 
 //        val defuzzifikasi = totalDefuzzifikasi1 / totalDefuzzifikasi2
+=======
+>>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
         val defuzzifikasi = totalA / totalB
 
         val resultDefuzzifikasi = if (defuzzifikasi >= 70) {

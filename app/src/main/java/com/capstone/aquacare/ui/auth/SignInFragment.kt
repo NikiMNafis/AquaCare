@@ -176,6 +176,7 @@ class SignInFragment : Fragment() {
                     ).show()
                 }
             }
+<<<<<<< HEAD
 
     }
 
@@ -214,6 +215,10 @@ class SignInFragment : Fragment() {
 //        })
 //    }
 
+=======
+    }
+
+>>>>>>> a11f989183b547098d3bbf9c53742786d6ba30af
     private fun signInGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.defaultweb_client_id))
