@@ -39,31 +39,25 @@ class AddArticleFragment : Fragment() {
                 addArticle()
             }
         }
-
     }
 
     private fun checkForm(): Boolean {
-        val title = binding.edtTitle.text.toString()
-        val image = binding.edtImage.text.toString()
-        val body = binding.edtBody.text.toString()
-        val type = binding.edtType.text.toString()
-
-        if (TextUtils.isEmpty(title)) {
+        if (binding.edtTitle.text.isEmpty()) {
             binding.edtTitle.error = getString(R.string.please_fill)
             return false
         }
 
-        if (TextUtils.isEmpty(image)) {
+        if (binding.edtImage.text.isEmpty()) {
             binding.edtImage.error = getString(R.string.please_fill)
             return false
         }
 
-        if (TextUtils.isEmpty(body)) {
+        if (binding.edtBody.text.isEmpty()) {
             binding.edtBody.error = getString(R.string.please_fill)
             return false
         }
 
-        if (TextUtils.isEmpty(type)) {
+        if (binding.edtType.text.isEmpty()) {
             binding.edtType.error = getString(R.string.please_fill)
             return false
         }

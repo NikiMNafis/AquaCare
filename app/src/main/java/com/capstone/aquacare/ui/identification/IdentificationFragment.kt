@@ -8,12 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
-import com.capstone.aquacare.data.IdentificationData
+import com.capstone.aquacare.data.Repository
 import com.capstone.aquacare.databinding.FragmentIdentificationBinding
 import com.capstone.aquacare.fuzzy.FuzzyIdentification
+import com.capstone.aquacare.viewModel.AquascapeViewModel
+import com.capstone.aquacare.viewModel.ViewModelFactory
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,6 +28,8 @@ class IdentificationFragment : Fragment() {
 
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
+
+    private lateinit var aquascapeViewModel: AquascapeViewModel
 
     private var aquascapeId: String? = null
     private var aquascapeName: String? = null
@@ -64,33 +69,27 @@ class IdentificationFragment : Fragment() {
     }
 
     private fun checkForm(): Boolean {
-        val temperature = binding.edtTemperature.text.toString()
-        val ph = binding.edtPh.text.toString()
-        val ammonia = binding.edtAmmonia.text.toString()
-        val kh = binding.edtKh.text.toString()
-        val gh = binding.edtGh.text.toString()
-
-        if (temperature.isEmpty()) {
+        if (binding.edtTemperature.text.isEmpty()) {
             binding.edtTemperature.error = getString(R.string.enter_temperature)
             return false
         }
 
-        if (ph.isEmpty()) {
+        if (binding.edtPh.text.isEmpty()) {
             binding.edtPh.error = getString(R.string.enter_ph)
             return false
         }
 
-        if (ammonia.isEmpty()) {
+        if (binding.edtAmmonia.text.isEmpty()) {
             binding.edtAmmonia.error = getString(R.string.enter_ammonia)
             return false
         }
 
-        if (kh.isEmpty()) {
+        if (binding.edtKh.text.isEmpty()) {
             binding.edtKh.error = getString(R.string.enter_kh)
             return false
         }
 
-        if (gh.isEmpty()) {
+        if (binding.edtGh.text.isEmpty()) {
             binding.edtGh.error = getString(R.string.enter_gh)
             return false
         }
@@ -123,38 +122,30 @@ class IdentificationFragment : Fragment() {
             return
         }
 
-        val identificationReference = databaseReference.child(userId).child("aquascapes").child(aquascapeId).child("identification")
-        val newIdentificationId = identificationReference.push().key
+        val repository = Repository()
+        aquascapeViewModel = ViewModelProvider(this, ViewModelFactory(repository))[AquascapeViewModel::class.java]
 
-        if (newIdentificationId != null) {
-            val newIdentificationData = IdentificationData(newIdentificationId, result, currentDate,
-                temperature.toString(), ph.toString(), ammonia.toString(), kh.toString(), gh.toString())
-            identificationReference.child(newIdentificationId).setValue(newIdentificationData)
-                .addOnSuccessListener {
-                    updateAquascapeData(userId, aquascapeId)
+        aquascapeViewModel.addNewIdentification(userId, aquascapeId, result!!, currentDate!!, temperature.toString(), ph.toString(), ammonia.toString(), kh.toString(), gh.toString())
+        aquascapeViewModel.isSuccessD.observe(viewLifecycleOwner) {
+            if (it) {
+                updateAquascapeData(userId, aquascapeId)
 
-                    val bundle = Bundle().apply {
-                        putString("aquascapeId", aquascapeId)
-                        putString("style", style)
-                        putString("result", result)
-                        putString("date", currentDate)
-                        putString("temperature", temperature.toString())
-                        putString("ph", ph.toString())
-                        putString("ammonia", ammonia.toString())
-                        putString("kh", kh.toString())
-                        putString("gh", gh.toString())
-                    }
-                    findNavController().navigate(R.id.action_identificationFragment_to_resultFragment, bundle)
-
-//                    Toast.makeText(activity, getString(R.string.successful_identification), Toast.LENGTH_SHORT).show()
+                val bundle = Bundle().apply {
+                    putString("aquascapeId", aquascapeId)
+                    putString("style", style)
+                    putString("result", result)
+                    putString("date", currentDate)
+                    putString("temperature", temperature.toString())
+                    putString("ph", ph.toString())
+                    putString("ammonia", ammonia.toString())
+                    putString("kh", kh.toString())
+                    putString("gh", gh.toString())
                 }
-                .addOnFailureListener { e ->
-                    Toast.makeText(activity, "Failed to Identification Water Quality: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
-        } else {
-            Toast.makeText(activity, "Failed to generate Identification ID", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_identificationFragment_to_resultFragment, bundle)
+            } else {
+                Toast.makeText(activity, "Failed to Identification Water Quality", Toast.LENGTH_SHORT).show()
+            }
         }
-
     }
 
     private fun updateAquascapeData(userId: String, aquascapeId: String) {
@@ -198,8 +189,6 @@ class IdentificationFragment : Fragment() {
     }
 
     companion object {
-
         private const val TAG = "MainActivity"
     }
-
 }

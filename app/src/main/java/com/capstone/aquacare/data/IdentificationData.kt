@@ -1,7 +1,7 @@
 package com.capstone.aquacare.data
 
 data class IdentificationData(
-    val id: String? = null,
+    var id: String? = null,
     val result: String? = null,
     val date: String? = null,
     val temperature: String? = null,

@@ -22,7 +22,7 @@ class IdentificationHistoryFragment : Fragment() {
     private var _binding: FragmentIdentificationHistoryBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var dataViewModel: AquascapeViewModel
+    private lateinit var aquascapeViewModel: AquascapeViewModel
 
     private val list = mutableListOf<IdentificationData>()
 
@@ -76,9 +76,9 @@ class IdentificationHistoryFragment : Fragment() {
         }
 
         val repository = Repository()
-        dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[AquascapeViewModel::class.java]
+        aquascapeViewModel = ViewModelProvider(this, ViewModelFactory(repository))[AquascapeViewModel::class.java]
 
-        dataViewModel.isLoadingB.observe(viewLifecycleOwner) {
+        aquascapeViewModel.isLoadingB.observe(viewLifecycleOwner) {
             if (it) {
                 binding.pbHistory.visibility = View.VISIBLE
             } else {
@@ -86,7 +86,7 @@ class IdentificationHistoryFragment : Fragment() {
             }
         }
 
-        dataViewModel.identificationData.observe( viewLifecycleOwner) { identification ->
+        aquascapeViewModel.identificationData.observe( viewLifecycleOwner) { identification ->
             list.clear()
             for (data in identification) {
                 list.add(data)
@@ -94,7 +94,7 @@ class IdentificationHistoryFragment : Fragment() {
             showIdentification()
         }
 
-        dataViewModel.aquascapeData.observe(viewLifecycleOwner) { aquascape ->
+        aquascapeViewModel.aquascapeData.observe(viewLifecycleOwner) { aquascape ->
             val selectedAquascape = aquascape.find { it.id == aquascapeId }
             if (selectedAquascape != null) {
                 aquascapeName = selectedAquascape.name
@@ -106,8 +106,8 @@ class IdentificationHistoryFragment : Fragment() {
             }
         }
 
-        dataViewModel.getAquascapeData(userId)
-        dataViewModel.getIdentificationData(userId, aquascapeId!!)
+        aquascapeViewModel.getAquascapeData(userId)
+        aquascapeViewModel.getIdentificationData(userId, aquascapeId!!)
     }
 
     private fun showIdentification() {

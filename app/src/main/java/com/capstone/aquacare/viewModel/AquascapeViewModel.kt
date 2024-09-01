@@ -28,7 +28,7 @@ class AquascapeViewModel(private val repository: Repository): ViewModel() {
     private val _isLoadingB = MutableLiveData<Boolean>()
     val isLoadingB: LiveData<Boolean> get() = _isLoadingB
 
-    // Status hasil menambah aquascape
+    // Status hasil menambah aquascape baru
     private val _isSuccessA = MutableLiveData<Boolean>()
     val isSuccessA: LiveData<Boolean> get() = _isSuccessA
 
@@ -39,6 +39,10 @@ class AquascapeViewModel(private val repository: Repository): ViewModel() {
     // Status hasil menghapus aquascape
     private val _isSuccessC = MutableLiveData<Boolean>()
     val isSuccessC: LiveData<Boolean> get() = _isSuccessC
+
+    // Status hasil menambahkan identifikasi baru
+    private val _isSuccessD = MutableLiveData<Boolean>()
+    val isSuccessD: LiveData<Boolean> get() = _isSuccessD
 
     // Mengambil daftar aquascape
     fun getAquascapeData(userId: String) {
@@ -52,22 +56,6 @@ class AquascapeViewModel(private val repository: Repository): ViewModel() {
                 Log.e("DataViewModel", "Error to retrieve aquascape data: ${e.message}")
             } finally {
                 _isLoadingA.value = false
-            }
-        }
-    }
-
-    // Mengambil daftar riwayat identifikasi
-    fun getIdentificationData(userId : String, aquascapeId : String) {
-        _isLoadingB.value = true
-
-        viewModelScope.launch {
-            try {
-                val identificationList = repository.getIdentificationData(userId, aquascapeId)
-                _identificationData.postValue(identificationList)
-            } catch (e: Exception) {
-                Log.e("DataViewModel", "Error to retrieve identification history data: ${e.message}")
-            } finally {
-                _isLoadingB.value = false
             }
         }
     }
@@ -86,6 +74,7 @@ class AquascapeViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
+    // Error
     // Mengubah data Aquascape
     fun editAquascape(userId: String, aquascapeId: String, name: String, style: String) {
         viewModelScope.launch {
@@ -106,6 +95,35 @@ class AquascapeViewModel(private val repository: Repository): ViewModel() {
                 _isSuccessC.value = true
             }.onFailure {
                 _isSuccessC.value = false
+            }
+        }
+    }
+
+    // Mengambil daftar riwayat identifikasi
+    fun getIdentificationData(userId : String, aquascapeId : String) {
+        _isLoadingB.value = true
+
+        viewModelScope.launch {
+            try {
+                val identificationList = repository.getIdentificationData(userId, aquascapeId)
+                _identificationData.postValue(identificationList)
+            } catch (e: Exception) {
+                Log.e("DataViewModel", "Error to retrieve identification history data: ${e.message}")
+            } finally {
+                _isLoadingB.value = false
+            }
+        }
+    }
+
+    // Menambah identifikasi baru
+    fun addNewIdentification(userId: String, aquascapeId: String, result: String, currentDate: String, temperature: String, ph: String, ammonia: String, kh: String, gh: String) {
+        viewModelScope.launch {
+            val newIdentificationData = IdentificationData("", result, currentDate, temperature, ph, ammonia, kh, gh)
+            val result = repository.addNewIdentification(userId, aquascapeId, newIdentificationData)
+            result.onSuccess {
+                _isSuccessD.value = true
+            }.onFailure {
+                _isSuccessD.value = false
             }
         }
     }

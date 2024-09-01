@@ -19,17 +19,6 @@ class Repository {
         }
     }
 
-    suspend fun getIdentificationData(userId : String, aquascapeId : String): List<IdentificationData> {
-        return try {
-            val dataSnapshot = userDatabase.child(userId).child("aquascapes").child(aquascapeId).child("identification").get().await()
-            dataSnapshot.children.mapNotNull { snapshot ->
-                snapshot.getValue(IdentificationData::class.java)
-            }
-        } catch (e: Exception) {
-            emptyList()
-        }
-    }
-
     suspend fun addNewAquascape(userId: String, aquascapeData: AquascapeData): Result<Unit> {
         return try {
             val aquascapeReference = userDatabase.child(userId).child("aquascapes")
@@ -74,6 +63,34 @@ class Repository {
         return try {
             userDatabase.child(userId).child("aquascapes").child(aquascapeId).removeValue().await()
             Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getIdentificationData(userId : String, aquascapeId : String): List<IdentificationData> {
+        return try {
+            val dataSnapshot = userDatabase.child(userId).child("aquascapes").child(aquascapeId).child("identification").get().await()
+            dataSnapshot.children.mapNotNull { snapshot ->
+                snapshot.getValue(IdentificationData::class.java)
+            }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun addNewIdentification(userId: String, aquascapeId: String, identificationData: IdentificationData): Result<Unit> {
+        return try {
+            val identificationReference = userDatabase.child(userId).child("aquascapes").child(aquascapeId).child("identification")
+            val newIdentificationId = identificationReference.push().key
+
+            if (newIdentificationId != null) {
+                identificationData.id = newIdentificationId
+                identificationReference.child(newIdentificationId).setValue(identificationData).await()
+                Result.success(Unit)
+            } else {
+                Result.failure(Exception("Failed to generate Identification Id"))
+            }
         } catch (e: Exception) {
             Result.failure(e)
         }
