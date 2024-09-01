@@ -8,10 +8,14 @@ class ViewModelFactory(private val repository: Repository) : ViewModelProvider.F
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return when {
-            modelClass.isAssignableFrom(DataViewModel::class.java) -> DataViewModel(repository) as T
-            else -> throw IllegalArgumentException("Unknown ViewModel class")
+        return try {
+            modelClass.getConstructor(Repository::class.java).newInstance(repository) as T
+        } catch (e: NoSuchMethodException) {
+            throw IllegalArgumentException("ViewModel class must have a constructor with Repository parameter", e)
+        } catch (e: Exception) {
+            throw RuntimeException("Cannot create an instance of $modelClass", e)
         }
     }
 }
+
 

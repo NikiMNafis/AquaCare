@@ -1,4 +1,4 @@
-package com.capstone.aquacare.ui.setting
+package com.capstone.aquacare.ui.article
 
 import android.os.Bundle
 import android.util.Log

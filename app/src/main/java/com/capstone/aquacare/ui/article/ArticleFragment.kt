@@ -1,4 +1,4 @@
-package com.capstone.aquacare.ui.setting
+package com.capstone.aquacare.ui.article
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.core.view.ViewCompat.setLayerType
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.capstone.aquacare.R

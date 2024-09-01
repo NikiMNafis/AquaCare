@@ -142,7 +142,7 @@
 
     <fragment
         android:id="@+id/listAquascapeInfoFragment"
-        android:name="com.capstone.aquacare.ui.setting.ListArticleFragment"
+        android:name="com.capstone.aquacare.ui.article.ListArticleFragment"
         android:label="ListAquascapeInfoFragment"
         tools:layout="@layout/fragment_list_article">
         <action
@@ -155,7 +155,7 @@
 
     <fragment
         android:id="@+id/AquascapeInfoFragment"
-        android:name="com.capstone.aquacare.ui.setting.ArticleFragment"
+        android:name="com.capstone.aquacare.ui.article.ArticleFragment"
         android:label="AquascapeInfoFragment"
         tools:layout="@layout/fragment_article">
         <action
@@ -165,7 +165,7 @@
 
     <fragment
         android:id="@+id/addAquascapeInfoFragment"
-        android:name="com.capstone.aquacare.ui.setting.AddArticleFragment"
+        android:name="com.capstone.aquacare.ui.article.AddArticleFragment"
         android:label="AddAquascapeInfoFragment"
         tools:layout="@layout/fragment_add_article">
         <action
@@ -178,7 +178,7 @@
 
     <fragment
         android:id="@+id/editAquascapeInfoFragment"
-        android:name="com.capstone.aquacare.ui.setting.EditArticleFragment"
+        android:name="com.capstone.aquacare.ui.article.EditArticleFragment"
         android:label="EditAquascapeInfoFragment"
         tools:layout="@layout/fragment_edit_article">
         <action

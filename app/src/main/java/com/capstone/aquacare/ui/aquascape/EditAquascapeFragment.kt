@@ -16,7 +16,7 @@ import com.capstone.aquacare.R
 import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.Repository
 import com.capstone.aquacare.databinding.FragmentEditAquascapeBinding
-import com.capstone.aquacare.viewModel.DataViewModel
+import com.capstone.aquacare.viewModel.AquascapeViewModel
 import com.capstone.aquacare.viewModel.ViewModelFactory
 import com.google.firebase.database.*
 
@@ -25,7 +25,7 @@ class EditAquascapeFragment : Fragment() {
     private var _binding: FragmentEditAquascapeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var dataViewModel: DataViewModel
+    private lateinit var aquascapeViewModel: AquascapeViewModel
 
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
@@ -87,20 +87,11 @@ class EditAquascapeFragment : Fragment() {
             }
         }
 
-        val repository = Repository()
-        dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[DataViewModel::class.java]
-
         binding.btnSave.setOnClickListener {
             editAquascape(aquascapeId)
         }
 
         binding.btnDelete.setOnClickListener {
-//            dataViewModel.deleteAquascape(userId, aquascapeId)
-//            dataViewModel.isLoadingC.observe(viewLifecycleOwner) {
-//                if (it) {
-//                    findNavController().navigate(R.id.action_editAquascapeFragment_to_homeFragment)
-//                }
-//            }
             deleteAquascape(aquascapeId)
         }
 
@@ -157,27 +148,20 @@ class EditAquascapeFragment : Fragment() {
         val sharedPreferences = context?.getSharedPreferences("LoginSession", Context.MODE_PRIVATE)
         val userId = sharedPreferences?.getString("userId", "").toString()
 
-//        val repository = Repository()
-//        dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[DataViewModel::class.java]
-//
-//        dataViewModel.deleteAquascape(userId, aquascapeId)
-//        dataViewModel.isLoadingC.observe(viewLifecycleOwner) {
-//            if (it) {
-//                Toast.makeText(
-//                    activity,
-//                    "getString(R.string.success_to_add_aquascape)",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                findNavController().navigate(R.id.action_editAquascapeFragment_to_homeFragment)
-//            }
-//        }
+        val repository = Repository()
+        aquascapeViewModel = ViewModelProvider(this, ViewModelFactory(repository))[AquascapeViewModel::class.java]
 
-        val aquascapeReference = databaseReference.child(userId).child("aquascapes")
-
-        aquascapeReference.child(aquascapeId).removeValue().addOnSuccessListener {
-            findNavController().navigate(R.id.action_editAquascapeFragment_to_homeFragment)
+        aquascapeViewModel.deleteAquascape(userId, aquascapeId)
+        aquascapeViewModel.isSuccessC.observe(viewLifecycleOwner) {
+            if (it) {
+                Toast.makeText(
+                    activity,
+                    "getString(R.string.success_to_add_aquascape)",
+                    Toast.LENGTH_SHORT
+                ).show()
+                findNavController().navigate(R.id.action_editAquascapeFragment_to_homeFragment)
+            }
         }
-
     }
 
     companion object {

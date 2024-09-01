@@ -1,4 +1,4 @@
-package com.capstone.aquacare.ui.setting
+package com.capstone.aquacare.ui.article
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -8,10 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.capstone.aquacare.R
 import com.capstone.aquacare.data.ArticleData
+import com.capstone.aquacare.data.Repository
 import com.capstone.aquacare.databinding.FragmentEditArticleBinding
+import com.capstone.aquacare.viewModel.ArticleViewModel
+import com.capstone.aquacare.viewModel.ViewModelFactory
 import com.google.firebase.database.*
 
 class EditArticleFragment : Fragment() {
@@ -21,6 +25,8 @@ class EditArticleFragment : Fragment() {
 
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
+
+    private lateinit var articleViewModel: ArticleViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,12 +62,12 @@ class EditArticleFragment : Fragment() {
 
         binding.btnSave.setOnClickListener {
             if (checkForm()) {
-                editAquascapeInfo(infoId)
+                editArticle(infoId)
             }
         }
 
         binding.btnDelete.setOnClickListener {
-            deleteAquascapeInfo(infoId)
+            deleteArticle(infoId)
         }
     }
 
@@ -94,7 +100,7 @@ class EditArticleFragment : Fragment() {
         return true
     }
 
-    private fun editAquascapeInfo(id: String) {
+    private fun editArticle(id: String) {
 
         val title = binding.edtTitle.text.toString()
         val image = binding.edtImage.text.toString()
@@ -134,9 +140,17 @@ class EditArticleFragment : Fragment() {
         })
     }
 
-    private fun deleteAquascapeInfo(id: String) {
-        databaseReference.child(id).removeValue().addOnSuccessListener {
-            findNavController().navigate(R.id.action_editAquascapeInfoFragment_to_aquascapeInfoFragment)
+    private fun deleteArticle(id: String) {
+
+        val repository = Repository()
+        articleViewModel = ViewModelProvider(this, ViewModelFactory(repository))[ArticleViewModel::class.java]
+
+        articleViewModel.deleteArticle(id)
+        articleViewModel.isSuccessB.observe(viewLifecycleOwner) {
+            if (it) {
+                findNavController().navigate(R.id.action_editAquascapeInfoFragment_to_aquascapeInfoFragment)
+
+            }
         }
     }
 

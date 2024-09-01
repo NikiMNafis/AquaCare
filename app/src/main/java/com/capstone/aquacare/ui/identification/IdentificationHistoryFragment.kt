@@ -14,7 +14,7 @@ import com.capstone.aquacare.R
 import com.capstone.aquacare.data.IdentificationData
 import com.capstone.aquacare.data.Repository
 import com.capstone.aquacare.databinding.FragmentIdentificationHistoryBinding
-import com.capstone.aquacare.viewModel.DataViewModel
+import com.capstone.aquacare.viewModel.AquascapeViewModel
 import com.capstone.aquacare.viewModel.ViewModelFactory
 
 class IdentificationHistoryFragment : Fragment() {
@@ -22,7 +22,7 @@ class IdentificationHistoryFragment : Fragment() {
     private var _binding: FragmentIdentificationHistoryBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var dataViewModel: DataViewModel
+    private lateinit var dataViewModel: AquascapeViewModel
 
     private val list = mutableListOf<IdentificationData>()
 
@@ -76,9 +76,9 @@ class IdentificationHistoryFragment : Fragment() {
         }
 
         val repository = Repository()
-        dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[DataViewModel::class.java]
+        dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[AquascapeViewModel::class.java]
 
-        dataViewModel.isLoadingC.observe(viewLifecycleOwner) {
+        dataViewModel.isLoadingB.observe(viewLifecycleOwner) {
             if (it) {
                 binding.pbHistory.visibility = View.VISIBLE
             } else {

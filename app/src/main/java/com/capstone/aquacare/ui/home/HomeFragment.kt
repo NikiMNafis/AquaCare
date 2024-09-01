@@ -15,7 +15,8 @@ import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.ArticleData
 import com.capstone.aquacare.data.Repository
 import com.capstone.aquacare.databinding.FragmentHomeBinding
-import com.capstone.aquacare.viewModel.DataViewModel
+import com.capstone.aquacare.viewModel.AquascapeViewModel
+import com.capstone.aquacare.viewModel.ArticleViewModel
 import com.capstone.aquacare.viewModel.ViewModelFactory
 
 class HomeFragment : Fragment() {
@@ -23,7 +24,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var dataViewModel: DataViewModel
+    private lateinit var aquascapeViewModel: AquascapeViewModel
+    private lateinit var articleViewModel: ArticleViewModel
 
     private val listAquascape = mutableListOf<AquascapeData>()
     private val listArticle = mutableListOf<ArticleData>()
@@ -70,9 +72,10 @@ class HomeFragment : Fragment() {
         }
 
         val repository = Repository()
-        dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[DataViewModel::class.java]
+        aquascapeViewModel = ViewModelProvider(this, ViewModelFactory(repository))[AquascapeViewModel::class.java]
+        articleViewModel = ViewModelProvider(this, ViewModelFactory(repository))[ArticleViewModel::class.java]
 
-        dataViewModel.isLoadingA.observe(viewLifecycleOwner) {
+        aquascapeViewModel.isLoadingA.observe(viewLifecycleOwner) {
             if (it) {
                 binding.pbAquascape.visibility = View.VISIBLE
                 binding.rvListAquascape.visibility = View.GONE
@@ -82,7 +85,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        dataViewModel.aquascapeData.observe( viewLifecycleOwner) { aquascape ->
+        aquascapeViewModel.aquascapeData.observe( viewLifecycleOwner) { aquascape ->
             listAquascape.clear()
             for (data in aquascape) {
                 listAquascape.add(data)
@@ -90,7 +93,7 @@ class HomeFragment : Fragment() {
             showAquascape()
         }
 
-        dataViewModel.isLoadingB.observe(viewLifecycleOwner) {
+        articleViewModel.isLoadingA.observe(viewLifecycleOwner) {
             if (it) {
                 binding.pbArticle.visibility = View.VISIBLE
                 binding.rvAquascapeInfo.visibility = View.GONE
@@ -100,7 +103,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        dataViewModel.articleData.observe(viewLifecycleOwner) { article ->
+        articleViewModel.articleData.observe(viewLifecycleOwner) { article ->
             listArticle.clear()
             for (data in article) {
                 listArticle.add(data)
@@ -108,8 +111,8 @@ class HomeFragment : Fragment() {
             showArticle()
         }
 
-        dataViewModel.getAquascapeData(userId)
-        dataViewModel.getArticleData()
+        aquascapeViewModel.getAquascapeData(userId)
+        articleViewModel.getArticleData()
     }
 
     private fun showAquascape() {

@@ -1,7 +1,7 @@
 package com.capstone.aquacare.data
 
 data class ArticleData(
-    val id: String? = null,
+    var id: String? = null,
     val title: String? = null,
     val image: String? = null,
     val type: String? = null,

@@ -14,13 +14,10 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.capstone.aquacare.R
-import com.capstone.aquacare.data.AquascapeData
 import com.capstone.aquacare.data.Repository
 import com.capstone.aquacare.databinding.FragmentAddAquascapeBinding
-import com.capstone.aquacare.viewModel.DataViewModel
+import com.capstone.aquacare.viewModel.AquascapeViewModel
 import com.capstone.aquacare.viewModel.ViewModelFactory
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,7 +26,7 @@ class AddAquascapeFragment : Fragment() {
     private var _binding: FragmentAddAquascapeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var dataViewModel: DataViewModel
+    private lateinit var aquascapeViewModel: AquascapeViewModel
 
     private var selectedStyle: String? = null
 
@@ -116,10 +113,10 @@ class AddAquascapeFragment : Fragment() {
         }
 
         val repository = Repository()
-        dataViewModel = ViewModelProvider(this, ViewModelFactory(repository))[DataViewModel::class.java]
+        aquascapeViewModel = ViewModelProvider(this, ViewModelFactory(repository))[AquascapeViewModel::class.java]
 
-        dataViewModel.addNewAquascape(userId, name, style, date)
-        dataViewModel.isSuccessA.observe(viewLifecycleOwner) {
+        aquascapeViewModel.addNewAquascape(userId, name, style, date)
+        aquascapeViewModel.isSuccessA.observe(viewLifecycleOwner) {
             if (it) {
                 Toast.makeText(
                     activity,

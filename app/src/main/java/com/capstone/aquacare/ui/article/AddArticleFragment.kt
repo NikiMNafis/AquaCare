@@ -1,4 +1,4 @@
-package com.capstone.aquacare.ui.setting
+package com.capstone.aquacare.ui.article
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -7,26 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.capstone.aquacare.R
-import com.capstone.aquacare.data.ArticleData
+import com.capstone.aquacare.data.Repository
 import com.capstone.aquacare.databinding.FragmentAddArticleBinding
-import com.google.firebase.database.*
+import com.capstone.aquacare.viewModel.ArticleViewModel
+import com.capstone.aquacare.viewModel.ViewModelFactory
 
 class AddArticleFragment : Fragment() {
 
     private var _binding: FragmentAddArticleBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var firebaseDatabase: FirebaseDatabase
-    private lateinit var databaseReference: DatabaseReference
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = firebaseDatabase.reference.child("article")
-    }
+    private lateinit var articleViewModel: ArticleViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +36,7 @@ class AddArticleFragment : Fragment() {
 
         binding.btnSave.setOnClickListener {
             if (checkForm()) {
-                addAquascapeInfo()
+                addArticle()
             }
         }
 
@@ -77,7 +71,7 @@ class AddArticleFragment : Fragment() {
         return true
     }
 
-    private fun addAquascapeInfo() {
+    private fun addArticle() {
 
         val title = binding.edtTitle.text.toString()
         val image = binding.edtImage.text.toString()
@@ -85,20 +79,17 @@ class AddArticleFragment : Fragment() {
         val body = binding.edtBody.text.toString()
         val link = binding.edtLink.text.toString()
 
-        val infoId = databaseReference.push().key
+        val repository = Repository()
+        articleViewModel = ViewModelProvider(this, ViewModelFactory(repository))[ArticleViewModel::class.java]
 
-        if (infoId != null) {
-            val infoData = ArticleData(infoId, title, image, type, body, link)
-            databaseReference.child(infoId).setValue(infoData)
-                .addOnSuccessListener {
-                    Toast.makeText(activity, getString(R.string.success_to_add_aquascape_info), Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_addAquascapeInfoFragment_to_aquascapeInfoFragment)
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(activity, "Failed to add Aquascape info: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
-        } else {
-            Toast.makeText(activity, "Failed to generate Aquascape Info ID", Toast.LENGTH_SHORT).show()
+        articleViewModel.addArticle(title, image, type, body, link)
+        articleViewModel.isSuccessA.observe(viewLifecycleOwner) {
+            if (it) {
+                Toast.makeText(activity, getString(R.string.success_to_add_aquascape_info), Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_addAquascapeInfoFragment_to_aquascapeInfoFragment)
+            } else {
+                Toast.makeText(activity, "Failed to add Article", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

@@ -19,17 +19,6 @@ class Repository {
         }
     }
 
-    suspend fun getArticleData(): List<ArticleData> {
-        return try {
-            val dataSnapshot = articleDatabase.get().await()
-            dataSnapshot.children.mapNotNull { snapshot ->
-                snapshot.getValue(ArticleData::class.java)
-            }
-        } catch (e: Exception) {
-            emptyList()
-        }
-    }
-
     suspend fun getIdentificationData(userId : String, aquascapeId : String): List<IdentificationData> {
         return try {
             val dataSnapshot = userDatabase.child(userId).child("aquascapes").child(aquascapeId).child("identification").get().await()
@@ -83,7 +72,43 @@ class Repository {
 
     suspend fun deleteAquascape(userId: String, aquascapeId: String): Result<Unit> {
         return try {
-            val dataSnapshot = userDatabase.child(userId).child("aquascapes").child(aquascapeId).removeValue().await()
+            userDatabase.child(userId).child("aquascapes").child(aquascapeId).removeValue().await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getArticleData(): List<ArticleData> {
+        return try {
+            val dataSnapshot = articleDatabase.get().await()
+            dataSnapshot.children.mapNotNull { snapshot ->
+                snapshot.getValue(ArticleData::class.java)
+            }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun addArticle(articleData: ArticleData): Result<Unit> {
+        return try {
+            val newArticleId = articleDatabase.push().key
+
+            if (newArticleId != null) {
+                articleData.id = newArticleId
+                articleDatabase.child(newArticleId).setValue(articleData).await()
+                Result.success(Unit)
+            } else {
+                Result.failure(Exception("Failed to generate Aquascape Id"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun deleteArticle(articleId: String): Result<Unit> {
+        return try {
+            articleDatabase.child(articleId).removeValue().await()
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
